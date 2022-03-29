@@ -2,6 +2,7 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 // import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import FoodRecipeScreen from '../pages/FoodRecipeScreen';
 
 const { render, screen } = require('@testing-library/react');
@@ -55,5 +56,16 @@ describe('Monte um component Header', () => {
     expect(profile).toBeInTheDocument();
     const profileLink = screen.getByRole('link', { name: /profile/i });
     expect(profileLink).toBeInTheDocument();
+  });
+
+  test(`12 - Desenvolva o botão de busca que, ao ser clicado,
+  a barra de busca deve aparecer. O mesmo serve para escondê-la`, () => {
+    renderWithRouter(<FoodRecipeScreen />);
+    const searchTopButton = screen.getByTestId('search-top-btn');
+    expect(searchTopButton).toBeInTheDocument();
+
+    userEvent.click(searchTopButton);
+    const searchPlace = screen.getByTestId('search-input');
+    expect(searchPlace).toBeInTheDocument();
   });
 });
