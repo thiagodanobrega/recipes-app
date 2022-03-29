@@ -3,7 +3,7 @@ import React from 'react';
 function ProfileScreen() {
   return (
     <div>
-      <p>Tela de Perfil</p>
+      <h1>Tela de Perfil</h1>
     </div>
   );
 }

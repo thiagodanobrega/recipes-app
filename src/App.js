@@ -1,38 +1,68 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Provider from './context/myProvider';
-import DetailScreen from './pages copy/DetailScreen';
-import ExploreDrinksOrFoodScreen from './pages/ExploreDrinksOrFoodScreen';
-import ExploreIngredientsScreen from './pages/ExploreIngredientsScreen';
-import ExploreNationalitiesScreen from './pages/ExploreNationalitiesScreen';
+import LoginScreen from './pages/LoginScreen';
+import FoodRecipeScreen from './pages/FoodRecipeScreen';
+import DinkRecipeScreen from './pages/DinkRecipeScreen';
+import FoodRecipesDetailScreen from './pages/FoodRecipesDetailScreen';
+import DrinkRecipesDetailScreen from './pages/DrinkRecipesDetailScreen';
+import FoodProgressRecipesScreen from './pages/FoodProgressRecipesScreen';
+import DrinkProgressRecipesScreen from './pages/DrinkProgressRecipesScreen';
 import ExploreScreen from './pages/ExploreScreen';
-import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
-import LoginScreen from './pages copy/LoginScreen';
-import MadeRecipesScreen from './pages/MadeRecipesScreen';
+import FoodExploreScreen from './pages/FoodExploreScreen';
+import DrinkExploreScreen from './pages/DrinkExploreScreen';
+import ExploreFoodIngredientsScreen from './pages/ExploreFoodIngredientsScreen';
+import ExploreDrinkIngredientsScreen from './pages/ExploreDrinkIngredientsScreen';
+import ExploreNationalitiesScreen from './pages/ExploreNationalitiesScreen';
 import ProfileScreen from './pages/ProfileScreen';
-import RecipeScreen from './pages copy/RecipeScreen ';
-import RecipesProgressScreen from './pages/RecipesProgressScreen';
+import DoneRecipesScreen from './pages/DoneRecipesScreen';
+import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
 
 function App() {
   return (
-    <Provider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Provider>
         <Switch>
-          <Route path="/" component={ LoginScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/drinks" component={ RecipeScreen } />
-          <Route path="/explore" component={ ExploreScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
-          <Route path="/foods" component={ RecipeScreen } />
+          <Route exact path="/" component={ LoginScreen } />
+          <Route exact path="/foods" component={ FoodRecipeScreen } />
+          <Route exact path="/drinks" component={ DinkRecipeScreen } />
+          <Route exact path="/foods/:id" component={ FoodRecipesDetailScreen } />
+          <Route exact path="/drinks/:id" component={ DrinkRecipesDetailScreen } />
+          <Route
+            exact
+            path="/foods/:id/in-progress"
+            component={ FoodProgressRecipesScreen }
+          />
+          <Route
+            exact
+            path="/drinks/:id/in-progress"
+            component={ DrinkProgressRecipesScreen }
+          />
+          <Route exact path="/explore" component={ ExploreScreen } />
+          <Route exact path="/explore/foods" component={ FoodExploreScreen } />
+          <Route exact path="/explore/drinks" component={ DrinkExploreScreen } />
+          <Route
+            exact
+            path="/explore/foods/ingredients"
+            component={ ExploreFoodIngredientsScreen }
+          />
+          <Route
+            exact
+            path="/explore/drinks/ingredients"
+            component={ ExploreDrinkIngredientsScreen }
+          />
+          <Route
+            exact
+            path="/explore/foods/nationalities"
+            component={ ExploreNationalitiesScreen }
+          />
+          <Route path="/profile" component={ ProfileScreen } />
+          <Route path="/done-recipes" component={ DoneRecipesScreen } />
+          <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
         </Switch>
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
