@@ -1,11 +1,17 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from '../App';
-import Header from '../components/header';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+// import userEvent from '@testing-library/user-event';
+import FoodRecipeScreen from '../pages/FoodRecipeScreen';
 
-test('Farewell, front-end', () => {
-  render(<App />);
+const { render, screen } = require('@testing-library/react');
+
+const renderWithRouter = (component) => {
+  const history = createMemoryHistory();
+  return ({
+    ...render(<Router history={ history }>{component}</Router>), history,
 });
+};
 
 describe('Monte um component Header', () => {
   test('9- Implemente os elementos do header na tela principal de receitas', () => {
