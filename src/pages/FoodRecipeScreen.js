@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../components/header';
 
 function FoodRecipeScreen() {
   return (
     <div>
-      <p>Tela principal de receitas de comidas</p>
+      <Header />
     </div>
   );
 }
