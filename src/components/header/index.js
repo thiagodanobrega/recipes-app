@@ -9,7 +9,7 @@ const Header = () => (
         type="button"
         name="profile-top-btn"
       >
-        <Link to="/sobre">Sobre</Link>
+        <Link to="/profile">Profile</Link>
         <img
           src="src/images/profileIcon.svg"
           alt="desenho de uma silhueta humana"
