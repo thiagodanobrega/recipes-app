@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MadeRecipesScreen() {
+function DoneRecipesScreen() {
   return (
     <div>
       <p>Tela de receitas feitas</p>
@@ -8,4 +8,4 @@ function MadeRecipesScreen() {
   );
 }
 
-export default MadeRecipesScreen;
+export default DoneRecipesScreen;
