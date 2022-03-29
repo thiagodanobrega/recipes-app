@@ -3,15 +3,19 @@ import { NavLink } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import '../styles/BottomMenu.css';
 
 function BottomMenu() {
   return (
-    <footer data-testid="footer">
+    <footer data-testid="footer" className="footer-container">
       <NavLink
         to="/drinks"
         data-testid="drinks-bottom-btn"
       >
-        <img src={ drinkIcon } alt="Ícone de bebida" />
+        <img
+          src={ drinkIcon }
+          alt="Ícone de bebida"
+        />
       </NavLink>
       <NavLink
         to="/explore"
