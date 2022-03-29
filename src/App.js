@@ -1,14 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-<<<<<<< HEAD
-// import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import Provider from './context/myProvider';
-import Header from './components/header';
-import DetailScreen from './pages copy/DetailScreen';
-import ExploreDrinksOrFoodScreen from './pages/ExploreDrinksOrFoodScreen';
-import ExploreIngredientsScreen from './pages/ExploreIngredientsScreen';
-import ExploreNationalitiesScreen from './pages/ExploreNationalitiesScreen';
-=======
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Provider from './context/myProvider';
 import LoginScreen from './pages/LoginScreen';
@@ -18,7 +9,6 @@ import FoodRecipesDetailScreen from './pages/FoodRecipesDetailScreen';
 import DrinkRecipesDetailScreen from './pages/DrinkRecipesDetailScreen';
 import FoodProgressRecipesScreen from './pages/FoodProgressRecipesScreen';
 import DrinkProgressRecipesScreen from './pages/DrinkProgressRecipesScreen';
->>>>>>> main-group-20
 import ExploreScreen from './pages/ExploreScreen';
 import FoodExploreScreen from './pages/FoodExploreScreen';
 import DrinkExploreScreen from './pages/DrinkExploreScreen';
@@ -31,14 +21,8 @@ import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
 
 function App() {
   return (
-<<<<<<< HEAD
-    <Provider>
-      <Header />
-       <BrowserRouter>
-=======
     <BrowserRouter>
       <Provider>
->>>>>>> main-group-20
         <Switch>
           <Route exact path="/" component={ LoginScreen } />
           <Route exact path="/foods" component={ FoodRecipeScreen } />
