@@ -10,12 +10,13 @@ const renderWithRouter = (component) => {
   const history = createMemoryHistory();
   return ({
     ...render(<Router history={ history }>{component}</Router>), history,
-});
+  });
 };
 
 describe('Monte um component Header', () => {
   test('9- Implemente os elementos do header na tela principal de receitas', () => {
-    render(<Header />);
+    renderWithRouter(<FoodRecipeScreen />);
+
     const profileIcon = screen.getByTestId('profile-top-btn');
     const titlePage = screen.getByTestId('page-title');
     const searchTopButton = screen.getByTestId('search-top-btn');
@@ -26,23 +27,33 @@ describe('Monte um component Header', () => {
   });
 
   test('10-Implemente um ícone para a tela de perfil', () => {
-    render(<Header />);
+    renderWithRouter(<FoodRecipeScreen />);
     const profile = screen.getByRole('img', { name: /desenho de uma silhueta humana/i });
 
     expect(profile).toBeInTheDocument();
   });
 
   test('10.2-Implemente um título', () => {
-    render(<Header />);
+    renderWithRouter(<FoodRecipeScreen />);
     const titleHeader = screen.getByRole('heading', { name: /foods/i });
 
     expect(titleHeader).toBeInTheDocument();
   });
 
   test('10.3-Implemente um título', () => {
-    render(<Header />);
+    renderWithRouter(<FoodRecipeScreen />);
     const searchIcon = screen.getByRole('img', { name: /desenho de uma lupa/i });
 
     expect(searchIcon).toBeInTheDocument();
+  });
+
+  test(`11-Redirecione a pessoa usuária para a tela de perfil
+  ao clicar no botão de perfil`, () => {
+    renderWithRouter(<FoodRecipeScreen />);
+    const profile = screen.getByRole('img', { name: /desenho de uma silhueta humana/i });
+
+    expect(profile).toBeInTheDocument();
+    const profileLink = screen.getByRole('link', { name: /profile/i });
+    expect(profileLink).toBeInTheDocument();
   });
 });
