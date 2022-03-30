@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
 import searchIcon from '../images/searchIcon.svg';
+import React from 'react';
+import BottomMenu from '../components/BottomMenu';
 
 function FoodRecipeScreen() {
   const [showSearch, setShowSearch] = useState(false);
@@ -65,6 +67,8 @@ function FoodRecipeScreen() {
           Search
         </button>
       </form>
+      <p>Tela principal de receitas de comidas</p>
+      <BottomMenu />
     </div>
   );
 }
