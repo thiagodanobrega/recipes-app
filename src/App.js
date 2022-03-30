@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Provider from './context/myProvider';
 import LoginScreen from './pages/LoginScreen';
 import FoodRecipeScreen from './pages/FoodRecipeScreen';
-import DinkRecipeScreen from './pages/DinkRecipeScreen';
+import DinkRecipeScreen from './pages/DrinkRecipeScreen';
 import FoodRecipesDetailScreen from './pages/FoodRecipesDetailScreen';
 import DrinkRecipesDetailScreen from './pages/DrinkRecipesDetailScreen';
 import FoodProgressRecipesScreen from './pages/FoodProgressRecipesScreen';
