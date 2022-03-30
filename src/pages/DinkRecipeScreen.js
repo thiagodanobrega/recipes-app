@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
 import searchIcon from '../images/searchIcon.svg';
+import BottomMenu from '../components/BottomMenu';
 
 function DinksRecipeScreen() {
   const [showSearch, setShowSearch] = useState(true);
@@ -25,6 +26,7 @@ function DinksRecipeScreen() {
           hidden={ showSearch }
         />
       </form>
+      <BottomMenu />
     </div>
   );
 }

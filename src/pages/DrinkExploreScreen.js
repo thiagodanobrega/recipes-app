@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomMenu from '../components/BottomMenu';
 import Header from '../components/header';
 
 function DrinkExploreScreen() {
@@ -7,6 +8,7 @@ function DrinkExploreScreen() {
       <h1 data-testid="page-title">Explore Drinks</h1>
 
       <Header />
+      <BottomMenu />
     </div>
   );
 }
