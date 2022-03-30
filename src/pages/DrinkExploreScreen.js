@@ -6,7 +6,6 @@ function DrinkExploreScreen() {
   return (
     <div>
       <h1 data-testid="page-title">Explore Drinks</h1>
-
       <Header />
       <BottomMenu />
     </div>
