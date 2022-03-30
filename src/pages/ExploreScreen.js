@@ -1,9 +1,15 @@
 import React from 'react';
+import Header from '../components/header';
 
 function ExploreScreen() {
   return (
     <div>
-      <p>Tela de explorar</p>
+      <h1 data-testid="page-title">
+        Explore
+
+      </h1>
+
+      <Header />
     </div>
   );
 }
