@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../components/header';
 
 function ExploreDrinkIngredientsScreen() {
   return (
     <div>
-      <p>Tela de explorar bebidas por ingrediente</p>
+      <h1 data-testid="page-title">Explore Ingredients</h1>
+      <Header />
     </div>
   );
 }
