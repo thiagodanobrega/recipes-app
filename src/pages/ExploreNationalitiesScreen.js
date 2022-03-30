@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
 import searchIcon from '../images/searchIcon.svg';
+import React from 'react';
+import BottomMenu from '../components/BottomMenu';
 
 function ExploreNationalitiesScreen() {
   const [showSearch, setShowSearch] = useState(true);
@@ -25,6 +27,8 @@ function ExploreNationalitiesScreen() {
           hidden={ showSearch }
         />
       </form>
+      <p>Tela de explorar comidas por nacionalidade</p>
+      <BottomMenu />
     </div>
   );
 }

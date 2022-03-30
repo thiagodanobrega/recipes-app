@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/header';
+import BottomMenu from '../components/BottomMenu';
 
 function ExploreScreen() {
   return (
@@ -10,6 +11,8 @@ function ExploreScreen() {
       </h1>
 
       <Header />
+      <p>Tela de explorar</p>
+      <BottomMenu />
     </div>
   );
 }
