@@ -50,7 +50,7 @@ describe('Monte um component Header', () => {
     expect(searchIcon).toBeInTheDocument();
   });
 
-  test.only(`11-Redirecione a pessoa usuária para a tela de perfil
+  test(`11-Redirecione a pessoa usuária para a tela de perfil
   ao clicar no botão de perfil`, async () => {
     const { history } = renderWithRouter(<FoodRecipeScreen />);
     const profileIcon = screen.getByTestId(profileButtonTestID);
