@@ -1,34 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../components/header';
-import searchIcon from '../images/searchIcon.svg';
 import BottomMenu from '../components/BottomMenu';
+import FormHeader from '../components/formHeader';
 
 function FoodRecipeScreen() {
-  const [showSearch, setShowSearch] = useState(false);
-
   return (
     <div>
       <Header />
       <h1 data-testid="page-title">Foods</h1>
-
-      <input
-        type="image"
-        src={ searchIcon }
-        alt="desenho de uma lupa"
-        data-testid="search-top-btn"
-        onClick={ () => setShowSearch(!showSearch) }
-      />
-      {
-        showSearch && (
-          <input
-            type="text"
-            name="searchInput"
-            data-testid="search-input"
-          />
-        )
-      }
+      <FormHeader />
       <form>
-
         <label htmlFor="ingredient">
           Ingredient
           <input
