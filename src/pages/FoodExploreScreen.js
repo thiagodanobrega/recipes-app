@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../components/header';
 
 function FoodExploreScreen() {
   return (
     <div>
-      <p>Tela de explorar comidas</p>
+      <h1 data-testid="page-title">Explore Foods</h1>
+      <Header />
     </div>
   );
 }
