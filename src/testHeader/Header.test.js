@@ -50,16 +50,14 @@ describe('Monte um component Header', () => {
     expect(searchIcon).toBeInTheDocument();
   });
 
-  test(`11-Redirecione a pessoa usuária para a tela de perfil
-  ao clicar no botão de perfil`, () => {
-    renderWithRouter(<FoodRecipeScreen />);
+  test.only(`11-Redirecione a pessoa usuária para a tela de perfil
+  ao clicar no botão de perfil`, async () => {
+    const { history } = renderWithRouter(<FoodRecipeScreen />);
     const profileIcon = screen.getByTestId(profileButtonTestID);
     expect(profileIcon).toBeInTheDocument();
-
+    // history.location.pathname
     userEvent.click(profileIcon);
-
-    const titleProfile = screen.getByRole('heading', { name: /profile/i });
-    expect(titleProfile).toBeInTheDocument();
+    expect(history.location.pathname).toEqual('/profile');
   });
 
   test(`12 - Desenvolva o botão de busca que, ao ser clicado,
