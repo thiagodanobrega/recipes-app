@@ -1,34 +1,39 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import '../styles/BottomMenu.css';
 
 function BottomMenu() {
+  const history = useHistory();
   return (
-    <footer data-testid="footer" className="footer-container">
-      <NavLink
-        to="/drinks"
+    <footer
+      data-testid="footer"
+      className="footer-container"
+      style={ { position: 'fixed', bottom: '0' } }
+    >
+      <input
+        type="image"
         data-testid="drinks-bottom-btn"
-      >
-        <img
-          src={ drinkIcon }
-          alt="Ícone de bebida"
-        />
-      </NavLink>
-      <NavLink
-        to="/explore"
+        src={ drinkIcon }
+        alt="Ícone de bebida"
+        onClick={ () => history.push('/drinks') }
+      />
+      <input
+        type="image"
         data-testid="explore-bottom-btn"
-      >
-        <img src={ exploreIcon } alt="Ícone de explorar" />
-      </NavLink>
-      <NavLink
-        to="/foods"
+        src={ exploreIcon }
+        alt="Ícone de explorar"
+        onClick={ () => history.push('/explore') }
+      />
+      <input
+        type="image"
         data-testid="food-bottom-btn"
-      >
-        <img src={ mealIcon } alt="Ícone de explorar" />
-      </NavLink>
+        src={ mealIcon }
+        alt="Ícone de comida"
+        onClick={ () => history.push('/foods') }
+      />
     </footer>
   );
 }
