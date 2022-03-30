@@ -1,6 +1,29 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function LoginScreen() {
+  const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const disabledButton = () => {
+    const regexEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/i;
+    const emailValidation = regexEmail.test(email);
+    const minPassword = 6;
+    const passwordValidation = password.length > minPassword;
+    if (emailValidation && passwordValidation) {
+      return false;
+    }
+    return true;
+  };
+
+  const enableButton = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/foods');
+  };
+
   return (
     <div>
       <input
