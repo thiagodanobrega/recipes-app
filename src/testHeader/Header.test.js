@@ -55,6 +55,7 @@ describe('Monte um component Header', () => {
     renderWithRouter(<FoodRecipeScreen />);
     const profileIcon = screen.getByTestId(profileButtonTestID);
     expect(profileIcon).toBeInTheDocument();
+
     userEvent.click(profileIcon);
 
     const titleProfile = screen.getByRole('heading', { name: /profile/i });
