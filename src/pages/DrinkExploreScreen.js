@@ -1,10 +1,12 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
+import Header from '../components/header';
 
 function DrinkExploreScreen() {
   return (
     <div>
-      <p>Tela de explorar bebidas</p>
+      <h1 data-testid="page-title">Explore Drinks</h1>
+      <Header />
       <BottomMenu />
     </div>
   );

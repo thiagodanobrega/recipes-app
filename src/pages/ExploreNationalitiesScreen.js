@@ -1,10 +1,14 @@
 import React from 'react';
+import Header from '../components/header';
 import BottomMenu from '../components/BottomMenu';
+import FormHeader from '../components/formHeader';
 
 function ExploreNationalitiesScreen() {
   return (
     <div>
-      <p>Tela de explorar comidas por nacionalidade</p>
+      <h1 data-testid="page-title">Explore Nationalities</h1>
+      <Header />
+      <FormHeader />
       <BottomMenu />
     </div>
   );
