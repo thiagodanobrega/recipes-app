@@ -18,48 +18,51 @@ import ExploreNationalitiesScreen from './pages/ExploreNationalitiesScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import DoneRecipesScreen from './pages/DoneRecipesScreen';
 import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
+import ProviderFoods from './context/contextFoodRecipe/ProviderFoods';
 
 function App() {
   return (
     <Provider>
-      <Switch>
-        <Route exact path="/" component={ LoginScreen } />
-        <Route exact path="/foods" component={ FoodRecipeScreen } />
-        <Route exact path="/drinks" component={ DinkRecipeScreen } />
-        <Route exact path="/foods/:id" component={ FoodRecipesDetailScreen } />
-        <Route exact path="/drinks/:id" component={ DrinkRecipesDetailScreen } />
-        <Route
-          exact
-          path="/foods/:id/in-progress"
-          component={ FoodProgressRecipesScreen }
-        />
-        <Route
-          exact
-          path="/drinks/:id/in-progress"
-          component={ DrinkProgressRecipesScreen }
-        />
-        <Route exact path="/explore" component={ ExploreScreen } />
-        <Route exact path="/explore/foods" component={ FoodExploreScreen } />
-        <Route exact path="/explore/drinks" component={ DrinkExploreScreen } />
-        <Route
-          exact
-          path="/explore/foods/ingredients"
-          component={ ExploreFoodIngredientsScreen }
-        />
-        <Route
-          exact
-          path="/explore/drinks/ingredients"
-          component={ ExploreDrinkIngredientsScreen }
-        />
-        <Route
-          exact
-          path="/explore/foods/nationalities"
-          component={ ExploreNationalitiesScreen }
-        />
-        <Route exact path="/profile" component={ ProfileScreen } />
-        <Route path="/done-recipes" component={ DoneRecipesScreen } />
-        <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
-      </Switch>
+      <ProviderFoods>
+        <Switch>
+          <Route exact path="/" component={ LoginScreen } />
+          <Route exact path="/foods" component={ FoodRecipeScreen } />
+          <Route exact path="/drinks" component={ DinkRecipeScreen } />
+          <Route exact path="/foods/:id" component={ FoodRecipesDetailScreen } />
+          <Route exact path="/drinks/:id" component={ DrinkRecipesDetailScreen } />
+          <Route
+            exact
+            path="/foods/:id/in-progress"
+            component={ FoodProgressRecipesScreen }
+          />
+          <Route
+            exact
+            path="/drinks/:id/in-progress"
+            component={ DrinkProgressRecipesScreen }
+          />
+          <Route exact path="/explore" component={ ExploreScreen } />
+          <Route exact path="/explore/foods" component={ FoodExploreScreen } />
+          <Route exact path="/explore/drinks" component={ DrinkExploreScreen } />
+          <Route
+            exact
+            path="/explore/foods/ingredients"
+            component={ ExploreFoodIngredientsScreen }
+          />
+          <Route
+            exact
+            path="/explore/drinks/ingredients"
+            component={ ExploreDrinkIngredientsScreen }
+          />
+          <Route
+            exact
+            path="/explore/foods/nationalities"
+            component={ ExploreNationalitiesScreen }
+          />
+          <Route exact path="/profile" component={ ProfileScreen } />
+          <Route path="/done-recipes" component={ DoneRecipesScreen } />
+          <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
+        </Switch>
+      </ProviderFoods>
     </Provider>
   );
 }
