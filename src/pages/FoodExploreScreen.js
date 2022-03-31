@@ -1,8 +1,10 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/header';
 import BottomMenu from '../components/BottomMenu';
 
 function FoodExploreScreen() {
+  const history = useHistory();
   return (
     <div>
       <Header />
@@ -10,6 +12,7 @@ function FoodExploreScreen() {
       <button
         type="button"
         data-testid="explore-by-ingredient"
+        onClick={ () => history.push('/explore/foods/ingredients') }
       >
         By Ingredient
       </button>
@@ -17,6 +20,7 @@ function FoodExploreScreen() {
       <button
         type="button"
         data-testid="explore-by-nationality"
+        onClick={ () => history.push('/explore/foods/nationalities') }
       >
         By Nationality
       </button>
