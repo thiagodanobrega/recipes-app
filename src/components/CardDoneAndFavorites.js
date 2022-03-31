@@ -31,6 +31,7 @@ function CardDoneAndFavorites({ filterDoneRecipes }) {
               src={ recipe.image }
               data-testid={ `${index}-horizontal-image` }
               alt="Imagem da receita pronta"
+              width="100px"
             />
           </button>
 
