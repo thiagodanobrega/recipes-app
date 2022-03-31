@@ -5,9 +5,29 @@ import BottomMenu from '../components/BottomMenu';
 function FoodExploreScreen() {
   return (
     <div>
-      <h1 data-testid="page-title">Explore Foods</h1>
       <Header />
-      <p>Tela de explorar comidas</p>
+      <h1 data-testid="page-title">Explore Foods</h1>
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+      >
+        By Ingredient
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-by-nationality"
+      >
+        By Nationality
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-surprise"
+      >
+        Surprise me!
+      </button>
+
       <BottomMenu />
     </div>
   );

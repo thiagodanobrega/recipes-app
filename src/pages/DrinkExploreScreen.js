@@ -5,8 +5,22 @@ import Header from '../components/header';
 function DrinkExploreScreen() {
   return (
     <div>
-      <h1 data-testid="page-title">Explore Drinks</h1>
       <Header />
+      <h1 data-testid="page-title">Explore Drinks</h1>
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+      >
+        By Ingredient
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-surprise"
+      >
+        Surprise me!
+      </button>
+
       <BottomMenu />
     </div>
   );
