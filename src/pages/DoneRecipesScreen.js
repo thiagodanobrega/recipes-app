@@ -27,6 +27,7 @@ function DoneRecipesScreen() {
       />
       <CardDoneAndFavorites
         filterRecipes={ filterDoneRecipes() }
+        typeScreen="done"
       />
     </>
   );

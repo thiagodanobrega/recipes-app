@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -14,10 +15,10 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
       ? 'favorite-recipes'
       : 'done-recipes', '');
     if (type === 'food') {
-      // ref: https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText
-      return navigator.clipboard.writeText(`${url}foods/${id}`);
+      // ref: https://www.npmjs.com/package/clipboard-copy
+      return copy(`${url}foods/${id}`);
     }
-    return navigator.clipboard.writeText(`${url}drinks/${id}`);
+    return copy(`${url}drinks/${id}`);
   };
 
   return (

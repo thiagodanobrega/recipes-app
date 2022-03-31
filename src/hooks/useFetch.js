@@ -10,7 +10,7 @@ const useFetch = (url) => {
       setIsLoading(true);
       try {
         const response = await fetch(url);
-        const dataAPI = response.json();
+        const dataAPI = await response.json();
         setData(dataAPI);
       } catch (error) {
         setErro(error.message);
