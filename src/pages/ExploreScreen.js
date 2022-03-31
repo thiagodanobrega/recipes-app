@@ -14,7 +14,7 @@ function ExploreScreen() {
       <button
         type="button"
         data-testid="explore-foods"
-        onClick={ history.push('/explore/foods') }
+        onClick={ () => history.push('/explore/foods') }
       >
         Explore Foods
       </button>
@@ -22,7 +22,7 @@ function ExploreScreen() {
       <button
         type="button"
         data-testid="explore-drinks"
-        onClick={ history.push('/explore/drinks') }
+        onClick={ () => history.push('/explore/drinks') }
       >
         Explore Drinks
       </button>
