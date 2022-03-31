@@ -2,9 +2,17 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/header';
+import useFetch from '../hooks/useFetch';
 
 function DrinkExploreScreen() {
   const history = useHistory();
+  const ENDPOINT_RANDOM = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const { data } = useFetch(ENDPOINT_RANDOM);
+
+  const randomRecipeAPI = () => {
+    history.push(`/drinks/${data.drinks[0].idDrink}`);
+  };
+
   return (
     <div>
       <Header />
@@ -20,7 +28,7 @@ function DrinkExploreScreen() {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => history.push('') }
+        onClick={ randomRecipeAPI }
       >
         Surprise me!
       </button>

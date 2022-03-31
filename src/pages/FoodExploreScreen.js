@@ -6,10 +6,11 @@ import useFetch from '../hooks/useFetch';
 
 function FoodExploreScreen() {
   const history = useHistory();
+  const ENDPOINT_RANDOM = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const { data } = useFetch(ENDPOINT_RANDOM);
 
   const randomRecipeAPI = () => {
-    const ENDPOINT_RANDOM = 'https://www.themealdb.com/api/json/v1/1/random.php';
-    const { data } = useFetch(ENDPOINT_RANDOM);
+    history.push(`/foods/${data.meals[0].idMeal}`);
   };
 
   return (
