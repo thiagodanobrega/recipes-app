@@ -64,7 +64,7 @@ function FoodRecipeScreen() {
       const firstLetterData = await response.json();
       setFirstLetter(firstLetterData.meals);
     })();
-  }, [callApi]);
+  }, [callApi, setFirstLetter]);
 
   // requisição de categorias
   /*   useEffect(() => {
