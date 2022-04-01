@@ -9,8 +9,7 @@ function ProviderFoods({ children }) {
   const [nationalities, setNationalities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [firstLetter, setFirstLetter] = useState([]);
-  // estado das buscas do user - tipo e textos
-  const [userChoiceTypeSearch, setUserChoiceTypeSearch] = useState('');
+  // estado do texto do user
   const [userTypedText, setUserTypedText] = useState('');
 
   const contextValue = {
@@ -25,8 +24,6 @@ function ProviderFoods({ children }) {
     firstLetter,
     setFirstLetter,
 
-    userChoiceTypeSearch,
-    setUserChoiceTypeSearch,
     userTypedText,
     setUserTypedText,
   };
