@@ -26,7 +26,8 @@ function DoneRecipesScreen() {
         setTypeFilter={ setTypeFilter }
       />
       <CardDoneAndFavorites
-        filterDoneRecipes={ filterDoneRecipes() }
+        filterRecipes={ filterDoneRecipes() }
+        typeScreen="done"
       />
     </>
   );
