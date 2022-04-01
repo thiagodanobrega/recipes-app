@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/header';
 import BottomMenu from '../components/BottomMenu';
+import ProfilePicture from '../components/Header/ProfilePicture';
 
 function ExploreScreen() {
   return (
@@ -10,7 +10,7 @@ function ExploreScreen() {
 
       </h1>
 
-      <Header />
+      <ProfilePicture />
       <p>Tela de explorar</p>
       <BottomMenu />
     </div>
