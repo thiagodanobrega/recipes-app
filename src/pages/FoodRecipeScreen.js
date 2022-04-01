@@ -7,44 +7,64 @@ import contextFoodRecipes from '../context/contextFoodRecipe/contextFoodRecipe';
 
 function FoodRecipeScreen() {
 // contextFood
-  const {
-    // setCategories,
-    // setFirstLetter,
-    // setUserTypedText,
+  const { userTypedText,
     setIngredients,
-    // setNameMeals,
-    // setNationalities
+    setNameMeals,
+    setFirstLetter,
   } = useContext(contextFoodRecipes);
-  const { userTypedText } = useContext(contextFoodRecipes);
+
   // estado local do usuario
-  const [searchIngredient, setSearchIngredient] = useState('');
-  const [searchFirstLetter, setSearchFirstLetter] = useState('');
-  const [searchName, setSearchName] = useState('a');
+  const [searchFor, setSearchFor] = useState('');
   const [callApi, setCallApi] = useState('');
   //--------------------------------------------------------
 
   const submitRequest = (e) => {
     e.preventDefault();
     const verifyLetter = [...userTypedText];
-    if (verifyLetter.length !== 1 && searchFirstLetter.length !== 0) {
+    if (verifyLetter.length !== 1 && searchFor === 'firstLetter') {
       return global.alert('Your search must have only 1 (one) character');
     }
-    const ingredient = [userTypedText];
-    console.log('loguei e escrevi', ingredient);
-    setCallApi(ingredient);
-    console.log(userTypedText, searchIngredient, searchName);
+
+    switch (searchFor) {
+    case 'ingredient': setCallApi(userTypedText);
+      break;
+    case 'name': setCallApi(userTypedText);
+      break;
+    case 'firstLetter': setCallApi(userTypedText);
+      break;
+    default:
+    }
+  /*   if (searchFor === 'ingredient') setCallApi(userTypedText);
+    if (searchFor === 'name') setCallApi(userTypedText);
+    if (searchFor === 'firstLetter') setCallApi(userTypedText); */
   };
 
   // requisição de ingredientes
   useEffect(() => {
     (async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${callApi}`);
-      const dataIngredients = await response.json();
-      setIngredients(dataIngredients.meals);
+      const ingredientsData = await response.json();
+      setIngredients(ingredientsData.meals);
     })();
-
-    console.log('fiz chamada dos ingredients');
   }, [callApi, setIngredients]);
+
+  // requisição por nome
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${callApi}`);
+      const nameData = await response.json();
+      setNameMeals(nameData.meals);
+    })();
+  }, [callApi, setNameMeals]);
+
+  // requisição de first letters
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${callApi}`);
+      const firstLetterData = await response.json();
+      setFirstLetter(firstLetterData.meals);
+    })();
+  }, [callApi]);
 
   // requisição de categorias
   /*   useEffect(() => {
@@ -65,26 +85,6 @@ function FoodRecipeScreen() {
     })();
   }, [setNationalities]); */
 
-  // requisição de first letters
-  /*   useEffect(() => {
-    (async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=a');
-      const firstLetterData = await response.json();
-      setFirstLetter(firstLetterData.meals);
-    })();
-  }, [setFirstLetter]); */
-
-  // requisição por nome
-  /*  useEffect(() => {
-    (async () => {
-      const response = await fetch(`www.themealdb
-      .com/api/json/v1/1/search.php?s=Arrabiata`);
-      const nameData = await response.json();
-      console.log('loguei Name', nameData);
-      setNameMeals(nameData.meals);
-    })();
-  }, [setNameMeals]); */
-
   return (
     <div>
       <ProfilePicture />
@@ -99,7 +99,7 @@ function FoodRecipeScreen() {
             data-testid="ingredient-search-radio"
             name="search"
             value="ingredient"
-            onClick={ ({ target: { value } }) => setSearchIngredient(value) }
+            onClick={ ({ target: { value } }) => setSearchFor(value) }
           />
         </label>
         <label htmlFor="name">
@@ -110,7 +110,7 @@ function FoodRecipeScreen() {
             data-testid="name-search-radio"
             name="search"
             value="name"
-            onClick={ ({ target: { value } }) => setSearchFirstLetter(value) }
+            onClick={ ({ target: { value } }) => setSearchFor(value) }
           />
         </label>
         <label htmlFor="firstLetter">
@@ -121,7 +121,7 @@ function FoodRecipeScreen() {
             data-testid="first-letter-search-radio"
             name="search"
             value="firstLetter"
-            onClick={ ({ target: { value } }) => setSearchName(value) }
+            onClick={ ({ target: { value } }) => setSearchFor(value) }
           />
         </label>
         <button

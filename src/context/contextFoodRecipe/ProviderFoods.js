@@ -6,9 +6,11 @@ function ProviderFoods({ children }) {
   // estado das requisições
   const [ingredients, setIngredients] = useState([]);
   const [nameMeals, setNameMeals] = useState([]);
+  const [firstLetter, setFirstLetter] = useState([]);
+  /*
   const [nationalities, setNationalities] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [firstLetter, setFirstLetter] = useState([]);
+  */
   // estado do texto do user
   const [userTypedText, setUserTypedText] = useState('');
 
@@ -17,15 +19,18 @@ function ProviderFoods({ children }) {
     setIngredients,
     nameMeals,
     setNameMeals,
+    firstLetter,
+    setFirstLetter,
+    userTypedText,
+    setUserTypedText,
+
+    /*
     nationalities,
     setNationalities,
     categories,
     setCategories,
-    firstLetter,
-    setFirstLetter,
+    , */
 
-    userTypedText,
-    setUserTypedText,
   };
   return (
     <ContextFoodRecipe.Provider value={ contextValue }>
