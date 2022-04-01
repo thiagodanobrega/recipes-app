@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/header';
 import searchIcon from '../images/searchIcon.svg';
 import BottomMenu from '../components/BottomMenu';
+import ProfilePicture from '../components/Header/ProfilePicture';
 
 function DrinksRecipeScreen() {
   const [showSearch, setShowSearch] = useState(true);
@@ -9,7 +9,7 @@ function DrinksRecipeScreen() {
   return (
     <div>
       <h1 data-testid="page-title">Drinks</h1>
-      <Header />
+      <ProfilePicture />
       <form>
         <input
           type="image"
