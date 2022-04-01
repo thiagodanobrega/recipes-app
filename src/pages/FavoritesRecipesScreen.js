@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../components/header';
+import ProfilePicture from '../components/Header/ProfilePicture';
 
 function FavoritesRecipesScreen() {
   return (
     <div>
       <h1 data-testid="page-title">Favorite Recipes</h1>
-      <Header />
+      <ProfilePicture />
     </div>
   );
 }
