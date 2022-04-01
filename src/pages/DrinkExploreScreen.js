@@ -1,12 +1,12 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
-import Header from '../components/header';
+import ProfilePicture from '../components/Header/ProfilePicture';
 
 function DrinkExploreScreen() {
   return (
     <div>
       <h1 data-testid="page-title">Explore Drinks</h1>
-      <Header />
+      <ProfilePicture />
       <BottomMenu />
     </div>
   );
