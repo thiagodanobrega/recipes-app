@@ -34,9 +34,6 @@ function FoodRecipeScreen() {
       break;
     default:
     }
-  /*   if (searchFor === 'ingredient') setCallApi(userTypedText);
-    if (searchFor === 'name') setCallApi(userTypedText);
-    if (searchFor === 'firstLetter') setCallApi(userTypedText); */
   };
 
   // requisição de ingredientes
