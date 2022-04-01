@@ -1,25 +1,24 @@
 import React, { useContext, useState } from 'react';
-import Header from '../components/header';
+import ProfilePicture from '../components/Header/ProfilePicture';
 import BottomMenu from '../components/BottomMenu';
-import FormHeader from '../components/formHeader';
+import InputText from '../components/Header/InputText';
 import contextFoodRecipes from '../context/contextFoodRecipe/contextFoodRecipe';
 // import Loading from '../components/loading';
 
 function FoodRecipeScreen() {
-  const { setUserChoice } = useContext(contextFoodRecipes);
+  const { setUserChoiceTypeSearch } = useContext(contextFoodRecipes);
   const [userChosetUserChoiceceOnclick, setUserChoiceOnclick] = useState('');
 
   const submitRadioValue = (e) => {
     e.preventDefault();
-    console.log(e);
-    setUserChoice(userChosetUserChoiceceOnclick);
+    setUserChoiceTypeSearch(userChosetUserChoiceceOnclick);
   };
 
   return (
     <div>
-      <Header />
+      <ProfilePicture />
       <h1 data-testid="page-title">Foods</h1>
-      <FormHeader />
+      <InputText />
       <form onSubmit={ submitRadioValue }>
         <label htmlFor="ingredient">
           Ingredient
