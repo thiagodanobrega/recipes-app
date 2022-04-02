@@ -1,14 +1,15 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
-import InputSearchBar from '../components/Header/InputSearchBar';
-import ProfilePicture from '../components/Header/ProfilePicture';
+import Header from '../components/Header/Header';
 
 function ExploreNationalitiesScreen() {
   return (
     <div>
-      <h1 data-testid="page-title">Explore Nationalities</h1>
-      <ProfilePicture />
-      <InputSearchBar />
+      <Header
+        renderScreen
+        nameScreen="Explore Nationalities"
+        dataTest="page-title"
+      />
       <BottomMenu />
     </div>
   );
