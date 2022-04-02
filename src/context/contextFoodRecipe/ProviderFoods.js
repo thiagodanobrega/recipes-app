@@ -11,10 +11,10 @@ function ProviderFoods({ children }) {
   const [nationalities, setNationalities] = useState([]);
   const [categories, setCategories] = useState([]);
   */
-
+  /*
   const [drinksIngredients, setDrinksIngredients] = useState([]);
   const [drinksNameMeals, setDrinksNameMeals] = useState([]);
-  const [drinksFirstLetter, setDrinksFirstLetterMeals] = useState([]);
+  const [drinksFirstLetter, setDrinksFirstLetterMeals] = useState([]); */
 
   const contextValue = {
     foodsIngredients,
@@ -30,12 +30,12 @@ function ProviderFoods({ children }) {
     categories,
     setCategories,
     , */
-    drinksIngredients,
+    /* drinksIngredients,
     setDrinksIngredients,
     drinksNameMeals,
     setDrinksNameMeals,
     drinksFirstLetter,
-    setDrinksFirstLetterMeals,
+    setDrinksFirstLetterMeals, */
   };
   return (
     <ContextFoodRecipe.Provider value={ contextValue }>
