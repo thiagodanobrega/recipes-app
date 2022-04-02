@@ -1,56 +1,72 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContextFoodRecipe from './contextFoodRecipe';
+import useFetch from '../../hooks/useFetch';
 
 function ProviderFoods({ children }) {
-  // estado das requisições FOODS
-  const [foodsIngredients, setFoodsIngredients] = useState([]);
-  const [foodsName, setFoodsName] = useState([]);
-  const [foodsFirstLetter, setFoodsFirstLetter] = useState([]);
-
-  const [userChoice, setUserChoice] = useState({
+  const USER_INITIAL_STATE = {
     typeSearch: '',
     textSearch: '',
-  });
-  /*
-  const [nationalities, setNationalities] = useState([]);
-  const [categories, setCategories] = useState([]);
-  */
-  /*
-  const [drinksIngredients, setDrinksIngredients] = useState([]);
-  const [drinksNameMeals, setDrinksNameMeals] = useState([]);
-  const [drinksFirstLetter, setDrinksFirstLetterMeals] = useState([]); */
+  };
+  // estado das requisições FOODS
+  const [foods, setFoods] = useState([]);
+
+  // estado das escolhas do usuário tipo e texto
+  const [userChoice, setUserChoice] = useState(USER_INITIAL_STATE);
+
+  // chamada api
   const [callApi, setCallApi] = useState('');
 
-  const {
-    setDrinksIngredients,
-    setDrinksNameMeals,
-    setDrinksFirstLetter,
-  } = useContext(contextDrinks);
   // ---------------------ENDPOINTS--------------------------------
+  if (userChoice.typeSearch === 'ingredient') {
+    const FOODS_INGREDIENT_API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${userChoice.textSearch}`;
+    setCallApi(FOODS_INGREDIENT_API);
+    setUserChoice({
+      typeSearch: '',
+      textSearch: '',
+    });
+  }
 
-  const FOODS_INGREDIENT_API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${callApi}`;
-  const FOODS_NAME_MEAL_API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${callApi}`;
-  const FOODS_FIRST_LETTER_MEALS_API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${callApi}`;
+  if (userChoice.typeSearch === 'name') {
+    const FOODS_NAME_API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${userChoice.textSearch}`;
+    setCallApi(FOODS_NAME_API);
+    setUserChoice({
+      typeSearch: '',
+      textSearch: '',
+    });
+  }
+
+  if (userChoice.typeSearch === 'firstLetter') {
+    const FOODS_FIRST_LETTERS_API = `https://www.themealdb.com/api/json/v1/1/search
+    .php?f=${userChoice.textSearch}`;
+    setCallApi(FOODS_FIRST_LETTERS_API);
+    setUserChoice({
+      typeSearch: '',
+      textSearch: '',
+    });
+  }
+
   // ----------------------------------------------
-  // ----------------------------------------------
-  console.log(callApi);
-  const DRINKS_INGREDIENT_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${callApi}`;
+
+  /* const DRINKS_INGREDIENT_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${callApi}`;
   const DRINKS_NAME_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${callApi}`;
-  const DRINKS_FIRST_LETTER_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${callApi}`;
+  const DRINKS_FIRST_LETTER_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${callApi}`; */
 
-  // ----------FOOODS-------------------
-  // requisição  ingredientes
+  const { data } = useFetch(callApi);
+
   useEffect(() => {
+    if (data) { setFoods(data.meals); }
+  }, [data]);
+  /*  useEffect(() => {
     (async () => {
       const response = await fetch(FOODS_INGREDIENT_API);
       const ingredientsData = await response.json();
       setFoodsIngredients(ingredientsData.meals);
     })();
-  }, [FOODS_INGREDIENT_API, setFoodsIngredients]);
+  }, [FOODS_INGREDIENT_API, setFoodsIngredients]); */
 
   // requisição  nome
-  useEffect(() => {
+  /*  useEffect(() => {
     (async () => {
       const response = await fetch(FOODS_NAME_MEAL_API);
       const nameData = await response.json();
@@ -95,7 +111,7 @@ function ProviderFoods({ children }) {
       const drinksfirstLetterData = await response.json();
       setDrinksFirstLetter(drinksfirstLetterData);
     })();
-  }, [DRINKS_FIRST_LETTER_API, setDrinksFirstLetter]);
+  }, [DRINKS_FIRST_LETTER_API, setDrinksFirstLetter]); */
 
   // requisição de categorias
   /*   useEffect(() => {
@@ -118,12 +134,12 @@ function ProviderFoods({ children }) {
   const contextValue = {
     userChoice,
     setUserChoice,
-    foodsIngredients,
-    setFoodsIngredients,
-    foodsName,
+    foods,
+    setFoods,
+    /*  foodsName,
     setFoodsName,
     foodsFirstLetter,
-    setFoodsFirstLetter,
+    setFoodsFirstLetter, */
 
     /*
     nationalities,

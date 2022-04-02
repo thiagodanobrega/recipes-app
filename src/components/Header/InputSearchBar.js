@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe';
-import contextDrinks from '../../context/contextDrinks/contextDrinks';
+/* import contextDrinks from '../../context/contextDrinks/contextDrinks'; */
 
 const InputSearchBar = () => {
   const {
@@ -8,28 +8,23 @@ const InputSearchBar = () => {
   } = useContext(contextFoodRecipe);
 
   // estado local do usuario
-  const [inputSearchText, setInputSearchText] = useState('');
+  const [userSearchText, setUserSearchText] = useState('');
   const [userSearchType, setUserSearchType] = useState('');
-
   // -------- FUNÇÕES DOS INPUTS ----------
-
-  const onChangeInputText = ({ target: { value } }) => setInputText(value);
 
   const submitRequest = (event) => {
     event.preventDefault();
     // verificaçao da digitação
-    const verifyLetter = [...inputText];
-    if (verifyLetter.length !== 1 && searchForFirst) {
+    const verifyLetter = [...userSearchText];
+    if (verifyLetter.length !== 1 && userSearchType === 'firstLetter') {
       global.alert('Your search must have only 1 (one) character');
-      return setSearchForFirst('');
+      return setUserSearchType('');
     }
-    //  chamada API e redireciona
-    if (searchForName) {
-      setCallApi(inputText);
-      console.log(foodsName);
-    }
-    if (searchForFirst) setCallApi(inputText);
-    if (searchForIngredient) setCallApi(inputText);
+    //  envia para o estado global
+    setUserChoice({
+      typeSearch: userSearchType,
+      textSearch: userSearchText,
+    });
   };
 
   return (
@@ -39,7 +34,7 @@ const InputSearchBar = () => {
           type="text"
           name="searchInput"
           data-testid="search-input"
-          onChange={ onChangeInputText }
+          onChange={ ({ target: { value } }) => setUserSearchText(value) }
         />
 
         <label htmlFor="ingredient">
@@ -50,7 +45,7 @@ const InputSearchBar = () => {
             data-testid="ingredient-search-radio"
             name="search"
             value="ingredient"
-            onClick={ ({ target: { value } }) => setSearchForIngredient(value) }
+            onClick={ ({ target: { value } }) => setUserSearchType(value) }
           />
         </label>
         <label htmlFor="name">
@@ -61,7 +56,7 @@ const InputSearchBar = () => {
             data-testid="name-search-radio"
             name="search"
             value="name"
-            onClick={ ({ target: { value } }) => setSearchForName(value) }
+            onClick={ ({ target: { value } }) => setUserSearchType(value) }
           />
         </label>
         <label htmlFor="firstLetter">
@@ -72,7 +67,7 @@ const InputSearchBar = () => {
             data-testid="first-letter-search-radio"
             name="search"
             value="firstLetter"
-            onClick={ ({ target: { value } }) => setSearchForFirst(value) }
+            onClick={ ({ target: { value } }) => setUserSearchType(value) }
           />
         </label>
         <button
