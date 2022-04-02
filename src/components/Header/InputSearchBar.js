@@ -1,27 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe';
 import contextDrinks from '../../context/contextDrinks/contextDrinks';
-import searchIcon from '../../images/searchIcon.svg';
 
 const InputSearchBar = () => {
-  const {
-    setFoodsIngredients,
-    setFoodsName,
-    setFoodsFirstLetter,
-  } = useContext(contextFoodRecipe);
-
-  const {
-    setDrinksIngredients,
-    setDrinksNameMeals,
-    setDrinksFirstLetter,
-  } = useContext(contextDrinks);
   // estado local do usuario
-  const [showSearch, setShowSearch] = useState(false);
+
   const [inputText, setInputText] = useState('');
   const [searchForIngredient, setSearchForIngredient] = useState('');
   const [searchForName, setSearchForName] = useState('');
   const [searchForFirst, setSearchForFirst] = useState('');
   const [callApi, setCallApi] = useState('');
+  const {
+    setFoodsIngredients,
+    setFoodsName,
+    setFoodsFirstLetter,
+  } = useContext(contextFoodRecipe);
+  const {
+    setDrinksIngredients,
+    setDrinksNameMeals,
+    setDrinksFirstLetter,
+  } = useContext(contextDrinks);
   // ---------------------ENDPOINTS--------------------------------
 
   const FOODS_INGREDIENT_API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${callApi}`;
@@ -63,25 +61,6 @@ const InputSearchBar = () => {
     })();
   }, [FOODS_FIRST_LETTER_MEALS_API, setFoodsFirstLetter]);
 
-  // requisição de categorias
-  /*   useEffect(() => {
-    (async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-      const dataCategories = await response.json();
-      setCategories(dataCategories.meals);
-      console.log('estou no foodRecipeScreen');
-    })();
-  }, [setCategories]); */
-
-  // requisição de nationalities
-  /*   useEffect(() => {
-    (async () => {
-      const response = await fetch(' https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-      const nationality = await response.json();
-      setNationalities(nationality.meals);
-    })();
-  }, [setNationalities]); */
-
   // --------DRINKS---------------
   // requisição de ingredientes drink
   useEffect(() => {
@@ -91,7 +70,7 @@ const InputSearchBar = () => {
       console.log(drinksIngredientsData);
       setDrinksIngredients(drinksIngredientsData);
     })();
-  }, [DRINKS_INGREDIENT_API, setDrinksIngredients, searchForIngredient]);
+  }, [DRINKS_INGREDIENT_API, setDrinksIngredients]);
 
   // requisição nome drink
   useEffect(() => {
@@ -111,16 +90,31 @@ const InputSearchBar = () => {
     })();
   }, [DRINKS_FIRST_LETTER_API, setDrinksFirstLetter]);
 
+  // requisição de categorias
+  /*   useEffect(() => {
+    (async () => {
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      const dataCategories = await response.json();
+      setCategories(dataCategories.meals);
+      console.log('estou no foodRecipeScreen');
+    })();
+  }, [setCategories]); */
+
+  // requisição de nationalities
+  /*   useEffect(() => {
+    (async () => {
+      const response = await fetch(' https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+      const nationality = await response.json();
+      setNationalities(nationality.meals);
+    })();
+  }, [setNationalities]); */
+
   // -------- FUNÇÕES DOS INPUTS ----------
-  const showSearchOnClick = (e) => {
-    e.preventDefault();
-    setShowSearch(!showSearch);
-  };
 
   const onChangeInputText = ({ target: { value } }) => setInputText(value);
 
-  const submitRequest = (e) => {
-    e.preventDefault();
+  const submitRequest = (event) => {
+    event.preventDefault();
     // verificaçao da digitação
     const verifyLetter = [...inputText];
     if (verifyLetter.length !== 1 && searchForFirst) {
@@ -135,69 +129,55 @@ const InputSearchBar = () => {
 
   return (
     <form onSubmit={ submitRequest }>
-      <input
-        type="image"
-        src={ searchIcon }
-        alt="desenho de uma lupa"
-        data-testid="search-top-btn"
-        onClick={ showSearchOnClick }
-      />
-      {
-        showSearch && (
-          <div>
-            <input
-              type="text"
-              name="searchInput"
-              data-testid="search-input"
-              onChange={ onChangeInputText }
-            />
+      <div>
+        <input
+          type="text"
+          name="searchInput"
+          data-testid="search-input"
+          onChange={ onChangeInputText }
+        />
 
-            <label htmlFor="ingredient">
-              Ingredient
-              <input
-                type="radio"
-                id="ingredient"
-                data-testid="ingredient-search-radio"
-                name="search"
-                value="ingredient"
-                onClick={ ({ target: { value } }) => setSearchForIngredient(value) }
-              />
-            </label>
-            <label htmlFor="name">
-              Name
-              <input
-                type="radio"
-                id="name"
-                data-testid="name-search-radio"
-                name="search"
-                value="name"
-                onClick={ ({ target: { value } }) => setSearchForName(value) }
-              />
-            </label>
-            <label htmlFor="firstLetter">
-              First Letter
-              <input
-                type="radio"
-                id="firstLetter"
-                data-testid="first-letter-search-radio"
-                name="search"
-                value="firstLetter"
-                onClick={ ({ target: { value } }) => setSearchForFirst(value) }
-              />
-            </label>
-            <button
-              type="submit"
-              data-testid="exec-search-btn"
-            >
-              Search
-            </button>
-          </div>
-        )
-
-      }
-
+        <label htmlFor="ingredient">
+          Ingredient
+          <input
+            type="radio"
+            id="ingredient"
+            data-testid="ingredient-search-radio"
+            name="search"
+            value="ingredient"
+            onClick={ ({ target: { value } }) => setSearchForIngredient(value) }
+          />
+        </label>
+        <label htmlFor="name">
+          Name
+          <input
+            type="radio"
+            id="name"
+            data-testid="name-search-radio"
+            name="search"
+            value="name"
+            onClick={ ({ target: { value } }) => setSearchForName(value) }
+          />
+        </label>
+        <label htmlFor="firstLetter">
+          First Letter
+          <input
+            type="radio"
+            id="firstLetter"
+            data-testid="first-letter-search-radio"
+            name="search"
+            value="firstLetter"
+            onClick={ ({ target: { value } }) => setSearchForFirst(value) }
+          />
+        </label>
+        <button
+          type="submit"
+          data-testid="exec-search-btn"
+        >
+          Search
+        </button>
+      </div>
     </form>
-
   );
 };
 
