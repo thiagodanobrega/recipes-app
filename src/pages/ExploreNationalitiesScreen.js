@@ -8,7 +8,6 @@ function ExploreNationalitiesScreen() {
       <Header
         renderScreen
         nameScreen="Explore Nationalities"
-        dataTest="page-title"
       />
       <BottomMenu />
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
-import ProfilePicture from '../components/Header/ProfilePicture';
+import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
 
 function FoodExploreScreen() {
@@ -15,8 +15,10 @@ function FoodExploreScreen() {
 
   return (
     <div>
-      <h1 data-testid="page-title">Explore Foods</h1>
-      <ProfilePicture />
+      <Header
+        renderScreen={ false }
+        nameScreen="Explore Foods"
+      />
       <button
         type="button"
         data-testid="explore-by-ingredient"

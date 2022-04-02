@@ -1,13 +1,14 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
-import ProfilePicture from '../components/Header/ProfilePicture';
+import Header from '../components/Header/Header';
 
 function ExploreDrinkIngredientsScreen() {
   return (
     <div>
-      <h1 data-testid="page-title">Explore Ingredients</h1>
-      <ProfilePicture />
-      <p>Tela de explorar bebidas por ingrediente</p>
+      <Header
+        renderScreen={ false }
+        nameScreen="Explore Ingredients"
+      />
       <BottomMenu />
     </div>
   );

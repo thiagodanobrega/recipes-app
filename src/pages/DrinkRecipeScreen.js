@@ -8,7 +8,6 @@ function DrinksRecipeScreen() {
       <Header
         renderScreen
         nameScreen="Drinks"
-        dataTest="page-title"
       />
       <BottomMenu />
     </div>

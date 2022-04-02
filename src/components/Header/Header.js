@@ -5,7 +5,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import InputSearchBar from './InputSearchBar';
 
-const ProfilePicture = ({ renderScreen, nameScreen, dataTest }) => {
+const ProfilePicture = ({ renderScreen, nameScreen }) => {
   const history = useHistory();
   const [isSearch, setIsSearch] = useState(false);
 
@@ -20,7 +20,7 @@ const ProfilePicture = ({ renderScreen, nameScreen, dataTest }) => {
         alt="desenho de uma silhueta humana"
         onClick={ () => history.push('/profile') }
       />
-      <h1 data-testid={ dataTest }>{nameScreen}</h1>
+      <h1 data-testid="page-title">{nameScreen}</h1>
       {
         renderScreen
           && <input
@@ -41,7 +41,6 @@ const ProfilePicture = ({ renderScreen, nameScreen, dataTest }) => {
 ProfilePicture.propTypes = {
   renderScreen: PropTypes.bool.isRequired,
   nameScreen: PropTypes.string.isRequired,
-  dataTest: PropTypes.string.isRequired,
 };
 
 export default ProfilePicture;
