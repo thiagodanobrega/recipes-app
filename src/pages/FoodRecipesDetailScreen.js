@@ -2,9 +2,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {
-  Player,
-} from 'video-react';
+// import {
+//   Player,
+// } from 'video-react';
 import Loading from '../components/Loading';
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
@@ -149,11 +149,11 @@ const FoodRecipesDetailScreen = () => {
         </p>
       </section>
 
-      <Player
+      {/* <Player
         playsInline
         poster="/assets/poster.png"
         src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-      />
+      /> */}
 
       <button
         className="mainFoodRecipesDetailScreen"
