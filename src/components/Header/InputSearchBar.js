@@ -5,6 +5,7 @@ import searchIcon from '../../images/searchIcon.svg';
 
 const InputSearchBar = () => {
   const {
+    foodsName,
     setFoodsIngredients,
     setFoodsName,
     setFoodsFirstLetter,
@@ -49,6 +50,7 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(FOODS_NAME_MEAL_API);
       const nameData = await response.json();
+      console.log(nameData.meals);
       setFoodsName(nameData.meals);
     })();
   }, [FOODS_NAME_MEAL_API, setFoodsName]);
@@ -58,7 +60,6 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(FOODS_FIRST_LETTER_MEALS_API);
       const firstLetterData = await response.json();
-      console.log(firstLetterData);
       setFoodsFirstLetter(firstLetterData.meals);
     })();
   }, [FOODS_FIRST_LETTER_MEALS_API, setFoodsFirstLetter]);
@@ -88,7 +89,7 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(DRINKS_INGREDIENT_API);
       const drinksIngredientsData = await response.json();
-      console.log(drinksIngredientsData);
+      console.log(drinksIngredientsData.drinks);
       setDrinksIngredients(drinksIngredientsData);
     })();
   }, [DRINKS_INGREDIENT_API, setDrinksIngredients, searchForIngredient]);
@@ -117,8 +118,6 @@ const InputSearchBar = () => {
     setShowSearch(!showSearch);
   };
 
-  const onChangeInputText = ({ target: { value } }) => setInputText(value);
-
   const submitRequest = (e) => {
     e.preventDefault();
     // verificaçao da digitação
@@ -127,8 +126,11 @@ const InputSearchBar = () => {
       global.alert('Your search must have only 1 (one) character');
       return setSearchForFirst('');
     }
-    //  chamada API
-    if (searchForName) setCallApi(inputText);
+    //  chamada API e redireciona
+    if (searchForName) {
+      setCallApi(inputText);
+      console.log(foodsName);
+    }
     if (searchForFirst) setCallApi(inputText);
     if (searchForIngredient) setCallApi(inputText);
   };
@@ -149,7 +151,7 @@ const InputSearchBar = () => {
               type="text"
               name="searchInput"
               data-testid="search-input"
-              onChange={ onChangeInputText }
+              onChange={ ({ target: { value } }) => setInputText(value) }
             />
 
             <label htmlFor="ingredient">
