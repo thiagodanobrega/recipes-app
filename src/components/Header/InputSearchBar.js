@@ -89,7 +89,7 @@ const InputSearchBar = () => {
       const response = await fetch(DRINKS_INGREDIENT_API);
       const drinksIngredientsData = await response.json();
       console.log(drinksIngredientsData);
-      setDrinksIngredients(drinksIngredientsData.meals);
+      setDrinksIngredients(drinksIngredientsData);
     })();
   }, [DRINKS_INGREDIENT_API, setDrinksIngredients, searchForIngredient]);
 
@@ -98,7 +98,7 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(DRINKS_NAME_API);
       const drinksNameData = await response.json();
-      setDrinksNameMeals(drinksNameData.meals);
+      setDrinksNameMeals(drinksNameData);
     })();
   }, [DRINKS_NAME_API, setDrinksNameMeals]);
 
@@ -107,7 +107,7 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(DRINKS_FIRST_LETTER_API);
       const drinksfirstLetterData = await response.json();
-      setDrinksFirstLetter(drinksfirstLetterData.meals);
+      setDrinksFirstLetter(drinksfirstLetterData);
     })();
   }, [DRINKS_FIRST_LETTER_API, setDrinksFirstLetter]);
 
