@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../components/header';
+import Header from '../components/Header/Header';
 import useLocalStorage from '../hooks/useLocalStorage';
 import CardDoneAndFavorites from '../components/CardDoneAndFavorites';
 import FilterButtonsDoneAndFavorites from '../components/FilterButtonsDoneAndFavorites';
@@ -27,8 +27,13 @@ function DoneRecipesScreen() {
 
   return (
     <>
-      <Header />
-      <h1 data-testid="page-title">Favorite Recipes</h1>
+      <div>
+        <Header
+          renderScreen={ false }
+          nameScreen="Favorite Recipes"
+        />
+      </div>
+
       <FilterButtonsDoneAndFavorites
         setTypeFilter={ setTypeFilter }
       />

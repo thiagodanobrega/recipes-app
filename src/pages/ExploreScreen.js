@@ -1,16 +1,16 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from '../components/header';
 import BottomMenu from '../components/BottomMenu';
+import Header from '../components/Header/Header';
 
 function ExploreScreen() {
   const history = useHistory();
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">
-        Explore
-      </h1>
+      <Header
+        renderScreen={ false }
+        nameScreen="Explore"
+      />
       <button
         type="button"
         data-testid="explore-foods"
@@ -26,7 +26,6 @@ function ExploreScreen() {
       >
         Explore Drinks
       </button>
-
       <BottomMenu />
     </div>
   );
