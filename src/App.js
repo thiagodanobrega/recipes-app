@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
-import Provider from './context/myProvider';
 import LoginScreen from './pages/LoginScreen';
 import FoodRecipeScreen from './pages/FoodRecipeScreen';
 import DinkRecipeScreen from './pages/DrinkRecipeScreen';
@@ -19,11 +18,13 @@ import ProfileScreen from './pages/ProfileScreen';
 import DoneRecipesScreen from './pages/DoneRecipesScreen';
 import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
 import ProviderFoods from './context/contextFoodRecipe/ProviderFoods';
+import ProviderDrinks from './context/contextDrinks/ProviderDrinks';
 
 function App() {
   return (
     <ProviderFoods>
-      <Provider>
+      <ProviderDrinks>
+
         <Switch>
           <Route exact path="/" component={ LoginScreen } />
           <Route exact path="/foods" component={ FoodRecipeScreen } />
@@ -62,7 +63,8 @@ function App() {
           <Route path="/done-recipes" component={ DoneRecipesScreen } />
           <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
         </Switch>
-      </Provider>
+
+      </ProviderDrinks>
     </ProviderFoods>
   );
 }

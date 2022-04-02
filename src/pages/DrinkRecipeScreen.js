@@ -6,9 +6,9 @@ import InputSearchBar from '../components/Header/InputSearchBar';
 function DrinksRecipeScreen() {
   return (
     <div>
+      <ProfilePicture />
       <h1 data-testid="page-title">Drinks</h1>
       <InputSearchBar />
-      <ProfilePicture />
       <BottomMenu />
     </div>
   );
