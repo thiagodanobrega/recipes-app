@@ -22,8 +22,8 @@ import ProviderFoods from './context/contextFoodRecipe/ProviderFoods';
 
 function App() {
   return (
-    <Provider>
-      <ProviderFoods>
+    <ProviderFoods>
+      <Provider>
         <Switch>
           <Route exact path="/" component={ LoginScreen } />
           <Route exact path="/foods" component={ FoodRecipeScreen } />
@@ -62,8 +62,8 @@ function App() {
           <Route path="/done-recipes" component={ DoneRecipesScreen } />
           <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
         </Switch>
-      </ProviderFoods>
-    </Provider>
+      </Provider>
+    </ProviderFoods>
   );
 }
 
