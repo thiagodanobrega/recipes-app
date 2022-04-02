@@ -9,6 +9,12 @@ function FoodRecipeScreen() {
         renderScreen
         nameScreen="Foods"
       />
+      <Card
+        name={ obj.strMeal }
+        image={ obj.strMealThumb }
+        typeCard="recipe-card"
+        index={ index }
+      />
       <BottomMenu />
     </div>
   );
