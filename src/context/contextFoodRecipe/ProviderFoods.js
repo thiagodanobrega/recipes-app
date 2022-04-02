@@ -3,26 +3,26 @@ import React, { useState } from 'react';
 import ContextFoodRecipe from './contextFoodRecipe';
 
 function ProviderFoods({ children }) {
-  // estado das requisições
-  const [ingredients, setIngredients] = useState([]);
-  const [nameMeals, setNameMeals] = useState([]);
-  const [firstLetter, setFirstLetter] = useState([]);
+  // estado das requisições FOODS
+  const [foodsIngredients, setFoodsIngredients] = useState([]);
+  const [foodsName, setFoodsName] = useState([]);
+  const [foodsFirstLetter, setFoodsFirstLetter] = useState([]);
   /*
   const [nationalities, setNationalities] = useState([]);
   const [categories, setCategories] = useState([]);
   */
-  // estado do texto do user
-  const [userTypedText, setUserTypedText] = useState('');
+
+  const [drinksIngredients, setDrinksIngredients] = useState([]);
+  const [drinksNameMeals, setDrinksNameMeals] = useState([]);
+  const [drinksFirstLetter, setDrinksFirstLetterMeals] = useState([]);
 
   const contextValue = {
-    ingredients,
-    setIngredients,
-    nameMeals,
-    setNameMeals,
-    firstLetter,
-    setFirstLetter,
-    userTypedText,
-    setUserTypedText,
+    foodsIngredients,
+    setFoodsIngredients,
+    foodsName,
+    setFoodsName,
+    foodsFirstLetter,
+    setFoodsFirstLetter,
 
     /*
     nationalities,
@@ -30,7 +30,12 @@ function ProviderFoods({ children }) {
     categories,
     setCategories,
     , */
-
+    drinksIngredients,
+    setDrinksIngredients,
+    drinksNameMeals,
+    setDrinksNameMeals,
+    drinksFirstLetter,
+    setDrinksFirstLetterMeals,
   };
   return (
     <ContextFoodRecipe.Provider value={ contextValue }>
