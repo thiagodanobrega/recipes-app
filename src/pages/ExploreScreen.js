@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
 import BottomMenu from '../components/BottomMenu';
 import ProfilePicture from '../components/Header/ProfilePicture';
 

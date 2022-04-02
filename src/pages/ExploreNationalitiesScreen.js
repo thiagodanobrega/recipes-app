@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
-import InputText from '../components/Header/InputText';
+import InputSearchBar from '../components/Header/InputSearchBar';
 import ProfilePicture from '../components/Header/ProfilePicture';
 
 function ExploreNationalitiesScreen() {
@@ -8,7 +8,7 @@ function ExploreNationalitiesScreen() {
     <div>
       <h1 data-testid="page-title">Explore Nationalities</h1>
       <ProfilePicture />
-      <InputText />
+      <InputSearchBar />
       <BottomMenu />
     </div>
   );

@@ -1,4 +1,5 @@
-import React, { useHistory } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import ProfilePicture from '../components/Header/ProfilePicture';
 import useFetch from '../hooks/useFetch';
@@ -16,7 +17,6 @@ function FoodExploreScreen() {
     <div>
       <h1 data-testid="page-title">Explore Foods</h1>
       <ProfilePicture />
-      <h1 data-testid="page-title">Explore Foods</h1>
       <button
         type="button"
         data-testid="explore-by-ingredient"
