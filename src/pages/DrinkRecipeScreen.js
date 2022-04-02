@@ -1,14 +1,15 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
-import ProfilePicture from '../components/Header/ProfilePicture';
-import InputSearchBar from '../components/Header/InputSearchBar';
+import Header from '../components/Header/Header';
 
 function DrinksRecipeScreen() {
   return (
     <div>
-      <ProfilePicture />
-      <h1 data-testid="page-title">Drinks</h1>
-      <InputSearchBar />
+      <Header
+        renderScreen
+        nameScreen="Drinks"
+        dataTest="page-title"
+      />
       <BottomMenu />
     </div>
   );
