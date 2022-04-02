@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
-import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe';
+import React, { useContext, useEffect, useState } from 'react';
 import contextDrinks from '../../context/contextDrinks/contextDrinks';
+import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe';
 
 const InputSearchBar = () => {
   // estado local do usuario
@@ -28,7 +28,7 @@ const InputSearchBar = () => {
   const FOODS_FIRST_LETTER_MEALS_API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${callApi}`;
   // ----------------------------------------------
   // ----------------------------------------------
-  console.log(callApi);
+  // console.log(callApi);
   const DRINKS_INGREDIENT_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${callApi}`;
   const DRINKS_NAME_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${callApi}`;
   const DRINKS_FIRST_LETTER_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${callApi}`;
@@ -48,7 +48,7 @@ const InputSearchBar = () => {
     (async () => {
       const response = await fetch(FOODS_NAME_MEAL_API);
       const nameData = await response.json();
-      console.log(nameData.meals);
+      // console.log(nameData.meals);
       setFoodsName(nameData.meals);
     })();
   }, [FOODS_NAME_MEAL_API, setFoodsName]);
