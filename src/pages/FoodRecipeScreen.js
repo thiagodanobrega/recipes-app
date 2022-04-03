@@ -5,6 +5,7 @@ import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import Card from '../components/Card';
+import CategoriesButtons from '../components/CategoriesButtons';
 // import Loading from '../components/loading';
 
 const INITIAL_RENDER = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -29,6 +30,8 @@ function FoodRecipeScreen() {
     if (!foods) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setRenderTest(foodsInitalRender);
+    } else if (foods.length === 1) {
+      return <Link to={ `/foods/${foods[0].idMeal}` } />;
     } else if (foods.length > 1) {
       setRenderTest(foods);
     } else {
@@ -45,35 +48,28 @@ function FoodRecipeScreen() {
 
     <div>
 
-      {
-        foods.length === 1
-          ? <Link to={ `/foods/${foods[0].idMeal}` } />
-          : (
-            <>
-              <Header
-                renderScreen
-                nameScreen="Foods"
-              />
+      <Header
+        renderScreen
+        nameScreen="Foods"
+      />
+      <CategoriesButtons />
 
-              <section>
-                {renderTest.slice(0, MAX_INGREDIENTS).map((meal, index) => (
-                  <button
-                    type="button"
-                    key={ index }
-                  >
-                    <Card
-                      name={ meal.strMeal }
-                      image={ meal.strMealThumb }
-                      typeCard="recipe-card"
-                      index={ index }
-                    />
-                  </button>
-                ))}
-              </section>
-              <BottomMenu />
-            </>
-          )
-      }
+      <section>
+        {renderTest.slice(0, MAX_INGREDIENTS).map((meal, index) => (
+          <button
+            type="button"
+            key={ index }
+          >
+            <Card
+              name={ meal.strMeal }
+              image={ meal.strMealThumb }
+              typeCard="recipe-card"
+              index={ index }
+            />
+          </button>
+        ))}
+      </section>
+      <BottomMenu />
 
     </div>
   );
