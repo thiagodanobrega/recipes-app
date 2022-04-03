@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { /* useHistory, */ /* Redirect, */ Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import { Redirect } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
@@ -10,7 +10,7 @@ import Card from '../components/Card';
 const INITIAL_RENDER = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function FoodRecipeScreen() {
-  // const { history } = useHistory();
+  const history = useHistory();
   const { foods } = useContext(contextFoodRecipe);
   const [foodsInitalRender, setFoodsScreen] = useState([]);
   const [renderTest, setRenderTest] = useState([]);
@@ -30,7 +30,7 @@ function FoodRecipeScreen() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setRenderTest(foodsInitalRender);
     } else if (foods.length === 1) {
-      return <Link to={ `/foods/${foods[0].idMeal}` } />;
+      return history.push(`/foods/${foods[0].idMeal}`);
     } else if (foods.length > 1) {
       setRenderTest(foods);
     } else {
