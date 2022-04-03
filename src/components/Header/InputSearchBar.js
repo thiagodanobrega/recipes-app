@@ -5,15 +5,14 @@ import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe
 
 const InputSearchBar = () => {
   const {
-    setUserChoice,
+    setUserChoiceFoods,
   } = useContext(contextFoodRecipe);
 
-  const {
-    setUserChoice: setUserChoiceDrinks, // renomeia função que seta estado globla drinks
+  const { setUserChoiceDrinks, // renomeia função que seta estado globla drinks
   } = useContext(contextDrinks);
   // estado local do usuario
-  const [userSearchText, setUserSearchText] = useState('');
-  const [userSearchType, setUserSearchType] = useState('');
+  const [userSearchText, setUserSearchText] = useState(''); // TEXTO
+  const [userSearchType, setUserSearchType] = useState(''); // TIPO DE PESQUISA('name', 'firstLetter', 'ingredient')
   // -------- FUNÇÕES DOS INPUTS ----------
 
   const submitRequest = (event) => {
@@ -22,17 +21,20 @@ const InputSearchBar = () => {
     const verifyLetter = [...userSearchText];
     if (verifyLetter.length !== 1 && userSearchType === 'firstLetter') {
       global.alert('Your search must have only 1 (one) character');
-      return setUserSearchType('');
+      setUserSearchType('');
     }
     //  envia para o estado global
-    setUserChoice({
+    setUserChoiceFoods((previousState) => ({
+      ...previousState,
+      typeSearch: userSearchType, // tipo
+      textSearch: userSearchText, // texto
+    }));
+    setUserChoiceDrinks((prevState) => ({
+      ...prevState,
       typeSearch: userSearchType,
       textSearch: userSearchText,
-    });
-    setUserChoiceDrinks({
-      typeSearch: userSearchType,
-      textSearch: userSearchText,
-    });
+
+    }));
   };
 
   return (
