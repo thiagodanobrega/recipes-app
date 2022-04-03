@@ -45,7 +45,7 @@ function ProviderDrinks({ children }) {
       textSearch: '',
     });
   }
-  const { data } = useFetch(callApi);
+  const { data, isLoading } = useFetch(callApi);
 
   useEffect(() => {
     if (data) { setDrinks(data.drinks); }
@@ -56,6 +56,7 @@ function ProviderDrinks({ children }) {
     setDrinks,
     userChoice,
     setUserChoice,
+    isLoading,
   };
 
   return (
