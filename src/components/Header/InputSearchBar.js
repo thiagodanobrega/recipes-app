@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import contextDrinks from '../../context/contextDrinks/contextDrinks';
 import contextFoodRecipe from '../../context/contextFoodRecipe/contextFoodRecipe';
 /* import contextDrinks from '../../context/contextDrinks/contextDrinks'; */
 
@@ -7,6 +8,9 @@ const InputSearchBar = () => {
     setUserChoice,
   } = useContext(contextFoodRecipe);
 
+  const {
+    setUserChoice: setUserChoiceDrinks, // renomeia função que seta estado globla drinks
+  } = useContext(contextDrinks);
   // estado local do usuario
   const [userSearchText, setUserSearchText] = useState('');
   const [userSearchType, setUserSearchType] = useState('');
@@ -22,6 +26,10 @@ const InputSearchBar = () => {
     }
     //  envia para o estado global
     setUserChoice({
+      typeSearch: userSearchType,
+      textSearch: userSearchText,
+    });
+    setUserChoiceDrinks({
       typeSearch: userSearchType,
       textSearch: userSearchText,
     });
