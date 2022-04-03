@@ -7,40 +7,32 @@ import contextDrinks from '../context/contextDrinks/contextDrinks';
 import Card from '../components/Card';
 import Loading from '../components/Loading';
 
-const INITIAL_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const MAX_RECIPES = 12;
 
 function DrinksRecipeScreen() {
   const history = useHistory();
-  const { drinks, isLoading } = useContext(contextDrinks);
-  const [drinksInitialList, setDrinksInitialList] = useState([]);
-  const [drinksList, setDrinksList] = useState([]);
-  const MAX_RECIPES = 12;
+  const { allDrinksData, drinks, isLoading } = useContext(contextDrinks);// chegam os dados do provider para renderizar.
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(INITIAL_ENDPOINT);
-      const drinksData = await response.json();
-      setDrinksInitialList(drinksData.drinks);
-    })();
-  }, []);
+  const [drinksList, setDrinksList] = useState([]);// seta qual tipo de dado vai rederizar
 
+  // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
   const verifyRender = () => {
     if (!drinks) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      setDrinksList(drinksInitialList);
+      setDrinksList(allDrinksData);
     } else if (drinks.length === 1) {
       return history.push(`/drinks/${drinks[0].idDrink}`);
     } else if (drinks.length > 1) {
       setDrinksList(drinks);
     } else {
-      setDrinksList(drinksInitialList);
+      setDrinksList(allDrinksData);
     }
   };
 
   useEffect(() => {
     verifyRender();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [drinks, drinksInitialList]);
+  }, [drinks, allDrinksData]);
 
   return (
     <>
