@@ -49,7 +49,7 @@ function DrinksRecipeScreen() {
         renderScreen
         nameScreen="Drinks"
       />
-
+      <CategoriesButtons />
       { isLoading ? (<Loading />)
         : (
           <section>

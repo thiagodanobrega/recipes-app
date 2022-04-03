@@ -5,6 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import Card from '../components/Card';
 import Loading from '../components/Loading';
+import CategoriesButtons from '../components/CategoriesButtons';
 
 const INITIAL_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
@@ -51,7 +52,7 @@ function FoodRecipeScreen() {
         renderScreen
         nameScreen="Foods"
       />
-
+      <CategoriesButtons />
       { isLoading ? (<Loading />)
         : (
           <section>
