@@ -7,42 +7,42 @@ function ProviderFoods({ children }) {
   const USER_INITIAL_STATE = {
     typeSearch: '',
     textSearch: '',
+    categoryFoods: '',
   };
   // estado das requisições FOODS
-  const [foods, setFoods] = useState([]);
+  const [allFoodsData, setAllFoodsData] = useState([]); // todas comidas renderizadas por nome
+  const [error, setError] = useState('');
+  const [foods, setFoods] = useState([]); // lista de comidas escolhidas pelo usuário
 
-  // estado das escolhas do usuário tipo e texto
-  const [userChoice, setUserChoice] = useState(USER_INITIAL_STATE);
+  // estado das escolhas do usuário tipo de pesquisa, texto do input e categoria
+  const [userChoiceFoods, setUserChoiceFoods] = useState(USER_INITIAL_STATE);
 
-  // chamada api
+  // callAPi chamada api de acordo com o tipo de pesquisa do usuario
   const [callApi, setCallApi] = useState('');
 
   // ---------------------ENDPOINTS--------------------------------
-  if (userChoice.typeSearch === 'ingredient') {
-    const FOODS_INGREDIENT_API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${userChoice.textSearch}`;
+  const { typeSearch, textSearch, categoryFoods } = userChoiceFoods;
+  if (categoryFoods) {
+    const CATEGORY_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryFoods}`;
+    setCallApi(CATEGORY_API);
+    setUserChoiceFoods(USER_INITIAL_STATE);
+  }
+  if (typeSearch === 'ingredient') {
+    const FOODS_INGREDIENT_API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${textSearch}`;
     setCallApi(FOODS_INGREDIENT_API);
-    setUserChoice({
-      typeSearch: '',
-      textSearch: '',
-    });
+    setUserChoiceFoods(USER_INITIAL_STATE);
   }
 
-  if (userChoice.typeSearch === 'name') {
-    const FOODS_NAME_API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${userChoice.textSearch}`;
+  if (typeSearch === 'name') {
+    const FOODS_NAME_API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${textSearch}`;
     setCallApi(FOODS_NAME_API);
-    setUserChoice({
-      typeSearch: '',
-      textSearch: '',
-    });
+    setUserChoiceFoods(USER_INITIAL_STATE);
   }
 
-  if (userChoice.typeSearch === 'firstLetter') {
-    const FOODS_FIRST_LETTERS_API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${userChoice.textSearch}`;
+  if (typeSearch === 'firstLetter') {
+    const FOODS_FIRST_LETTERS_API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${textSearch}`;
     setCallApi(FOODS_FIRST_LETTERS_API);
-    setUserChoice({
-      typeSearch: '',
-      textSearch: '',
-    });
+    setUserChoiceFoods(USER_INITIAL_STATE);
   }
 
   // ----------------------------------------------
@@ -53,9 +53,23 @@ function ProviderFoods({ children }) {
     if (data) { setFoods(data.meals); }
   }, [data]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+        const dataAPI = await response.json();
+        setAllFoodsData(dataAPI.meals);
+      } catch (erro) {
+        setError(erro.message);
+      }
+    })();
+  }, []);
+
   const contextValue = {
-    userChoice,
-    setUserChoice,
+    allFoodsData,
+    error,
+    userChoiceFoods,
+    setUserChoiceFoods,
     foods,
     setFoods,
     isLoading,
