@@ -1,5 +1,6 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
+import CategoriesButtons from '../components/CategoriesButtons';
 import Header from '../components/Header/Header';
 
 function DrinksRecipeScreen() {
@@ -9,6 +10,7 @@ function DrinksRecipeScreen() {
         renderScreen
         nameScreen="Drinks"
       />
+      <CategoriesButtons />
       <BottomMenu />
     </div>
   );
