@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { /* useHistory, */ /* Redirect, */ Link } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
@@ -9,10 +10,10 @@ import Card from '../components/Card';
 const INITIAL_RENDER = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 function FoodRecipeScreen() {
+  // const { history } = useHistory();
   const { foods } = useContext(contextFoodRecipe);
-  const history = useHistory();
   const [foodsInitalRender, setFoodsScreen] = useState([]);
-  console.log(foods);
+  const [renderTest, setRenderTest] = useState([]);
   const MAX_INGREDIENTS = 12;
 
   useEffect(() => {
@@ -25,26 +26,34 @@ function FoodRecipeScreen() {
   // idMeal
 
   const verifyRender = () => {
-    if (foods.length === 1) {
-      history.push(`/foods/${foods[0].idMeal}`);
-    }
-    if (foods.length > 1) return foods;
-    if (foods.length === 0) return foodsInitalRender;
-    if (foods === null) {
+    if (!foods) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      return foodsInitalRender;
+      setRenderTest(foodsInitalRender);
+    } else if (foods.length === 1) {
+      return <Link to={ `/foods/${foods[0].idMeal}` } />;
+    } else if (foods.length > 1) {
+      setRenderTest(foods);
+    } else {
+      setRenderTest(foodsInitalRender);
     }
   };
 
+  useEffect(() => {
+    verifyRender();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [foods, foodsInitalRender]);
+
   return (
+
     <div>
+
       <Header
         renderScreen
         nameScreen="Foods"
       />
 
       <section>
-        {verifyRender().slice(0, MAX_INGREDIENTS).map((meal, index) => (
+        {renderTest.slice(0, MAX_INGREDIENTS).map((meal, index) => (
           <button
             type="button"
             key={ index }
@@ -59,6 +68,7 @@ function FoodRecipeScreen() {
         ))}
       </section>
       <BottomMenu />
+
     </div>
   );
 }
