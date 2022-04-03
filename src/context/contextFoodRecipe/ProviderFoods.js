@@ -47,7 +47,7 @@ function ProviderFoods({ children }) {
 
   // ----------------------------------------------
 
-  const { data } = useFetch(callApi);
+  const { data, isLoading } = useFetch(callApi);
 
   useEffect(() => {
     if (data) { setFoods(data.meals); }
@@ -58,6 +58,7 @@ function ProviderFoods({ children }) {
     setUserChoice,
     foods,
     setFoods,
+    isLoading,
   };
   return (
     <ContextFoodRecipe.Provider value={ contextValue }>
