@@ -7,44 +7,32 @@ import Card from '../components/Card';
 import Loading from '../components/Loading';
 import CategoriesButtons from '../components/CategoriesButtons';
 
-const INITIAL_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const MAX_RECIPES = 12;
 
 function FoodRecipeScreen() {
   const history = useHistory();
-  const { foods, isLoading } = useContext(contextFoodRecipe);
-  const [foodsInitialList, setFoodsInitialList] = useState([]);
-  const [foodsList, setFoodsList] = useState([]);
-  // const [isLoadingInitial, setIsLoadingInitial] = useState(false);
-  const MAX_RECIPES = 12;
+  const { allFoodsData, foods, isLoading } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
+  const [foodsList, setFoodsList] = useState([]); // seta qual tipo de dado vai rederizar
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(INITIAL_ENDPOINT);
-      const mealsData = await response.json();
-      setFoodsInitialList(mealsData.meals);
-    })();
-  }, []);
-
+  // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
   const verifyRender = () => {
     if (!foods) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      setFoodsList(foodsInitialList);
+      setFoodsList(allFoodsData);
     } else if (foods.length === 1) {
       return history.push(`/foods/${foods[0].idMeal}`);
     } else if (foods.length > 1) {
       setFoodsList(foods);
     } else {
-      setFoodsList(foodsInitialList);
+      setFoodsList(allFoodsData);
     }
   };
 
   useEffect(() => {
     verifyRender();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [foods, foodsInitialList]);
-  // if (isLoadingInitial) {
-  //   return <Loading />;
-  // }
+  }, [foods, allFoodsData]);
+
   return (
     <div>
 
