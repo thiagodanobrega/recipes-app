@@ -10,6 +10,30 @@ function FoodProgressRecipesScreen() {
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data } = useFetch(endPointFood);
 
+  const setLocalStorage = (event) => {
+    const ingredients = event.target.parentElement.innerText;
+
+    if (localStorage.getItem('inProgressRecipes')) {
+      const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
+
+      if (getStorage.some((element) => ingredients === element)) {
+        const newLocalStorage = getStorage
+          .filter((element) => element !== ingredients);
+
+        const test = localStorage.setItem('inProgressRecipes', JSON
+          .stringify({ meals: { [id]: newLocalStorage } }));
+        console.log(newLocalStorage);
+        console.log(test);
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
+      }
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(
+        { meals: { [id]: [ingredients] } },
+      ));
+    }
+  };
 
   const changeTargetStyle = (event) => {
     if (event.target.checked) {
