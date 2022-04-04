@@ -1,4 +1,5 @@
 import React, {
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -6,15 +7,18 @@ import React, {
 //   Player,
 // } from 'video-react';
 import Loading from '../components/Loading';
+import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
 import Favorite from '../images/whiteHeartIcon.svg';
 import '../styles/pages/FoodRecipesDetailScreen.css';
 
 const FoodRecipesDetailScreen = () => {
+  const { userChoiceFoods: { recipeID },
+  } = useContext(contextFoodRecipe);
   const [completeList, setCompleteList] = useState([]);
-  const RECIPE_ID = '52772';
-  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${RECIPE_ID}`;
+  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+
   const {
     data,
     isLoading,
@@ -54,22 +58,21 @@ const FoodRecipesDetailScreen = () => {
   return (
     <main
       className="mainFoodRecipesDetailScreen"
+      data-testid="0-recipe-card"
     >
       <section
         className="mainFoodRecipesDetailScreen"
       >
-        <figure
+
+        <input
           className="mainFoodRecipesDetailScreen"
-        >
-          <img
-            className="mainFoodRecipesDetailScreen"
-            data-testid="recipe-photo"
-            src={ strMealThumb }
-            alt="{strMeal}"
-            height={ 250 }
-            width={ 250 }
-          />
-        </figure>
+          type="image"
+          data-testid="recipe-photo"
+          src={ strMealThumb }
+          alt="{strMeal}"
+          height={ 250 }
+          width={ 250 }
+        />
 
         <div
           className="mainFoodRecipesDetailScreen"

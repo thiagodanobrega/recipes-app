@@ -13,6 +13,8 @@ function FoodRecipeScreen() {
   const history = useHistory();
   const {
     allFoodsData,
+    setIsOnlyThisRecipe,
+    setUserChoiceFoods,
     foods,
     isLoading,
   } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
@@ -24,6 +26,11 @@ function FoodRecipeScreen() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setFoodsList(allFoodsData);
     } else if (foods.length === 1) {
+      setIsOnlyThisRecipe(true);
+      setUserChoiceFoods((prevState) => ({
+        ...prevState,
+        recipeID: foods[0].idMeal,
+      }));
       return history.push(`/foods/${foods[0].idMeal}`);
     } else if (foods.length > 1) {
       setFoodsList(foods);
@@ -36,6 +43,15 @@ function FoodRecipeScreen() {
     verifyRender();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foods, allFoodsData]);
+
+  // ---- Função para redirecionar para tela de detalhes
+  const redirectOnClick = ({ target }) => {
+    setUserChoiceFoods((prevState) => ({
+      ...prevState,
+      recipeID: target.id,
+    }));
+    history.push(`/foods/${target.id}`);
+  };
 
   return (
     <div>
@@ -59,7 +75,7 @@ function FoodRecipeScreen() {
                   image={ meal.strMealThumb }
                   typeCard="recipe-card"
                   index={ index }
-                  funcOnClick={ () => history.push(`/foods/${meal.idMeal}`) }
+                  funcOnClick={ redirectOnClick }
                 />
               </div>
             ))}

@@ -8,7 +8,10 @@ function ProviderFoods({ children }) {
     typeSearch: '',
     textSearch: '',
     categoryFoods: '',
+    recipeID: '',
   };
+  // estado que  verifica se há só uma receita (para renderizar condicionalmente o data-testid)
+  const [isOnlyThisRecipe, setIsOnlyThisRecipe] = useState(false);
   // estado das requisições FOODS
   const [allFoodsData, setAllFoodsData] = useState([]); // todas comidas renderizadas por nome
   const [error, setError] = useState('');
@@ -21,7 +24,14 @@ function ProviderFoods({ children }) {
   const [callApi, setCallApi] = useState('');
 
   // ---------------------ENDPOINTS--------------------------------
-  const { typeSearch, textSearch, categoryFoods } = userChoiceFoods;
+  const { typeSearch, textSearch, categoryFoods /* , recipeID */ } = userChoiceFoods;
+
+  /*  if (recipeID) {
+    const RECIPEID_API = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+    setCallApi(RECIPEID_API);
+    setUserChoiceFoods(USER_INITIAL_STATE);
+  } */
+
   if (categoryFoods) {
     const CATEGORY_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryFoods}`;
     setCallApi(CATEGORY_API);
@@ -66,6 +76,8 @@ function ProviderFoods({ children }) {
   }, []);
 
   const contextValue = {
+    isOnlyThisRecipe,
+    setIsOnlyThisRecipe,
     allFoodsData,
     error,
     userChoiceFoods,
