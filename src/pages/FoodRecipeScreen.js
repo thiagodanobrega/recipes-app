@@ -1,54 +1,90 @@
-import React from 'react';
-import Header from '../components/header';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
-import FormHeader from '../components/formHeader';
+import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
+import Card from '../components/Card';
+import Loading from '../components/Loading';
+import CategoriesButtons from '../components/CategoriesButtons';
+
+const MAX_RECIPES = 12;
 
 function FoodRecipeScreen() {
+  const history = useHistory();
+  const {
+    allFoodsData,
+    setIsOnlyThisRecipe,
+    setUserChoiceFoods,
+    foods,
+    isLoading,
+  } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
+  const [foodsList, setFoodsList] = useState([]); // seta qual tipo de dado vai rederizar
+
+  // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
+  const verifyRender = () => {
+    if (!foods) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      setFoodsList(allFoodsData);
+    } else if (foods.length === 1) {
+      setIsOnlyThisRecipe(true);
+      setUserChoiceFoods((prevState) => ({
+        ...prevState,
+        recipeID: foods[0].idMeal,
+      }));
+      return history.push(`/foods/${foods[0].idMeal}`);
+    } else if (foods.length > 1) {
+      setFoodsList(foods);
+    } else {
+      setFoodsList(allFoodsData);
+    }
+  };
+
+  useEffect(() => {
+    verifyRender();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [foods, allFoodsData]);
+
+  // ---- Função para redirecionar para tela de detalhes
+  const redirectOnClick = ({ target }) => {
+    setUserChoiceFoods((prevState) => ({
+      ...prevState,
+      recipeID: target.id,
+    }));
+    history.push(`/foods/${target.id}`);
+  };
+
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Foods</h1>
-      <FormHeader />
-      <form>
-        <label htmlFor="ingredient">
-          Ingredient
-          <input
-            type="radio"
-            id="ingredient"
-            data-testid="ingredient-search-radio"
-            name="search"
-            value="ingredient"
-          />
-        </label>
-        <label htmlFor="name">
-          Name
-          <input
-            type="radio"
-            id="name"
-            data-testid="name-search-radio"
-            name="search"
-            value="name"
-          />
-        </label>
-        <label htmlFor="firstLetter">
-          First Letter
-          <input
-            type="radio"
-            id="firstLetter"
-            data-testid="first-letter-search-radio"
-            name="search"
-            value="firstLetter"
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-        >
-          Search
-        </button>
-      </form>
-      <p>Tela principal de receitas de comidas</p>
+
+      <Header
+        renderScreen
+        nameScreen="Foods"
+      />
+      <CategoriesButtons />
+      { isLoading ? (<Loading />)
+        : (
+          <section>
+            {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
+              <div
+                type="button"
+                key={ index }
+              >
+                <Card
+                  id={ meal.idMeal }
+                  name={ meal.strMeal }
+                  image={ meal.strMealThumb }
+                  typeCard="recipe-card"
+                  index={ index }
+                  funcOnClick={ redirectOnClick }
+                />
+              </div>
+            ))}
+          </section>
+
+        )}
+
       <BottomMenu />
+
     </div>
   );
 }

@@ -1,14 +1,23 @@
 import React from 'react';
-// import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import Share from '../images/shareIcon.svg';
+// import FavoriteWhite from '../images/whiteHeartIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function FoodProgressRecipesScreen() {
   const history = useHistory();
-  // const { id } = useParams();
-  const id = 52772;
+  const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data } = useFetch(endPointFood);
+
+  const location = useLocation();
+
+  const copyToClipboard = () => {
+    copy(location.pathname);
+    global.alert('Link copied!');
+  };
 
   const setLocalStorage = (event) => {
     const ingredients = event.target.parentElement.innerText;
@@ -84,8 +93,16 @@ function FoodProgressRecipesScreen() {
         src={ data.meals[0].strMealThumb }
         alt="imagem da receita"
       />
-      <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <input
+        type="image"
+        data-testid="share-btn"
+        alt="Share"
+        src={ Share }
+        height={ 50 }
+        width={ 50 }
+        onClick={ () => copyToClipboard() }
+      />
       <h1 data-testid="recipe-title">{ data.meals[0].strMeal }</h1>
       <p data-testid="recipe-category">{ data.meals[0].strCategory }</p>
       <h3>Ingredientes:</h3>

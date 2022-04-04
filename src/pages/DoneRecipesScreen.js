@@ -1,12 +1,41 @@
-import React from 'react';
-import Header from '../components/header';
+import React, { useState } from 'react';
+import Header from '../components/Header/Header';
+import useLocalStorage from '../hooks/useLocalStorage';
+import CardDoneAndFavorites from '../components/CardDoneAndFavorites';
+import FilterButtonsDoneAndFavorites from '../components/FilterButtonsDoneAndFavorites';
 
 function DoneRecipesScreen() {
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [value] = useLocalStorage('doneRecipes', []);
+
+  const filterDoneRecipes = () => {
+    if (typeFilter === 'food') {
+      return value.filter((recipe) => recipe.type === 'food');
+    }
+    if (typeFilter === 'drink') {
+      return value.filter((recipe) => recipe.type === 'drink');
+    }
+    return value;
+  };
+
   return (
-    <div>
+    <>
+      <div>
+        <Header
+          renderScreen={ false }
+          nameScreen="Done Recipes"
+        />
+      </div>
+
       <h1 data-testid="page-title">Done Recipes</h1>
-      <Header />
-    </div>
+      <FilterButtonsDoneAndFavorites
+        setTypeFilter={ setTypeFilter }
+      />
+      <CardDoneAndFavorites
+        filterRecipes={ filterDoneRecipes() }
+        typeScreen="done"
+      />
+    </>
   );
 }
 
