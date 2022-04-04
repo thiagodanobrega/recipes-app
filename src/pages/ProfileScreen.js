@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 function ProfileScreen() {
+  const history = useHistory();
   const [value] = useLocalStorage('user', '');
   return (
     <>
@@ -16,12 +18,14 @@ function ProfileScreen() {
         <button
           type="button"
           data-testid="profile-done-btn"
+          onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
         </button>
         <button
           type="button"
           data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/favorite-recipes') }
         >
           Favorite Recipes
         </button>
