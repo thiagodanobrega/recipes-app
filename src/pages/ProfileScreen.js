@@ -7,6 +7,10 @@ import useLocalStorage from '../hooks/useLocalStorage';
 function ProfileScreen() {
   const history = useHistory();
   const [value] = useLocalStorage('user', '');
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    history.push('/');
+  };
   return (
     <>
       <Header
@@ -32,6 +36,7 @@ function ProfileScreen() {
         <button
           type="button"
           data-testid="profile-logout-btn"
+          onClick={ clearLocalStorage }
         >
           Logout
         </button>
