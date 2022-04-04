@@ -11,7 +11,11 @@ const MAX_RECIPES = 12;
 
 function FoodRecipeScreen() {
   const history = useHistory();
-  const { allFoodsData, foods, isLoading } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
+  const {
+    allFoodsData,
+    foods,
+    isLoading,
+  } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
   const [foodsList, setFoodsList] = useState([]); // seta qual tipo de dado vai rederizar
 
   // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
@@ -45,17 +49,19 @@ function FoodRecipeScreen() {
         : (
           <section>
             {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
-              <button
+              <div
                 type="button"
                 key={ index }
               >
                 <Card
+                  id={ meal.idMeal }
                   name={ meal.strMeal }
                   image={ meal.strMealThumb }
                   typeCard="recipe-card"
                   index={ index }
+                  funcOnClick={ () => history.push(`/foods/${meal.idMeal}`) }
                 />
-              </button>
+              </div>
             ))}
           </section>
 
