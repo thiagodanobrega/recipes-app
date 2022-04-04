@@ -34,7 +34,7 @@ function ProviderDrinks({ children }) {
     setUserChoiceDrinks(USER_INITIAL_STATE);
   }
 
-  if (typeSearch === 'name') {
+  if (typeSearch === 'name' || categoryDrinks === 'All') {
     const DRINKS_NAME_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${textSearch}`;
     setCallApi(DRINKS_NAME_API);
     setUserChoiceDrinks(USER_INITIAL_STATE);
