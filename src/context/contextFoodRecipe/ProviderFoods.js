@@ -33,7 +33,7 @@ function ProviderFoods({ children }) {
     setUserChoiceFoods(USER_INITIAL_STATE);
   }
 
-  if (typeSearch === 'name') {
+  if (typeSearch === 'name' || categoryFoods === 'All') {
     const FOODS_NAME_API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${textSearch}`;
     setCallApi(FOODS_NAME_API);
     setUserChoiceFoods(USER_INITIAL_STATE);
