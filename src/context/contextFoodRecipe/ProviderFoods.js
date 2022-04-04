@@ -54,7 +54,7 @@ function ProviderFoods({ children }) {
   const { data, isLoading } = useFetch(callApi);
   useEffect(() => {
     if (data) { setFoods(data.meals); }
-  }, [data]);
+  }, [data, callApi]);
   /* const { data: categories } = useFetch(categoryByFoods);
   useEffect(() => {
     if (categories) { setOnlyCategoryFoods(categories.meals); }
@@ -74,6 +74,7 @@ function ProviderFoods({ children }) {
   }, []);
 
   const contextValue = {
+    setCallApi,
     isCategoryByFoods,
     setisCategoryByFoods,
     allFoodsData,
