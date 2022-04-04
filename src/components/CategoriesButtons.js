@@ -38,24 +38,30 @@ function CategoriesButtons() {
 
   const choosenCategoryOnClick = ({ target: value }) => {
     const { name } = value;
+
     if (pathname === '/foods') {
-      console.log(name);
       setUserChoiceFoods((prevState) => ({
         ...prevState,
-        categoryFoods: name.toLowerCase(),
+        categoryFoods: name,
       }));
     } else if (pathname === '/drinks') {
-      console.log('drinks');
-
       setUserChoiceDrinks((previousState) => ({
         ...previousState,
-        categoryDrinks: name.toLowerCase(),
+        categoryDrinks: name,
       }));
     }
   };
 
   return (
     <section>
+      <button
+        type="button"
+        name="All"
+        data-testid="All-category-filter"
+        onClick={ choosenCategoryOnClick }
+      >
+        All
+      </button>
       {
         categories.map((categoryButton) => (
           <button
