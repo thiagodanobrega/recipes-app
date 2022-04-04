@@ -10,6 +10,16 @@ function FoodProgressRecipesScreen() {
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data } = useFetch(endPointFood);
 
+
+  const changeTargetStyle = (event) => {
+    if (event.target.checked) {
+      event.target.parentElement.style = 'text-decoration-line: line-through';
+    } else {
+      event.target.parentElement.style = 'text-decoration-line: none';
+    }
+    setLocalStorage(event);
+  };
+
   const renderIngredients = () => {
     if (data) {
       const arrAllKeysWithValue = data.meals.map((element) => Object.keys(element)
