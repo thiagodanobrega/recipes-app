@@ -1,23 +1,26 @@
 import React, {
-  useContext,
+  /*  useContext, */
   useEffect,
   useState,
 } from 'react';
 // import {
 //   Player,
 // } from 'video-react';
+// import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
-import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
+// import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
+
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
 import Favorite from '../images/whiteHeartIcon.svg';
 import '../styles/pages/FoodRecipesDetailScreen.css';
 
 const FoodRecipesDetailScreen = () => {
-  const { userChoiceFoods: { recipeID },
-  } = useContext(contextFoodRecipe);
+  const { id } = useParams();
+
   const [completeList, setCompleteList] = useState([]);
-  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   const {
     data,

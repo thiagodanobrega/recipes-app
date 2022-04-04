@@ -10,12 +10,13 @@ function ProviderFoods({ children }) {
     categoryFoods: '',
     recipeID: '',
   };
-  // estado que  verifica se há só uma receita (para renderizar condicionalmente o data-testid)
-  const [isOnlyThisRecipe, setIsOnlyThisRecipe] = useState(false);
+
   // estado das requisições FOODS
   const [allFoodsData, setAllFoodsData] = useState([]); // todas comidas renderizadas por nome
   const [error, setError] = useState('');
   const [foods, setFoods] = useState([]); // lista de comidas escolhidas pelo usuário
+  const [isCategoryByFoods, setisCategoryByFoods] = useState(false);
+  // const [onlyCategoryFoods, setOnlyCategoryFoods] = useState([]);
 
   // estado das escolhas do usuário tipo de pesquisa, texto do input e categoria
   const [userChoiceFoods, setUserChoiceFoods] = useState(USER_INITIAL_STATE);
@@ -24,13 +25,7 @@ function ProviderFoods({ children }) {
   const [callApi, setCallApi] = useState('');
 
   // ---------------------ENDPOINTS--------------------------------
-  const { typeSearch, textSearch, categoryFoods /* , recipeID */ } = userChoiceFoods;
-
-  /*  if (recipeID) {
-    const RECIPEID_API = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
-    setCallApi(RECIPEID_API);
-    setUserChoiceFoods(USER_INITIAL_STATE);
-  } */
+  const { typeSearch, textSearch, categoryFoods } = userChoiceFoods;
 
   if (categoryFoods) {
     const CATEGORY_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryFoods}`;
@@ -55,14 +50,17 @@ function ProviderFoods({ children }) {
     setUserChoiceFoods(USER_INITIAL_STATE);
   }
 
-  // ----------------------------------------------
-
+  // ----------Chamada das API's-----------------------------------
   const { data, isLoading } = useFetch(callApi);
-
   useEffect(() => {
     if (data) { setFoods(data.meals); }
   }, [data]);
-
+  /* const { data: categories } = useFetch(categoryByFoods);
+  useEffect(() => {
+    if (categories) { setOnlyCategoryFoods(categories.meals); }
+  }, [categories]);
+ */
+  // ----- Chamadas da API Geral no DidMount ----------------------
   useEffect(() => {
     (async () => {
       try {
@@ -76,8 +74,8 @@ function ProviderFoods({ children }) {
   }, []);
 
   const contextValue = {
-    isOnlyThisRecipe,
-    setIsOnlyThisRecipe,
+    isCategoryByFoods,
+    setisCategoryByFoods,
     allFoodsData,
     error,
     userChoiceFoods,

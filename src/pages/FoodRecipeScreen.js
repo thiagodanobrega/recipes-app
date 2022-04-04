@@ -12,25 +12,21 @@ const MAX_RECIPES = 12;
 function FoodRecipeScreen() {
   const history = useHistory();
   const {
+    isCategoryByFoods,
     allFoodsData,
-    setIsOnlyThisRecipe,
     setUserChoiceFoods,
     foods,
     isLoading,
   } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
   const [foodsList, setFoodsList] = useState([]); // seta qual tipo de dado vai rederizar
-
   // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
   const verifyRender = () => {
     if (!foods) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setFoodsList(allFoodsData);
-    } else if (foods.length === 1) {
-      setIsOnlyThisRecipe(true);
-      setUserChoiceFoods((prevState) => ({
-        ...prevState,
-        recipeID: foods[0].idMeal,
-      }));
+    } else if (isCategoryByFoods && foods.length === 1) {
+      setFoodsList(foods);
+    } else if (foods.length === 1 && !isCategoryByFoods) {
       return history.push(`/foods/${foods[0].idMeal}`);
     } else if (foods.length > 1) {
       setFoodsList(foods);

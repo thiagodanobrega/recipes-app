@@ -11,7 +11,7 @@ const FIVE = 5;
 
 function CategoriesButtons() {
   const { setUserChoiceDrinks } = useContext(contextDrinks);
-  const { setUserChoiceFoods } = useContext(contextFoodRecipe);
+  const { setUserChoiceFoods, setisCategoryByFoods } = useContext(contextFoodRecipe);
 
   // estado das categorias da pagina foods
   const [categories, setCategories] = useState([]); // array de botao para ser renderizado de acordo com chamada API
@@ -44,6 +44,7 @@ function CategoriesButtons() {
         ...prevState,
         categoryFoods: name,
       }));
+      setisCategoryByFoods(true);
     } else if (pathname === '/drinks') {
       setUserChoiceDrinks((previousState) => ({
         ...previousState,
