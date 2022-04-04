@@ -46,17 +46,19 @@ function DrinksRecipeScreen() {
         : (
           <section>
             {drinksList.slice(0, MAX_RECIPES).map((drink, index) => (
-              <button
+              <div
                 type="button"
                 key={ index }
               >
                 <Card
+                  id={ drink.idDrink }
                   name={ drink.strDrink }
                   image={ drink.strDrinkThumb }
                   typeCard="recipe-card"
                   index={ index }
+                  funcOnClick={ () => history.push(`/drinks/${drink.idDrink}`) }
                 />
-              </button>
+              </div>
             ))}
           </section>
         )}
