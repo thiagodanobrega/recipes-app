@@ -55,7 +55,7 @@ const FoodRecipesDetailScreen = () => {
             src={ FavoriteWhite }
             height={ 50 }
             width={ 50 }
-            onClick={ () => saveFavoriteRecipe() }
+            // onClick={ () => saveFavoriteRecipe() }
           />
 
           <ShareButton />
@@ -72,7 +72,7 @@ const FoodRecipesDetailScreen = () => {
         <ul>
           {
             renderIngredientsFoods(data).map((item, index) => (
-              <li key={ index }>
+              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
                 {item}
               </li>
             ))
@@ -94,10 +94,11 @@ const FoodRecipesDetailScreen = () => {
 
       <section>
         <h2> Recommended </h2>
-        <div> RECOMENDA </div>
+        <div data-testid="recomendation-card"> RECOMENDA </div>
       </section>
 
       <button
+        id="startRecipe"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }

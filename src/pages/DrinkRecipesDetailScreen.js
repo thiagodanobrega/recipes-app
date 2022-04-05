@@ -6,7 +6,7 @@ import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
 import FavoriteWhite from '../images/whiteHeartIcon.svg';
 // import FavoriteBlack from '../images/whiteHeartIcon.svg';
-import '../styles/pages/FoodRecipesDetailScreen.css';
+import '../styles/pages/DrinkRecipesDetailScreen.css';
 
 const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
@@ -51,7 +51,7 @@ const DrinkRecipesDetailScreen = () => {
             src={ FavoriteWhite }
             height={ 50 }
             width={ 50 }
-            onClick={ () => saveFavoriteRecipe() }
+            // onClick={ () => saveFavoriteRecipe() }
           />
           <ShareButton />
         </div>
@@ -67,7 +67,7 @@ const DrinkRecipesDetailScreen = () => {
         <ul>
           {
             renderIngredientsDrinks(data).map((item, index) => (
-              <li key={ index }>
+              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
                 {item}
               </li>
             ))
@@ -84,10 +84,11 @@ const DrinkRecipesDetailScreen = () => {
 
       <section>
         <h2> Recommended </h2>
-        <div> RECOMENDA </div>
+        <div data-testid="recomendation-card"> RECOMENDA </div>
       </section>
 
       <button
+        id="startRecipe"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
