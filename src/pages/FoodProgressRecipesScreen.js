@@ -1,12 +1,10 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import FavoriteWhite from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import renderIngredients from '../helpers/listIngredientsAndMeasures';
 import useFetch from '../hooks/useFetch';
-import Share from '../images/shareIcon.svg';
-
-const copy = require('clipboard-copy');
+import ShareButton from '../components/ShareButton';
 
 function FoodProgressRecipesScreen() {
   // const [enabledButton, setEnabledButton] = useState(true);
@@ -14,12 +12,6 @@ function FoodProgressRecipesScreen() {
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
-
-  const location = useLocation();
-  const copyToClipboard = () => {
-    copy(location.pathname);
-    global.alert('Link copied!');
-  };
 
   const setLocalStorage = (event) => {
     const ingredients = event.target.parentElement.innerText;
@@ -76,15 +68,7 @@ function FoodProgressRecipesScreen() {
 
       <button type="button" data-testid="favorite-btn">Favoritar</button>
 
-      <input
-        type="image"
-        data-testid="share-btn"
-        alt="Share"
-        src={ Share }
-        height={ 50 }
-        width={ 50 }
-        onClick={ () => copyToClipboard() }
-      />
+      <ShareButton />
 
       <h1 data-testid="recipe-title">{data.meals[0].strMeal}</h1>
 
