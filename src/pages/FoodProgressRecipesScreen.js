@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 // import FavoriteWhite from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
+import renderIngredients from '../helpers/listIngredientsAndMeasures';
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
 
@@ -13,48 +14,43 @@ function FoodProgressRecipesScreen() {
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
+
   const location = useLocation();
   const copyToClipboard = () => {
     copy(location.pathname);
     global.alert('Link copied!');
   };
 
-  // const setLocalStorage = (event) => {
-  //   const ingredients = event.target.parentElement.innerText;
+  const setLocalStorage = (event) => {
+    const ingredients = event.target.parentElement.innerText;
 
-  //   if (localStorage.getItem('inProgressRecipes')) {
-  //     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
+    if (localStorage.getItem('inProgressRecipes')) {
+      const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
 
-  //     if (getStorage.some((element) => ingredients === element)) {
-  //       const newLocalStorage = getStorage
-  //         .filter((element) => element !== ingredients);
+      if (getStorage.some((element) => ingredients === element)) {
+        const newLocalStorage = getStorage
+          .filter((element) => element !== ingredients);
 
-  //       localStorage.setItem('inProgressRecipes', JSON
-  //         .stringify({ meals: { [id]: newLocalStorage } }));
-  //     } else {
-  //       localStorage.setItem('inProgressRecipes', JSON
-  //         .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
-  //     }
-  //   } else {
-  //     localStorage.setItem('inProgressRecipes', JSON.stringify(
-  //       { meals: { [id]: [ingredients] } },
-  //     ));
-  //   }
-  // };
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({ meals: { [id]: newLocalStorage } }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
+      }
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(
+        { meals: { [id]: [ingredients] } },
+      ));
+    }
+  };
 
   if (isLoading || !data) {
     return <Loading />;
   }
 
   const {
-    // idMeal,
     strMeal,
     strMealThumb,
-    // strCategory,
-    // strInstructions,
-    // strArea,
-    // strDrinkAlternate,
-    // strYoutube,
   } = data.meals[0];
 
   const changeTargetStyle = (event) => {
@@ -65,30 +61,6 @@ function FoodProgressRecipesScreen() {
     }
     setLocalStorage(event);
   };
-
-  const renderIngredients = () => {
-    const arrIngredientMeasure = [];
-    // console.log(arrIngredientMeasure);
-    const arrAllKeysWithValue = data.meals.map((element) => Object.keys(element)
-      .filter((key) => element[key] !== '' && element[key] !== null));
-
-    const ingredient = arrAllKeysWithValue[0]
-      .filter((element) => element.includes('strIngredient'));
-
-    const measure = arrAllKeysWithValue[0].filter((key) => key
-      .includes('strMeasure'));
-
-    const ingredientsValues = ingredient.map((key) => data.meals[0][key]);
-    const measureValues = measure.map((key) => data.meals[0][key]);
-
-    ingredientsValues.map((ingredientValue, index) => (arrIngredientMeasure
-      .push(`${ingredientValue} - ${measureValues[index]}`)
-    ));
-    // console.log(arrIngredientMeasure);
-    return (arrIngredientMeasure);
-  };
-
-  // console.log(renderIngredients());
 
   return (
     <div>
@@ -122,7 +94,7 @@ function FoodProgressRecipesScreen() {
 
       <ul>
         {
-          renderIngredients().map((ingredientAndMeasure, index) => (
+          renderIngredients(data).map((ingredientAndMeasure, index) => (
             <li key={ ingredientAndMeasure }>
               <label
                 data-testid={ `${index}-ingredient-step` }
