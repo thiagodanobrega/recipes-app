@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 // import { useLocation, useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import useFetch from '../hooks/useFetch';
@@ -17,6 +17,8 @@ const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${RE
 const FoodRecipesDetailScreen = () => {
   const { data, isLoading } = useFetch(RECIPES_BY_ID);
   const [completeList, setCompleteList] = useState([]);
+
+  const history = useHistory();
 
   const listIngredientsAndMeasures = (object) => {
     const getallIngredients = Object.entries(object)
@@ -52,6 +54,7 @@ const FoodRecipesDetailScreen = () => {
   }
 
   const {
+    idMeal,
     strMeal,
     strMealThumb,
     strCategory,
@@ -141,6 +144,7 @@ const FoodRecipesDetailScreen = () => {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
       >
         Start Recipe
       </button>
