@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-// import FavoriteWhite from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import renderIngredients from '../helpers/listIngredientsAndMeasures';
 import useFetch from '../hooks/useFetch';

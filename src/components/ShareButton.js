@@ -4,7 +4,7 @@ import Share from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-const ProgressRecipes = () => {
+const ShareButton = () => {
   const location = useLocation();
   const copyToClipboard = () => {
     copy(location.pathname);
@@ -22,4 +22,4 @@ const ProgressRecipes = () => {
     />
   );
 };
-export default ProgressRecipes;
+export default ShareButton;
