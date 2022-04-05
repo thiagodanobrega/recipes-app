@@ -18,7 +18,9 @@ function FoodRecipeScreen() {
     foods,
     isLoading,
   } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
+
   const [foodsList, setFoodsList] = useState([]); // seta qual tipo de dado vai rederizar
+
   // ---------Função que faz as verificações para escolher qual tipo de dado vai ser renderizado
   const verifyRender = () => {
     if (!foods) {

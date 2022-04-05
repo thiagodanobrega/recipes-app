@@ -19,6 +19,7 @@ import DoneRecipesScreen from './pages/DoneRecipesScreen';
 import FavoritesRecipesScreen from './pages/FavoritesRecipesScreen';
 import ProviderFoods from './context/contextFoodRecipe/ProviderFoods';
 import ProviderDrinks from './context/contextDrinks/ProviderDrinks';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -62,6 +63,10 @@ function App() {
           <Route exact path="/profile" component={ ProfileScreen } />
           <Route path="/done-recipes" component={ DoneRecipesScreen } />
           <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
+          <Route
+            path="/explore/drinks/nationalities"
+            component={ NotFound }
+          />
         </Switch>
 
       </ProviderDrinks>
