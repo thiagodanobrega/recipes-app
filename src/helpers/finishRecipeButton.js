@@ -5,7 +5,7 @@ const FinishButton = () => {
   const storage = JSON.parse(localStorage
     .getItem('inProgressRecipes')).meals[id];
 
-  if (storage && .length === renderIngredients().length) {
+  if (storage && storage.length === renderIngredients().length) {
     setEnabledButton(true);
     history.push('/done-recipes');
   }
