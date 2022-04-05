@@ -9,6 +9,7 @@ function ProviderFoods({ children }) {
     textSearch: '',
     categoryFoods: '',
     recipeID: '',
+    nationality: '',
   };
 
   // estado das requisições FOODS
@@ -26,7 +27,13 @@ function ProviderFoods({ children }) {
   const [callApi, setCallApi] = useState('');
 
   // ---------------------ENDPOINTS--------------------------------
-  const { typeSearch, textSearch, categoryFoods } = userChoiceFoods;
+  const { typeSearch, textSearch, categoryFoods, nationality } = userChoiceFoods;
+
+  if (nationality) {
+    const NATIONAL_API = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}`;
+    setCallApi(NATIONAL_API);
+    setUserChoiceFoods(USER_INITIAL_STATE);
+  }
 
   if (categoryFoods) {
     const CATEGORY_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryFoods}`;
