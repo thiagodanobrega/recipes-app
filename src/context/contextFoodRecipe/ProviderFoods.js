@@ -15,8 +15,9 @@ function ProviderFoods({ children }) {
   const [allFoodsData, setAllFoodsData] = useState([]); // todas comidas renderizadas por nome
   const [error, setError] = useState('');
   const [foods, setFoods] = useState([]); // lista de comidas escolhidas pelo usuário
+
+  // verifica se a pesquisa foi feita por categoria
   const [isCategoryByFoods, setisCategoryByFoods] = useState(false);
-  // const [onlyCategoryFoods, setOnlyCategoryFoods] = useState([]);
 
   // estado das escolhas do usuário tipo de pesquisa, texto do input e categoria
   const [userChoiceFoods, setUserChoiceFoods] = useState(USER_INITIAL_STATE);
@@ -55,11 +56,7 @@ function ProviderFoods({ children }) {
   useEffect(() => {
     if (data) { setFoods(data.meals); }
   }, [data, callApi]);
-  /* const { data: categories } = useFetch(categoryByFoods);
-  useEffect(() => {
-    if (categories) { setOnlyCategoryFoods(categories.meals); }
-  }, [categories]);
- */
+
   // ----- Chamadas da API Geral no DidMount ----------------------
   useEffect(() => {
     (async () => {
