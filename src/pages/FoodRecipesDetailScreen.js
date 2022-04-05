@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react';
-// import { useLocation, useParams } from 'react-router-dom';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import useFetch from '../hooks/useFetch';
@@ -11,10 +10,10 @@ import '../styles/pages/FoodRecipesDetailScreen.css';
 
 const copy = require('clipboard-copy');
 
-const RECIPE_ID = '52772';
-const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${RECIPE_ID}`;
-
 const FoodRecipesDetailScreen = () => {
+  const { id } = useParams();
+  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+
   const { data, isLoading } = useFetch(RECIPES_BY_ID);
   const [completeList, setCompleteList] = useState([]);
 
