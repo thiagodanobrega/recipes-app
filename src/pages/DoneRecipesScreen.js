@@ -20,14 +20,10 @@ function DoneRecipesScreen() {
 
   return (
     <>
-      <div>
-        <Header
-          renderScreen={ false }
-          nameScreen="Done Recipes"
-        />
-      </div>
-
-      <h1 data-testid="page-title">Done Recipes</h1>
+      <Header
+        renderScreen={ false }
+        nameScreen="Done Recipes"
+      />
       <FilterButtonsDoneAndFavorites
         setTypeFilter={ setTypeFilter }
       />
