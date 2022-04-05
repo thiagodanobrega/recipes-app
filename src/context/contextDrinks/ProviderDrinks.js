@@ -18,34 +18,34 @@ function ProviderDrinks({ children }) {
   const [userChoiceDrinks, setUserChoiceDrinks] = useState(USER_INITIAL_STATE);
 
   // callAPi chamada api de acordo com o tipo de pesquisa do usuario
-  const [callApi, setCallApi] = useState('');
+  const [callApiDrinks, setCallApiDrinks] = useState('');
 
   // ---------------------ENDPOINTS--------------------------------
   const { categoryDrinks, textSearch, typeSearch } = userChoiceDrinks;
   if (categoryDrinks) {
     const CATEGORY = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryDrinks}`;
-    setCallApi(CATEGORY);
+    setCallApiDrinks(CATEGORY);
     setUserChoiceDrinks(USER_INITIAL_STATE);
   }
 
   if (typeSearch === 'ingredient') {
     const DRINKS_INGREDIENT_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${textSearch}`;
-    setCallApi(DRINKS_INGREDIENT_API);
+    setCallApiDrinks(DRINKS_INGREDIENT_API);
     setUserChoiceDrinks(USER_INITIAL_STATE);
   }
 
   if (typeSearch === 'name' || categoryDrinks === 'All') {
     const DRINKS_NAME_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${textSearch}`;
-    setCallApi(DRINKS_NAME_API);
+    setCallApiDrinks(DRINKS_NAME_API);
     setUserChoiceDrinks(USER_INITIAL_STATE);
   }
 
   if (typeSearch === 'firstLetter') {
     const DRINKS_FIRST_LETTER_API = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${textSearch}`;
-    setCallApi(DRINKS_FIRST_LETTER_API);
+    setCallApiDrinks(DRINKS_FIRST_LETTER_API);
     setUserChoiceDrinks(USER_INITIAL_STATE);
   }
-  const { data, isLoading } = useFetch(callApi);
+  const { data, isLoading } = useFetch(callApiDrinks);
   useEffect(() => {
     if (data) { setDrinks(data.drinks); }
   }, [data]);
@@ -63,6 +63,7 @@ function ProviderDrinks({ children }) {
   }, []);
 
   const contextValue = {
+    setCallApiDrinks,
     allDrinksData,
     error,
     drinks,

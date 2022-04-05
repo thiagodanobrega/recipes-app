@@ -10,12 +10,17 @@ let CATEGORIES_TO_RENDER = '';
 const FIVE = 5;
 
 function CategoriesButtons() {
-  const { setUserChoiceDrinks } = useContext(contextDrinks);
-  const { setUserChoiceFoods } = useContext(contextFoodRecipe);
+  const { setUserChoiceDrinks, setCallApiDrinks } = useContext(contextDrinks);
+  const {
+    setCallApi,
+    setUserChoiceFoods,
+    setisCategoryByFoods,
+  } = useContext(contextFoodRecipe);
 
   // estado das categorias da pagina foods
   const [categories, setCategories] = useState([]); // array de botao para ser renderizado de acordo com chamada API
 
+  const [isClicked, setIsClicked] = useState('');
   const { pathname } = useLocation();
 
   // verifica em qual pagina está e muda endPoints
@@ -38,13 +43,19 @@ function CategoriesButtons() {
 
   const choosenCategoryOnClick = ({ target: value }) => {
     const { name } = value;
-
-    if (pathname === '/foods') {
+    setIsClicked(name);
+    if (pathname === '/foods' && isClicked === name) {
+      setCallApi('https://www.themealdb.com/api/json/v1/1/search.php?s='); // setcall e endpoint
+    } else {
       setUserChoiceFoods((prevState) => ({
         ...prevState,
         categoryFoods: name,
       }));
-    } else if (pathname === '/drinks') {
+      setisCategoryByFoods(true);
+    }
+    if (pathname === '/drinks' && isClicked === name) {
+      setCallApiDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    } else {
       setUserChoiceDrinks((previousState) => ({
         ...previousState,
         categoryDrinks: name,
