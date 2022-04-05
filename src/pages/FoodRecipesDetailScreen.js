@@ -1,52 +1,19 @@
-import { React, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { React } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
+import ShareButton from '../components/ShareButton';
+import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
-import Share from '../images/shareIcon.svg';
 import FavoriteWhite from '../images/whiteHeartIcon.svg';
 // import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../styles/pages/FoodRecipesDetailScreen.css';
 
-const copy = require('clipboard-copy');
-
 const FoodRecipesDetailScreen = () => {
-  const { id } = useParams();
-  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-
-  const { data, isLoading } = useFetch(RECIPES_BY_ID);
-  const [completeList, setCompleteList] = useState([]);
-
   const history = useHistory();
-
-  const listIngredientsAndMeasures = (object) => {
-    const getallIngredients = Object.entries(object)
-      .filter(([key, value]) => (key.includes('strIngredient') && value))
-      .map((array) => array[1]);
-
-    const getAllMeasures = Object.entries(object)
-      .filter(([key, value]) => (key.includes('strMeasure') && value))
-      .map((array) => array[1]);
-
-    const getAllListRecipe = [];
-    getallIngredients.forEach((item, index) => (getAllListRecipe.push(
-      `- ${item} - ${getAllMeasures[index]}`,
-    )));
-
-    setCompleteList(getAllListRecipe);
-  };
-
-  useEffect(() => {
-    if (data) {
-      listIngredientsAndMeasures(data.meals[0]);
-    }
-  }, [data]);
-
-  const location = useLocation();
-  const copyToClipboard = () => {
-    copy(location.pathname);
-    global.alert('Link copied!');
-  };
+  const { id } = useParams();
+  const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { data, isLoading } = useFetch(endPointFood);
 
   if (isLoading || !data) {
     return <Loading />;
@@ -58,8 +25,6 @@ const FoodRecipesDetailScreen = () => {
     strMealThumb,
     strCategory,
     strInstructions,
-    // strArea,
-    // strDrinkAlternate,
     strYoutube,
   } = data.meals[0];
 
@@ -93,15 +58,7 @@ const FoodRecipesDetailScreen = () => {
             onClick={ () => saveFavoriteRecipe() }
           />
 
-          <input
-            type="image"
-            data-testid="share-btn"
-            alt="Share"
-            src={ Share }
-            height={ 50 }
-            width={ 50 }
-            onClick={ () => copyToClipboard() }
-          />
+          <ShareButton />
         </div>
 
         <p data-testid="recipe-category">
@@ -114,7 +71,7 @@ const FoodRecipesDetailScreen = () => {
 
         <ul>
           {
-            completeList.map((item, index) => (
+            renderIngredientsFoods(data).map((item, index) => (
               <li key={ index }>
                 {item}
               </li>
