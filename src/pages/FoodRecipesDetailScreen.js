@@ -1,170 +1,150 @@
-import React, {
-  /*  useContext, */
-  useEffect,
-  useState,
-} from 'react';
-// import {
-//   Player,
-// } from 'video-react';
-// import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { React, useEffect, useState } from 'react';
+// import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
-// import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
-
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
-import Favorite from '../images/whiteHeartIcon.svg';
+import FavoriteWhite from '../images/whiteHeartIcon.svg';
+// import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../styles/pages/FoodRecipesDetailScreen.css';
 
+const copy = require('clipboard-copy');
+
+const RECIPE_ID = '52772';
+const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${RECIPE_ID}`;
+
 const FoodRecipesDetailScreen = () => {
-  const { id } = useParams();
-
+  const { data, isLoading } = useFetch(RECIPES_BY_ID);
   const [completeList, setCompleteList] = useState([]);
-  const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
-  const {
-    data,
-    isLoading,
-  } = useFetch(RECIPES_BY_ID);
-  const {
-    meals,
-  } = data || {
-    meals: [],
-  };
-  const {
-    strMeal,
-    strMealThumb,
-    strCategory,
-    strInstructions,
-  } = meals[0] || {};
+  const history = useHistory();
+
   const listIngredientsAndMeasures = (object) => {
     const getallIngredients = Object.entries(object)
       .filter(([key, value]) => (key.includes('strIngredient') && value))
       .map((array) => array[1]);
+
     const getAllMeasures = Object.entries(object)
       .filter(([key, value]) => (key.includes('strMeasure') && value))
       .map((array) => array[1]);
+
     const getAllListRecipe = [];
     getallIngredients.forEach((item, index) => (getAllListRecipe.push(
       `- ${item} - ${getAllMeasures[index]}`,
     )));
+
     setCompleteList(getAllListRecipe);
   };
+
   useEffect(() => {
     if (data) {
       listIngredientsAndMeasures(data.meals[0]);
     }
   }, [data]);
-  if (isLoading) {
+
+  const location = useLocation();
+  const copyToClipboard = () => {
+    copy(location.pathname);
+    global.alert('Link copied!');
+  };
+
+  if (isLoading || !data) {
     return <Loading />;
   }
+
+  const {
+    idMeal,
+    strMeal,
+    strMealThumb,
+    strCategory,
+    strInstructions,
+    // strArea,
+    // strDrinkAlternate,
+    strYoutube,
+  } = data.meals[0];
+
+  const embedId = strYoutube.substring(strYoutube.indexOf('=') + 1, strYoutube.length);
+
   return (
-    <main
-      className="mainFoodRecipesDetailScreen"
-      data-testid="0-recipe-card"
-    >
-      <section
-        className="mainFoodRecipesDetailScreen"
-      >
+    <main>
+      <section>
+        <figure>
+          <img
+            data-testid="recipe-photo"
+            src={ strMealThumb }
+            alt="{strMeal}"
+            height={ 250 }
+            width={ 250 }
+          />
+        </figure>
 
-        <input
-          className="mainFoodRecipesDetailScreen"
-          type="image"
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt="{strMeal}"
-          height={ 250 }
-          width={ 250 }
-        />
-
-        <div
-          className="mainFoodRecipesDetailScreen"
-        >
-          <h2
-            className="mainFoodRecipesDetailScreen"
-            data-testid="recipe-title"
-          >
+        <div>
+          <h2 data-testid="recipe-title">
             {strMeal}
           </h2>
 
           <input
-            className="mainFoodRecipesDetailScreen"
             type="image"
-            data-testid="share-btn"
+            data-testid="favorite-btn"
             alt="Favorite"
-            src={ Favorite }
+            src={ FavoriteWhite }
             height={ 50 }
             width={ 50 }
+            onClick={ () => saveFavoriteRecipe() }
           />
 
           <input
-            className="mainFoodRecipesDetailScreen"
             type="image"
-            data-testid="favorite-btn"
+            data-testid="share-btn"
             alt="Share"
             src={ Share }
             height={ 50 }
             width={ 50 }
+            onClick={ () => copyToClipboard() }
           />
         </div>
 
-        <p
-          className="mainFoodRecipesDetailScreen"
-          data-testid="recipe-category"
-        >
+        <p data-testid="recipe-category">
           {strCategory}
         </p>
       </section>
 
-      <section
-        className="mainFoodRecipesDetailScreen"
-      >
-        <h2
-          className="mainFoodRecipesDetailScreen"
-        >
-          Ingredientes
-        </h2>
-        <ul
-          className="mainFoodRecipesDetailScreen"
-        >
-          {completeList.map((item, index) => (
-            <li
-              className="mainFoodRecipesDetailScreen"
-              key={ index }
-            >
-              {item}
-            </li>
-          ))}
+      <section>
+        <h2> Ingredients </h2>
+
+        <ul>
+          {
+            completeList.map((item, index) => (
+              <li key={ index }>
+                {item}
+              </li>
+            ))
+          }
         </ul>
       </section>
 
-      <section
-        className="mainFoodRecipesDetailScreen"
-      >
-        <h2
-          className="mainFoodRecipesDetailScreen"
-        >
-          instructions
-
-        </h2>
-        <p
-          className="mainFoodRecipesDetailScreen"
-          data-testid="instructions"
-        >
+      <section>
+        <h2> Instructions </h2>
+        <p data-testid="instructions">
           {strInstructions}
         </p>
       </section>
 
-      {/* <Player
-        playsInline
-        poster="/assets/poster.png"
-        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-      /> */}
+      <section className="EmbedVideo">
+        <h2> Video </h2>
+        <EmbedVideo embedId={ embedId } />
+      </section>
+
+      <section>
+        <h2> Recommended </h2>
+        <div> RECOMENDA </div>
+      </section>
 
       <button
-        className="mainFoodRecipesDetailScreen"
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
       >
         Start Recipe
       </button>
