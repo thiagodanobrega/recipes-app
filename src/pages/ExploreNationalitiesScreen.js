@@ -7,22 +7,22 @@ import Loading from '../components/Loading';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import Card from '../components/Card';
 
-const NATIONALITIES_API = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const NATIONALITIES_LIST_API = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const MAX_RECIPES = 12;
 
 function ExploreNationalitiesScreen() {
   const {
     allFoodsData,
+    setUserChoiceFoods,
+    foods,
   } = useContext(contextFoodRecipe);
-  const { history } = useHistory();
-  console.log(useHistory());
-  console.log(history);
+  const history = useHistory();
+
   // estado local para o select
   const [nationalities, setNationalities] = useState([]);
   const [chosenNationalities, setChosenNationalities] = useState('All');
-  /*  const [filteredNationalities, setFilteredNationalities] = useState([]); */
 
-  const { data, isLoading } = useFetch(NATIONALITIES_API);
+  const { data, isLoading } = useFetch(NATIONALITIES_LIST_API);
   useEffect(() => {
     if (data) setNationalities(data.meals);
   }, [data]);
@@ -36,11 +36,19 @@ function ExploreNationalitiesScreen() {
     if (chosenNationalities === 'All') {
       return allFoodsData;
     }
-    const fileteredFoods = allFoodsData
-      .filter((foodData) => foodData.strArea === chosenNationalities);
-    return fileteredFoods;
+    return foods;
   };
-  filteringByNationalities();
+
+  const chosingNationalyOnChange = ({ target: { value } }) => {
+    setChosenNationalities(value);
+    setUserChoiceFoods(
+      (prevState) => ({
+        ...prevState,
+        nationality: value,
+      }),
+    );
+  };
+
   return (
     <div>
       <Header
@@ -55,7 +63,7 @@ function ExploreNationalitiesScreen() {
               <select
                 id="select-Nationalities"
                 data-testid="explore-by-nationality-dropdown"
-                onChange={ (e) => setChosenNationalities(e.target.value) }
+                onChange={ chosingNationalyOnChange }
               >
                 <option
                   data-testid="All-option"
