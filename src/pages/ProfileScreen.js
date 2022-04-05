@@ -2,11 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
-import useLocalStorage from '../hooks/useLocalStorage';
 
 function ProfileScreen() {
   const history = useHistory();
-  const [value] = useLocalStorage('user', '');
+  const user = JSON.parse(localStorage.getItem('user')) || '';
   const clearLocalStorage = () => {
     localStorage.clear();
     history.push('/');
@@ -18,7 +17,7 @@ function ProfileScreen() {
         nameScreen="Profile"
       />
       <main>
-        <p data-testid="profile-email">{value.email}</p>
+        <p data-testid="profile-email">{user.email}</p>
         <button
           type="button"
           data-testid="profile-done-btn"
