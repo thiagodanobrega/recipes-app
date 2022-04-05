@@ -1,52 +1,18 @@
-import { React, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { React } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
+import ShareButton from '../components/ShareButton';
+import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
-import Share from '../images/shareIcon.svg';
 import FavoriteWhite from '../images/whiteHeartIcon.svg';
 // import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../styles/pages/FoodRecipesDetailScreen.css';
 
-const copy = require('clipboard-copy');
-
 const DrinkRecipesDetailScreen = () => {
-  const { id } = useParams();
-  const RECIPES_BY_ID = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const { data, isLoading } = useFetch(RECIPES_BY_ID);
-  const [completeList, setCompleteList] = useState([]);
-
   const history = useHistory();
-
-  const listIngredientsAndMeasures = (object) => {
-    const getallIngredients = Object.entries(object)
-      .filter(([key, value]) => (key.includes('strIngredient') && value))
-      .map((array) => array[1]);
-
-    const getAllMeasures = Object.entries(object)
-      .filter(([key, value]) => (key.includes('strMeasure') && value))
-      .map((array) => array[1]);
-
-    const getAllListRecipe = [];
-    getallIngredients.forEach((item, index) => (getAllListRecipe.push(
-      `- ${item} - ${getAllMeasures[index]}`,
-    )));
-
-    setCompleteList(getAllListRecipe);
-  };
-
-  console.log(data.drinks[0]);
-
-  useEffect(() => {
-    if (data) {
-      listIngredientsAndMeasures(data.drinks[0]);
-    }
-  }, [data]);
-
-  const location = useLocation();
-  const copyToClipboard = () => {
-    copy(location.pathname);
-    global.alert('Link copied!');
-  };
+  const { id } = useParams();
+  const endPointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { data, isLoading } = useFetch(endPointDrink);
 
   if (isLoading || !data) {
     return <Loading />;
@@ -56,12 +22,9 @@ const DrinkRecipesDetailScreen = () => {
     idDrink,
     strDrink,
     strDrinkThumb,
-    // strCategory,
     strInstructions,
-    // strArea,
-    // strDrinkAlternate,
     strAlcoholic,
-  } = data.Drinks[0];
+  } = data.drinks[0];
 
   return (
     <main>
@@ -90,16 +53,7 @@ const DrinkRecipesDetailScreen = () => {
             width={ 50 }
             onClick={ () => saveFavoriteRecipe() }
           />
-
-          <input
-            type="image"
-            data-testid="share-btn"
-            alt="Share"
-            src={ Share }
-            height={ 50 }
-            width={ 50 }
-            onClick={ () => copyToClipboard() }
-          />
+          <ShareButton />
         </div>
 
         <p data-testid="recipe-category">
@@ -112,7 +66,7 @@ const DrinkRecipesDetailScreen = () => {
 
         <ul>
           {
-            completeList.map((item, index) => (
+            renderIngredientsDrinks(data).map((item, index) => (
               <li key={ index }>
                 {item}
               </li>
