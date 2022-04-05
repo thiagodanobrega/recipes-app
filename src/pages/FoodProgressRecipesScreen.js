@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
 // import FavoriteWhite from '../images/whiteHeartIcon.svg';
@@ -7,13 +7,13 @@ import Share from '../images/shareIcon.svg';
 const copy = require('clipboard-copy');
 
 function FoodProgressRecipesScreen() {
-  const history = useHistory();
+  // const [enabledButton, setEnabledButton] = useState(true);
+  // const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data } = useFetch(endPointFood);
 
   const location = useLocation();
-
   const copyToClipboard = () => {
     copy(location.pathname);
     global.alert('Link copied!');
@@ -29,10 +29,8 @@ function FoodProgressRecipesScreen() {
         const newLocalStorage = getStorage
           .filter((element) => element !== ingredients);
 
-        const test = localStorage.setItem('inProgressRecipes', JSON
+        localStorage.setItem('inProgressRecipes', JSON
           .stringify({ meals: { [id]: newLocalStorage } }));
-        console.log(newLocalStorage);
-        console.log(test);
       } else {
         localStorage.setItem('inProgressRecipes', JSON
           .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
@@ -55,35 +53,29 @@ function FoodProgressRecipesScreen() {
 
   const renderIngredients = () => {
     if (data) {
+      const arrIngredientMeasure = [];
+      console.log(arrIngredientMeasure);
       const arrAllKeysWithValue = data.meals.map((element) => Object.keys(element)
         .filter((key) => element[key] !== '' && element[key] !== null));
 
       const ingredient = arrAllKeysWithValue[0]
         .filter((element) => element.includes('strIngredient'));
 
-      const measure = arrAllKeysWithValue[0].filter((key) => key.includes('strMeasure'));
-      // Percorrendo o array das chaves e acessando elas para obter os valores no array original.
+      const measure = arrAllKeysWithValue[0].filter((key) => key
+        .includes('strMeasure'));
+
       const ingredientsValues = ingredient.map((key) => data.meals[0][key]);
       const measureValues = measure.map((key) => data.meals[0][key]);
 
-      return (
-        ingredientsValues.map((ingredientValue, index) => (
-          <label
-            data-testid={ `${index}-ingredient-step` }
-            htmlFor={ ingredientValue }
-            key={ ingredientValue }
-          >
-            <input
-              id={ ingredientValue }
-              type="checkbox"
-              onClick={ (event) => changeTargetStyle(event) }
-            />
-            { `${ingredientValue} - ${measureValues[index]}` }
-          </label>
-        ))
-      );
+      ingredientsValues.map((ingredientValue, index) => (arrIngredientMeasure
+        .push(`${ingredientValue} - ${measureValues[index]}`)
+      ));
+      console.log(arrIngredientMeasure);
+      return (arrIngredientMeasure);
     }
   };
+
+  console.log(renderIngredients());
 
   if (!data) return 'carregando...';
   return (
@@ -106,14 +98,28 @@ function FoodProgressRecipesScreen() {
       <h1 data-testid="recipe-title">{ data.meals[0].strMeal }</h1>
       <p data-testid="recipe-category">{ data.meals[0].strCategory }</p>
       <h3>Ingredientes:</h3>
-      { renderIngredients() }
+      { renderIngredients().map((ingredientAndMeasure, index) => (
+        <label
+          data-testid={ `${index}-ingredient-step` }
+          htmlFor={ ingredientAndMeasure }
+          key={ ingredientAndMeasure }
+        >
+          <input
+            id={ ingredientAndMeasure }
+            type="checkbox"
+            onClick={ (event) => changeTargetStyle(event) }
+          />
+          { ingredientAndMeasure }
+        </label>
+      )) }
       <h3>Instruções:</h3>
       <p data-testid="instructions">
         { data.meals[0].strInstructions }
       </p>
       <button
         type="button"
-        onClick={ () => history.push('/done-recipes') }
+        // disabled={ enabledButton }
+        onClick={ () => handleButton() }
       >
         Finalizar Receita
       </button>
