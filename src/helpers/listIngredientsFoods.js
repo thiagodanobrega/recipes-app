@@ -1,4 +1,4 @@
-const renderIngredients = (data) => {
+const renderIngredientsFoods = (data) => {
   const arrIngredientMeasure = [];
 
   const arrAllKeysWithValue = data.meals.map((element) => Object.keys(element)
@@ -19,4 +19,4 @@ const renderIngredients = (data) => {
   return (arrIngredientMeasure);
 };
 
-export default renderIngredients;
+export default renderIngredientsFoods;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
-import renderIngredients from '../helpers/listIngredientsAndMeasures';
-import useFetch from '../hooks/useFetch';
 import ShareButton from '../components/ShareButton';
-import FinishButton from '../helpers/finishRecipeButton';
 import getChecked from '../helpers/checkedIngredients';
+import FinishButton from '../helpers/finishRecipeButton';
+import renderIngredients from '../helpers/listIngredientsFoods';
 import setLocalStorage from '../helpers/setLocalStorage';
+import useFetch from '../hooks/useFetch';
 
 function FoodProgressRecipesScreen() {
   const [enabledButton, setEnabledButton] = useState(true);
