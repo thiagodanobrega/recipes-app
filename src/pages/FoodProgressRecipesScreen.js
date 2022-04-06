@@ -83,8 +83,12 @@ function FoodProgressRecipesScreen() {
                 data-testid={ `${index}-ingredient-step` }
                 htmlFor={ ingredientAndMeasure }
                 key={ ingredientAndMeasure }
+                style={ getChecked(ingredientAndMeasure, id)
+                  ? { textDecorationLine: 'line-through' }
+                  : { textDecorationLine: 'none' } }
               >
                 <input
+                  defaultChecked={ getChecked(ingredientAndMeasure, id) }
                   id={ ingredientAndMeasure }
                   type="checkbox"
                   onClick={ (event) => changeTargetStyle(event) }
