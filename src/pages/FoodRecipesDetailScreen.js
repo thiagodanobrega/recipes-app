@@ -5,9 +5,11 @@ import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import useFetch from '../hooks/useFetch';
 import Share from '../images/shareIcon.svg';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+// import FavoriteWhite from '../images/whiteHeartIcon.svg';
 // import FavoriteBlack from '../images/whiteHeartIcon.svg';
+import ChoosingFavoriteRecipe from '../components/ChoosingFavoriteRecipe';
 import '../styles/pages/FoodRecipesDetailScreen.css';
+import CarouselTest from '../components/CarouselTest';
 
 const copy = require('clipboard-copy');
 
@@ -17,7 +19,7 @@ const RECIPES_BY_ID = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${RE
 const FoodRecipesDetailScreen = () => {
   const { data, isLoading } = useFetch(RECIPES_BY_ID);
   const [completeList, setCompleteList] = useState([]);
-
+  const [localMeal, setLocalMeal] = useState([]);
   const history = useHistory();
 
   const listIngredientsAndMeasures = (object) => {
@@ -40,6 +42,7 @@ const FoodRecipesDetailScreen = () => {
   useEffect(() => {
     if (data) {
       listIngredientsAndMeasures(data.meals[0]);
+      setLocalMeal(data.meals[0]);
     }
   }, [data]);
 
@@ -83,8 +86,8 @@ const FoodRecipesDetailScreen = () => {
           <h2 data-testid="recipe-title">
             {strMeal}
           </h2>
-
-          <input
+          <ChoosingFavoriteRecipe localMeal={ localMeal } />
+          {/*  <input
             type="image"
             data-testid="favorite-btn"
             alt="Favorite"
@@ -92,7 +95,7 @@ const FoodRecipesDetailScreen = () => {
             height={ 50 }
             width={ 50 }
             onClick={ () => saveFavoriteRecipe() }
-          />
+          /> */}
 
           <input
             type="image"
@@ -137,8 +140,9 @@ const FoodRecipesDetailScreen = () => {
       </section>
 
       <section>
-        <h2> Recommended </h2>
-        <div> RECOMENDA </div>
+        <CarouselTest />
+        {/* <h2> Recommended </h2>
+        <div> RECOMENDA </div> */}
       </section>
 
       <button
