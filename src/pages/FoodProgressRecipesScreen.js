@@ -91,9 +91,7 @@ function FoodProgressRecipesScreen() {
           ))
         }
       </ul>
-
       <h3>Instruções:</h3>
-
       <p data-testid="instructions">
         { data.meals[0].strInstructions }
       </p>
