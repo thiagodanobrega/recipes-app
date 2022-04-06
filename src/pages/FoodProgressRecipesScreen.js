@@ -50,6 +50,7 @@ function FoodProgressRecipesScreen() {
     } else {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
+    setLocalStorage(event, id);
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (getStorage) FinishButton(setEnabledButton, getStorage, id, data);
   };
