@@ -6,8 +6,8 @@ import useFetch from '../hooks/useFetch';
 import ShareButton from '../components/ShareButton';
 
 function FoodProgressRecipesScreen() {
-  // const [enabledButton, setEnabledButton] = useState(true);
-  // const history = useHistory();
+  const [enabledButton, setEnabledButton] = useState(true);
+  const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
