@@ -1,5 +1,6 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
@@ -84,8 +85,11 @@ const DrinkRecipesDetailScreen = () => {
       </section>
 
       <section>
-        <h2> Recommended </h2>
-        <div data-testid="recomendation-card"> RECOMENDA </div>
+        <div data-testid="0-recomendation-card">
+          <h3 data-testid="recomendation-title">
+            RECOMENDA
+          </h3>
+        </div>
       </section>
 
       <button
@@ -94,6 +98,11 @@ const DrinkRecipesDetailScreen = () => {
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
       >
+        {/* {
+          verifyRecipe
+            ? 'Start Recipe'
+            : 'Continue Recipe'
+        } */}
         Start Recipe
       </button>
     </main>

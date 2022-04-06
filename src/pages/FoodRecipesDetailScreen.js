@@ -1,13 +1,13 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+// import FavoriteBlack from '../images/whiteHeartIcon.svg';
+import '../App.css';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
 import FavoriteWhite from '../images/whiteHeartIcon.svg';
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
-import '../styles/pages/FoodRecipesDetailScreen.css';
 
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
@@ -94,7 +94,11 @@ const FoodRecipesDetailScreen = () => {
 
       <section>
         <h2> Recommended </h2>
-        <div data-testid="recomendation-card"> RECOMENDA </div>
+        <div data-testid="0-recomendation-card">
+          <h3 data-testid="recomendation-title">
+            RECOMENDA
+          </h3>
+        </div>
       </section>
 
       <button
@@ -103,6 +107,11 @@ const FoodRecipesDetailScreen = () => {
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
       >
+        {/* {
+          verifyRecipe
+            ? 'Start Recipe'
+            : 'Continue Recipe'
+        } */}
         Start Recipe
       </button>
     </main>
