@@ -15,6 +15,7 @@ const EmbedVideo = ({ embedId }) => (
       picture-in-picture"
     allowFullScreen
     title="EmbedVideo"
+    data-testid="video"
   />
 );
 
