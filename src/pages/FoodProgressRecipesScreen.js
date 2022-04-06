@@ -50,7 +50,22 @@ function FoodProgressRecipesScreen() {
     } else {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
-    setLocalStorage(event);
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getStorage) FinishButton(setEnabledButton, getStorage, id, data);
+  };
+
+  const doneRecipe = () => {
+    const doneFoods = [{
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
+    history.push('/done-recipes');
   };
 
   return (
