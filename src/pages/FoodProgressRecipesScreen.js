@@ -103,9 +103,10 @@ function FoodProgressRecipesScreen() {
       </p>
 
       <button
+        data-testid="finish-recipe-btn"
         type="button"
-        // disabled={ enabledButton }
-        onClick={ () => handleButton() }
+        disabled={ enabledButton }
+        onClick={ doneRecipe }
       >
         Finalizar Receita
       </button>
