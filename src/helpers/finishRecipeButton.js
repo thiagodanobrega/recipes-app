@@ -1,4 +1,4 @@
-import renderIngredients from './listIngredientsAndMeasures';
+import renderIngredients from './listIngredientsDrinks';
 
 const FinishButton = (setEnabledButton, getStorage, id, data) => {
   if (renderIngredients
