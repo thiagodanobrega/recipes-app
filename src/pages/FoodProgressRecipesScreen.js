@@ -41,7 +41,9 @@ function FoodProgressRecipesScreen() {
 
   const {
     strMeal,
+    strArea,
     strMealThumb,
+    strCategory,
   } = data.meals[0];
 
   const changeTargetStyle = (event) => {
