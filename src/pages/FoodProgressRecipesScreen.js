@@ -1,9 +1,12 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import Loading from '../components/Loading';
 import renderIngredients from '../helpers/listIngredientsAndMeasures';
 import useFetch from '../hooks/useFetch';
 import ShareButton from '../components/ShareButton';
+import FinishButton from '../helpers/finishRecipeButton';
+import getChecked from '../helpers/checkedIngredients';
+import setLocalStorage from '../helpers/setLocalStorage';
 
 function FoodProgressRecipesScreen() {
   const [enabledButton, setEnabledButton] = useState(true);
@@ -11,29 +14,6 @@ function FoodProgressRecipesScreen() {
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
-
-  const setLocalStorage = (event) => {
-    const ingredients = event.target.parentElement.innerText;
-
-    if (localStorage.getItem('inProgressRecipes')) {
-      const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
-
-      if (getStorage.some((element) => ingredients === element)) {
-        const newLocalStorage = getStorage
-          .filter((element) => element !== ingredients);
-
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ meals: { [id]: newLocalStorage } }));
-      } else {
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
-      }
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(
-        { meals: { [id]: [ingredients] } },
-      ));
-    }
-  };
 
   if (isLoading || !data) {
     return <Loading />;
@@ -82,17 +62,11 @@ function FoodProgressRecipesScreen() {
           width={ 250 }
         />
       </figure>
-
       <button type="button" data-testid="favorite-btn">Favoritar</button>
-
       <ShareButton />
-
       <h1 data-testid="recipe-title">{data.meals[0].strMeal}</h1>
-
       <p data-testid="recipe-category">{data.meals[0].strCategory}</p>
-
       <h3>Ingredientes:</h3>
-
       <ul>
         {
           renderIngredients(data).map((ingredientAndMeasure, index) => (
