@@ -15,20 +15,6 @@
   max-height: 80vh;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -68,10 +54,87 @@
 }
 
 ul {
+  background-color: rgb(222, 222, 222);
   list-style: none;
 }
 
 .startRecipe {
   bottom: 0;
+  margin-left: 33%;
   position: fixed;
+}
+
+.gallery {
+  max-width: 800px;
+  padding: 0 10;
+  position: relative;
+}
+
+.gallery_scroller {
+  align-items: center;
+  display: flex;
+  height: 300px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery_scroller div {
+  margin: 10px;
+  position: relative;
+  scroll-snap-align: center;
+}
+
+img, .recipe-card > input {
+  display: block;
+  height: 150px;
+}
+
+.gallery_scroller img {
+  border-radius: 10px;
+}
+
+.gallery_card {
+  width: 170px;
+}
+
+.col-1-img {
+  height: 155px;
+  width: 360px;
+}
+
+.col-1-btn {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-1-btn > h2 {
+  display: inline-block;
+  margin-left: 8px;
+  margin-right: 40%;
+}
+
+.col-1-btn > input {
+  margin: 11px;
+}
+
+p {
+  background-color: rgb(222, 222, 222);
+}
+
+.RecipeHome {
+  column-gap: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.recipe-card > p {
+  padding-left: 30%;
 }
