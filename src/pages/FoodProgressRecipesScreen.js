@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
-import getChecked from '../helpers/checkedIngredients';
-import FinishButton from '../helpers/finishRecipeButton';
+import getChecked from '../helpers/getCheckedFoods';
+import FinishButtonFood from '../helpers/FinishButtonFood';
 import renderIngredients from '../helpers/listIngredientsFoods';
-import setLocalStorage from '../helpers/setLocalStorage';
+import setLocalStorage from '../helpers/setLocalStorageFoods';
 import useFetch from '../hooks/useFetch';
 
 function FoodProgressRecipesScreen() {
@@ -34,10 +34,11 @@ function FoodProgressRecipesScreen() {
     }
     setLocalStorage(event, id);
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getStorage) FinishButton(setEnabledButton, getStorage, id, data);
+    if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
   };
 
   const doneRecipe = () => {
+    const today = new Date();
     const doneFoods = [{
       id,
       type: 'food',
@@ -46,6 +47,8 @@ function FoodProgressRecipesScreen() {
       alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
+      doneDate: today,
+      tags: strTags || '',
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
     history.push('/done-recipes');

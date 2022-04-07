@@ -26,7 +26,7 @@ const ShareButton = () => {
       {
         copiedLink && (
           <p>
-            link copied!
+            Link copied!
           </p>
         )
       }
