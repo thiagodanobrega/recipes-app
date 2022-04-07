@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from '../components/Header/Header';
 import BottomMenu from '../components/BottomMenu';
-import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import Card from '../components/Card';
-import Loading from '../components/Loading';
 import CategoriesButtons from '../components/CategoriesButtons';
+import Header from '../components/Header/Header';
+import Loading from '../components/Loading';
+import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 
 const MAX_RECIPES = 12;
 
@@ -61,9 +61,10 @@ function FoodRecipeScreen() {
       <CategoriesButtons />
       { isLoading ? (<Loading />)
         : (
-          <section>
+          <section className="RecipeHome">
             {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
               <div
+                className="centerRecipeNames"
                 type="button"
                 key={ index }
               >
