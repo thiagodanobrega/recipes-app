@@ -1,13 +1,12 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../App.css';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
-import ChoosingFavoriteRecipe from '../components/ChoosingFavoriteRecipe';
+import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
@@ -47,7 +46,7 @@ const FoodRecipesDetailScreen = () => {
           <h2 data-testid="recipe-title">
             {strMeal}
           </h2>
-          <ChoosingFavoriteRecipe localMeal={ localMeal } />
+          <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
           {/*  <input
             type="image"
             data-testid="favorite-btn"
