@@ -10,10 +10,6 @@
   width: 100%;
 }
 
-* {
-  font-size: 1.1rem !important;
-}
-
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
@@ -28,6 +24,7 @@
 }
 
 @keyframes shake {
+	
   0% {
     transform: rotate(5deg);
   }
@@ -42,6 +39,7 @@
 }
 
 @keyframes clink {
+	
   0% {
     transform: rotate(-10deg);
   }
@@ -93,6 +91,12 @@ ul {
   scroll-snap-align: center;
 }
 
+img,
+.recipe-card > input {
+  display: block;
+  height: 150px;
+}
+
 .gallery_scroller img {
   border-radius: 10px;
 }
@@ -129,17 +133,10 @@ p {
   background-color: rgb(222, 222, 222);
 }
 
-img,
-.recipe-card > input {
-  display: block;
-  height: 150px;
-}
-
 .RecipeHome {
   column-gap: 20px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   gap: 20px;
   justify-content: center;
   margin-top: 10px;
