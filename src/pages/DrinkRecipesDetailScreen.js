@@ -6,8 +6,9 @@ import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+/* import FavoriteWhite from '../images/whiteHeartIcon.svg'; */
 // import FavoriteBlack from '../images/whiteHeartIcon.svg';
+import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 import '../styles/pages/DrinkRecipesDetailScreen.css';
 
 const DrinkRecipesDetailScreen = () => {
@@ -45,7 +46,7 @@ const DrinkRecipesDetailScreen = () => {
             {strDrink}
           </h2>
 
-          <input
+          {/* <input
             type="image"
             data-testid="favorite-btn"
             alt="Favorite"
@@ -53,8 +54,8 @@ const DrinkRecipesDetailScreen = () => {
             height={ 26 }
             width={ 26 }
             // onClick={ () => saveFavoriteRecipe() }
-          />
-
+          /> */}
+          <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
           <ShareButton />
         </div>
 

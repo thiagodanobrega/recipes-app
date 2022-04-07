@@ -1,6 +1,5 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../App.css';
 import DrinksRecommended from '../components/DrinksRecommended';
 import EmbedVideo from '../components/EmbedVideo';
@@ -8,7 +7,7 @@ import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
@@ -47,16 +46,16 @@ const FoodRecipesDetailScreen = () => {
           <h2 data-testid="recipe-title">
             {strMeal}
           </h2>
-
-          <input
+          <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
+          {/*  <input
             type="image"
             data-testid="favorite-btn"
             alt="Favorite"
             src={ FavoriteWhite }
-            height={ 26 }
-            width={ 26 }
-            // onClick={ () => saveFavoriteRecipe() }
-          />
+            height={ 50 }
+            width={ 50 }
+            onClick={ () => saveFavoriteRecipe() }
+          /> */}
 
           <ShareButton />
         </div>
