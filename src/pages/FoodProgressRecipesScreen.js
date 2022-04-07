@@ -1,9 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredients from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
+import FavoriteWhite from '../images/whiteHeartIcon.svg';
 
 function FoodProgressRecipesScreen() {
   // const [enabledButton, setEnabledButton] = useState(true);
@@ -60,16 +62,22 @@ function FoodProgressRecipesScreen() {
           data-testid="recipe-photo"
           src={ strMealThumb }
           alt={ strMeal }
-          height={ 250 }
-          width={ 250 }
+          className="col-1-img"
         />
       </figure>
 
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-
-      <ShareButton />
-
-      <h1 data-testid="recipe-title">{data.meals[0].strMeal}</h1>
+      <div className="col-1-btn">
+        <h2 data-testid="recipe-title">{data.meals[0].strMeal}</h2>
+        <input
+          type="image"
+          data-testid="favorite-btn"
+          alt="Favorite"
+          src={ FavoriteWhite }
+          height={ 26 }
+          width={ 26 }
+        />
+        <ShareButton />
+      </div>
 
       <p data-testid="recipe-category">{data.meals[0].strCategory}</p>
 
@@ -103,6 +111,7 @@ function FoodProgressRecipesScreen() {
       </p>
 
       <button
+        className="startRecipe"
         type="button"
         // disabled={ enabledButton }
         onClick={ () => handleButton() }

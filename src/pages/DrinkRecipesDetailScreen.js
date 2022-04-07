@@ -1,6 +1,7 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import FoodsRecommended from '../components/FoodsRecommended';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
@@ -34,13 +35,12 @@ const DrinkRecipesDetailScreen = () => {
           <img
             data-testid="recipe-photo"
             src={ strDrinkThumb }
-            alt="{strDrink}"
-            height={ 250 }
-            width={ 250 }
+            alt={ strDrink }
+            className="col-1-img"
           />
         </figure>
 
-        <div>
+        <div className="col-1-btn">
           <h2 data-testid="recipe-title">
             {strDrink}
           </h2>
@@ -50,8 +50,8 @@ const DrinkRecipesDetailScreen = () => {
             data-testid="favorite-btn"
             alt="Favorite"
             src={ FavoriteWhite }
-            height={ 50 }
-            width={ 50 }
+            height={ 26 }
+            width={ 26 }
             // onClick={ () => saveFavoriteRecipe() }
           />
 
@@ -84,25 +84,18 @@ const DrinkRecipesDetailScreen = () => {
         </p>
       </section>
 
-      <section>
-        <div data-testid="0-recomendation-card">
-          <h3 data-testid="recomendation-title">
-            RECOMENDA
-          </h3>
+      <section className="gallery">
+        <div className="gallery_scroller">
+          <FoodsRecommended />
         </div>
       </section>
 
       <button
-        id="startRecipe"
+        className="startRecipe"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
       >
-        {/* {
-          verifyRecipe
-            ? 'Start Recipe'
-            : 'Continue Recipe'
-        } */}
         Start Recipe
       </button>
     </main>
