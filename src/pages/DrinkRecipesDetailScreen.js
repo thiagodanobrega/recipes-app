@@ -94,7 +94,7 @@ const DrinkRecipesDetailScreen = () => {
       </section>
 
       <button
-        id="startRecipe"
+        className="startRecipe"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }

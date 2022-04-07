@@ -38,7 +38,7 @@
 }
 
 @keyframes shake {
-  
+
   0% {
     transform: rotate(5deg);
   }
@@ -53,7 +53,7 @@
 }
 
 @keyframes clink {
-  
+
   0% {
     transform: rotate(-10deg);
   }
@@ -71,7 +71,7 @@ ul {
   list-style: none;
 }
 
-#startRecipe {
+.startRecipe {
   bottom: 0;
   position: fixed;
 }
