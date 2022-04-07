@@ -64,7 +64,7 @@ function App() {
           <Route path="/done-recipes" component={ DoneRecipesScreen } />
           <Route path="/favorite-recipes" component={ FavoritesRecipesScreen } />
           <Route
-            path="/explore/drinks/nationalities"
+            path="*"
             component={ NotFound }
           />
         </Switch>
