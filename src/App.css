@@ -18,13 +18,13 @@
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-	
+
   0% {
     transform: rotate(5deg);
   }
@@ -39,7 +39,7 @@
 }
 
 @keyframes clink {
-	
+
   0% {
     transform: rotate(-10deg);
   }
@@ -53,22 +53,16 @@
   }
 }
 
-/* lista */
-
 ul {
   background-color: rgb(222, 222, 222);
   list-style: none;
 }
-
-/* botão startRecipe */
 
 .startRecipe {
   bottom: 0;
   margin-left: 33%;
   position: fixed;
 }
-
-/* horizontal gallery */
 
 .gallery {
   max-width: 800px;
@@ -91,8 +85,7 @@ ul {
   scroll-snap-align: center;
 }
 
-img,
-.recipe-card > input {
+img , .recipe-card > input {
   display: block;
   height: 150px;
 }
