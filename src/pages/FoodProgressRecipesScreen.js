@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
+import getChecked from '../helpers/getCheckedFoods';
+import FinishButtonFood from '../helpers/FinishButtonFood';
 import renderIngredients from '../helpers/listIngredientsFoods';
+import setLocalStorage from '../helpers/setLocalStorageFoods';
 import useFetch from '../hooks/useFetch';
 import FavoriteWhite from '../images/whiteHeartIcon.svg';
 
@@ -52,7 +55,27 @@ function FoodProgressRecipesScreen() {
     } else {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
-    setLocalStorage(event);
+    
+    setLocalStorage(event, id);
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
+  };
+
+  const doneRecipe = () => {
+    const today = new Date();
+    const doneFoods = [{
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: today,
+      tags: strTags || '',
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
+    history.push('/done-recipes');
   };
 
   return (
