@@ -85,7 +85,7 @@ ul {
   scroll-snap-align: center;
 }
 
-img , .recipe-card > input {
+img, .recipe-card > input {
   display: block;
   height: 150px;
 }
