@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Card from '../components/Card';
 import CategoriesButtons from '../components/CategoriesButtons';
@@ -11,11 +11,7 @@ const MAX_RECIPES = 12;
 
 function FoodRecipeScreen() {
   const history = useHistory();
-  const {
-    isCategoryByFoods,
-    allFoodsData,
-    setUserChoiceFoods,
-    foods,
+  const { isCategoryByFoods, allFoodsData, foods,
     isLoading,
   } = useContext(contextFoodRecipe); // chegam os dados do provider para renderizar.
 
@@ -42,15 +38,6 @@ function FoodRecipeScreen() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foods, allFoodsData]);
 
-  // ---- Função para redirecionar para tela de detalhes
-  const redirectOnClick = ({ target }) => {
-    setUserChoiceFoods((prevState) => ({
-      ...prevState,
-      recipeID: target.id,
-    }));
-    history.push(`/foods/${target.id}`);
-  };
-
   return (
     <div>
 
@@ -63,7 +50,8 @@ function FoodRecipeScreen() {
         : (
           <section className="RecipeHome">
             {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
-              <div
+              <Link
+                to={ `/foods/${meal.idMeal}` }
                 className="centerRecipeNames"
                 type="button"
                 key={ index }
@@ -74,9 +62,8 @@ function FoodRecipeScreen() {
                   image={ meal.strMealThumb }
                   typeCard="recipe-card"
                   index={ index }
-                  funcOnClick={ redirectOnClick }
                 />
-              </div>
+              </Link>
             ))}
           </section>
 
