@@ -9,8 +9,10 @@ const ShareButton = () => {
   const location = useLocation();
 
   const copyToClipboard = () => {
-    copy(location.pathname);
+    copy(`http://localhost:3000${location.pathname}`);
     setCopiedLink(true);
+    const TWO_SECONDS = 2000;
+    setTimeout(() => { setCopiedLink(false); }, TWO_SECONDS);
   };
   return (
     <>
@@ -19,14 +21,14 @@ const ShareButton = () => {
         data-testid="share-btn"
         alt="Share"
         src={ Share }
-        height={ 50 }
-        width={ 50 }
+        height={ 26 }
+        width={ 26 }
         onClick={ () => copyToClipboard() }
       />
       {
         copiedLink && (
           <p>
-            link copied!
+            Link copied!
           </p>
         )
       }
