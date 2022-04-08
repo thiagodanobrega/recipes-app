@@ -1,10 +1,10 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
-import getChecked from '../helpers/getCheckedDrinks';
 import FinishButtonDrink from '../helpers/FinishButtonDrink';
+import getChecked from '../helpers/getCheckedDrinks';
 import renderIngredients from '../helpers/listIngredientsDrinks';
 import setLocalStorage from '../helpers/setLocalStorageDrinks';
 import useFetch from '../hooks/useFetch';

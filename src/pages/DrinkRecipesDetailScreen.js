@@ -1,15 +1,12 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 import FoodsRecommended from '../components/FoodsRecommended';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
-/* import FavoriteWhite from '../images/whiteHeartIcon.svg'; */
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
-import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
-import '../styles/pages/DrinkRecipesDetailScreen.css';
 
 const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
@@ -45,16 +42,6 @@ const DrinkRecipesDetailScreen = () => {
           <h2 data-testid="recipe-title">
             {strDrink}
           </h2>
-
-          {/* <input
-            type="image"
-            data-testid="favorite-btn"
-            alt="Favorite"
-            src={ FavoriteWhite }
-            height={ 26 }
-            width={ 26 }
-            // onClick={ () => saveFavoriteRecipe() }
-          /> */}
           <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
           <ShareButton />
         </div>
