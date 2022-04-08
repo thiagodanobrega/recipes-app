@@ -75,8 +75,6 @@ function DrinkProgressRecipesScreen() {
         {
           renderIngredients(data).map((ingredientAndMeasure, index) => (
             <li key={ ingredientAndMeasure }>
-              {/* {console.log('ingredientesss', ingredientAndMeasure)}
-              {console.log('getchecked', getChecked(ingredientAndMeasure, id))} */}
               <label
                 data-testid={ `${index}-ingredient-step` }
                 htmlFor={ ingredientAndMeasure }
