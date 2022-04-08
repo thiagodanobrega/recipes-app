@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
@@ -8,7 +8,7 @@ import FinishButtonDrink from '../helpers/FinishButtonDrink';
 import renderIngredients from '../helpers/listIngredientsDrinks';
 import setLocalStorage from '../helpers/setLocalStorageDrinks';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 
 function DrinkProgressRecipesScreen() {
   const [enabledButton, setEnabledButton] = useState(true);
@@ -69,7 +69,7 @@ function DrinkProgressRecipesScreen() {
       </figure>
       <div className="col-1-btn">
         <h2 data-testid="recipe-title">{data.drinks[0].strDrink}</h2>
-        <input
+        {/* <input
           type="image"
           data-testid="favorite-btn"
           alt="Favorite"
@@ -77,7 +77,8 @@ function DrinkProgressRecipesScreen() {
           height={ 26 }
           width={ 26 }
           // onClick={ () => saveFavoriteRecipe() }
-        />
+        /> */}
+        <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
         <ShareButton />
       </div>
       <p data-testid="recipe-category">{data.drinks[0].strCategory}</p>
