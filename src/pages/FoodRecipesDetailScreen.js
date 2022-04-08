@@ -1,13 +1,13 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import DrinksRecommended from '../components/DrinksRecommended';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
-import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
@@ -47,7 +47,6 @@ const FoodRecipesDetailScreen = () => {
             {strMeal}
           </h2>
           <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
-
           <ShareButton />
         </div>
 

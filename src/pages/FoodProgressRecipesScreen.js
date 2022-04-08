@@ -1,45 +1,42 @@
 import React from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams/* , useHistory */ } from 'react-router-dom';
 import '../App.css';
 import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
-// import getChecked from '../helpers/getCheckedFoods';
-import FinishButtonFood from '../helpers/FinishButtonFood';
 import renderIngredients from '../helpers/listIngredientsFoods';
-// import setLocalStorage from '../helpers/setLocalStorageFoods';
 import useFetch from '../hooks/useFetch';
 /* import FavoriteWhite from '../images/whiteHeartIcon.svg'; */
 
 function FoodProgressRecipesScreen() {
   // const [enabledButton, setEnabledButton] = useState(true);
-  const history = useHistory();
+  // const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
 
-  const setLocalStorage = (event) => {
-    const ingredients = event.target.parentElement.innerText;
+  // const setLocalStorage = (event) => {
+  //   const ingredients = event.target.parentElement.innerText;
 
-    if (localStorage.getItem('inProgressRecipes')) {
-      const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
+  //   if (localStorage.getItem('inProgressRecipes')) {
+  //     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id];
 
-      if (getStorage.some((element) => ingredients === element)) {
-        const newLocalStorage = getStorage
-          .filter((element) => element !== ingredients);
+  //     if (getStorage.some((element) => ingredients === element)) {
+  //       const newLocalStorage = getStorage
+  //         .filter((element) => element !== ingredients);
 
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ meals: { [id]: newLocalStorage } }));
-      } else {
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
-      }
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(
-        { meals: { [id]: [ingredients] } },
-      ));
-    }
-  };
+  //       localStorage.setItem('inProgressRecipes', JSON
+  //         .stringify({ meals: { [id]: newLocalStorage } }));
+  //     } else {
+  //       localStorage.setItem('inProgressRecipes', JSON
+  //         .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
+  //     }
+  //   } else {
+  //     localStorage.setItem('inProgressRecipes', JSON.stringify(
+  //       { meals: { [id]: [ingredients] } },
+  //     ));
+  //   }
+  // };
 
   if (isLoading || !data) {
     return <Loading />;
@@ -57,28 +54,28 @@ function FoodProgressRecipesScreen() {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
 
-    setLocalStorage(id);
-    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
+    // setLocalStorage(event, id);
+    // const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
   };
 
-  const doneRecipe = () => {
-    const today = new Date();
-    const doneFoods = [{
-      id,
-      type: 'food',
-      nationality: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-      doneDate: today,
-      tags: strTags || '',
-    }];
-    localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
-    history.push('/done-recipes');
-  };
-  console.log(doneRecipe);
+  // const doneRecipe = () => {
+  //   const today = new Date();
+  //   const doneFoods = [{
+  //     id,
+  //     type: 'food',
+  //     nationality: strArea,
+  //     category: strCategory,
+  //     alcoholicOrNot: '',
+  //     name: strMeal,
+  //     image: strMealThumb,
+  //     doneDate: today,
+  //     tags: strTags || '',
+  //   }];
+  //   // localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
+  //   history.push('/done-recipes');
+  // };
+
   return (
     <div>
       <figure>
