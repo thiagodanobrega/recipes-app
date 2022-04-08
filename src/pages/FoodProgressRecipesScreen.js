@@ -1,18 +1,19 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import '../App.css';
+import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
-import getChecked from '../helpers/getCheckedFoods';
+// import getChecked from '../helpers/getCheckedFoods';
 import FinishButtonFood from '../helpers/FinishButtonFood';
 import renderIngredients from '../helpers/listIngredientsFoods';
-import setLocalStorage from '../helpers/setLocalStorageFoods';
+// import setLocalStorage from '../helpers/setLocalStorageFoods';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+/* import FavoriteWhite from '../images/whiteHeartIcon.svg'; */
 
 function FoodProgressRecipesScreen() {
   // const [enabledButton, setEnabledButton] = useState(true);
-  // const history = useHistory();
+  const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
@@ -55,8 +56,8 @@ function FoodProgressRecipesScreen() {
     } else {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
-    
-    setLocalStorage(event, id);
+
+    setLocalStorage(id);
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
   };
@@ -77,7 +78,7 @@ function FoodProgressRecipesScreen() {
     localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
     history.push('/done-recipes');
   };
-
+  console.log(doneRecipe);
   return (
     <div>
       <figure>
@@ -91,14 +92,8 @@ function FoodProgressRecipesScreen() {
 
       <div className="col-1-btn">
         <h2 data-testid="recipe-title">{data.meals[0].strMeal}</h2>
-        <input
-          type="image"
-          data-testid="favorite-btn"
-          alt="Favorite"
-          src={ FavoriteWhite }
-          height={ 26 }
-          width={ 26 }
-        />
+
+        <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
         <ShareButton />
       </div>
 

@@ -47,15 +47,6 @@ const FoodRecipesDetailScreen = () => {
             {strMeal}
           </h2>
           <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
-          {/*  <input
-            type="image"
-            data-testid="favorite-btn"
-            alt="Favorite"
-            src={ FavoriteWhite }
-            height={ 50 }
-            width={ 50 }
-            onClick={ () => saveFavoriteRecipe() }
-          /> */}
 
           <ShareButton />
         </div>
