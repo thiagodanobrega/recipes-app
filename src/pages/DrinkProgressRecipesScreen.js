@@ -23,7 +23,6 @@ function DrinkProgressRecipesScreen() {
 
   const {
     strDrink,
-    strTags,
     strAlcoholic,
     strDrinkThumb,
     strCategory,
@@ -42,18 +41,24 @@ function DrinkProgressRecipesScreen() {
 
   const doneRecipe = () => {
     const today = new Date();
-    const doneFoods = [{
+    const doneFoods = {
       id,
-      type: 'Drink',
+      type: 'drink',
       nationality: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
       image: strDrinkThumb,
       doneDate: today,
-      tags: strTags || '',
-    }];
-    localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
+      tags: [],
+    };
+
+    if (localStorage.getItem('doneRecipes')) {
+      const recipes = localStorage.getItem('doneRecipes');
+      localStorage.setItem('doneRecipes', JSON.stringify([...recipes, doneFoods]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([doneFoods]));
+    }
     history.push('/done-recipes');
   };
 
@@ -87,8 +92,6 @@ function DrinkProgressRecipesScreen() {
         {
           renderIngredients(data).map((ingredientAndMeasure, index) => (
             <li key={ ingredientAndMeasure }>
-              {/* {console.log('ingredientesss', ingredientAndMeasure)}
-              {console.log('getchecked', getChecked(ingredientAndMeasure, id))} */}
               <label
                 data-testid={ `${index}-ingredient-step` }
                 htmlFor={ ingredientAndMeasure }

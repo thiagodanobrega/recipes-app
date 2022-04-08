@@ -1,8 +1,9 @@
 const getChecked = (ingredients, id) => {
   const inProgressKey = localStorage.getItem('inProgressRecipes');
-  if (inProgressKey) {
+  if (inProgressKey && JSON.parse(inProgressKey).meals[id]) {
     return JSON.parse(inProgressKey).meals[id].includes(ingredients);
   }
+  return false;
 };
 
 export default getChecked;

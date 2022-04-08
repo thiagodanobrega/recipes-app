@@ -11,8 +11,14 @@ const setLocalStorage = (event, id) => {
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ meals: { [id]: newLocalStorage } }));
     } else {
+      const keyMeals = JSON.parse(localStorage.getItem('inProgressRecipes')).meals;
+      keyMeals[id] = [...getStorage, ingredients];
       localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ meals: { [id]: [...getStorage, ingredients] } }));
+        .stringify({ meals: keyMeals }));
+
+      console.log(keyMeals);
+      // localStorage.setItem('inProgressRecipes', JSON
+      //   .stringify({ meals: { ...keyMeals, [id]: [...getStorage, ingredients] } }));
     }
   } else {
     localStorage.setItem('inProgressRecipes', JSON.stringify(
