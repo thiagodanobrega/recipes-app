@@ -1,13 +1,13 @@
 import { React } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
 import '../App.css';
+import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
+import DrinksRecommended from '../components/DrinksRecommended';
 import EmbedVideo from '../components/EmbedVideo';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsFoods from '../helpers/listIngredientsFoods';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
 
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
@@ -37,27 +37,16 @@ const FoodRecipesDetailScreen = () => {
           <img
             data-testid="recipe-photo"
             src={ strMealThumb }
-            alt="{strMeal}"
-            height={ 250 }
-            width={ 250 }
+            alt={ strMeal }
+            className="col-1-img"
           />
         </figure>
 
-        <div>
+        <div className="col-1-btn">
           <h2 data-testid="recipe-title">
             {strMeal}
           </h2>
-
-          <input
-            type="image"
-            data-testid="favorite-btn"
-            alt="Favorite"
-            src={ FavoriteWhite }
-            height={ 50 }
-            width={ 50 }
-            // onClick={ () => saveFavoriteRecipe() }
-          />
-
+          <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
           <ShareButton />
         </div>
 
@@ -92,26 +81,18 @@ const FoodRecipesDetailScreen = () => {
         <EmbedVideo embedId={ embedId } />
       </section>
 
-      <section>
-        <h2> Recommended </h2>
-        <div data-testid="0-recomendation-card">
-          <h3 data-testid="recomendation-title">
-            RECOMENDA
-          </h3>
+      <section className="gallery">
+        <div className="gallery_scroller">
+          <DrinksRecommended />
         </div>
       </section>
 
       <button
-        id="startRecipe"
+        className="startRecipe"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
       >
-        {/* {
-          verifyRecipe
-            ? 'Start Recipe'
-            : 'Continue Recipe'
-        } */}
         Start Recipe
       </button>
     </main>
