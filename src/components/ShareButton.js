@@ -9,7 +9,7 @@ const ShareButton = () => {
   const location = useLocation();
 
   const copyToClipboard = () => {
-    copy(`http://localhost:3000${location.pathname}`);
+    copy(`http://localhost:3000${location.pathname.replace('/in-progress', '')}`);
     setCopiedLink(true);
     const TWO_SECONDS = 2000;
     setTimeout(() => { setCopiedLink(false); }, TWO_SECONDS);
