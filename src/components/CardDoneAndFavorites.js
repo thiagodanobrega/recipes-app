@@ -25,6 +25,7 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
     <div>
       {filterRecipes.map((recipe, index) => (
         <div key={ index }>
+          {console.log(recipe)}
           <button
             type="button"
             onClick={ () => (recipe.type === 'food'

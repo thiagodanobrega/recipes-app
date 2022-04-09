@@ -42,8 +42,12 @@ function FoodProgressRecipesScreen() {
   };
 
   const doneRecipe = () => {
-    const today = new Date();
-    const doneFoods = [{
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth()).padStart(2, '0');
+    const year = date.getFullYear();
+    const today = `${day}/${month}/${year}`;
+    const doneFoods = {
       id,
       type: 'food',
       nationality: strArea,
@@ -52,14 +56,10 @@ function FoodProgressRecipesScreen() {
       name: strMeal,
       image: strMealThumb,
       doneDate: today,
-      tags: [strTags] || [],
-    }];
-    if (localStorage.getItem('doneRecipes')) {
-      const recipes = localStorage.getItem('doneRecipes');
-      localStorage.setItem('doneRecipes', JSON.stringify([...recipes, doneFoods]));
-    } else {
-      localStorage.setItem('doneRecipes', JSON.stringify([doneFoods]));
-    }
+      tags: strTags ? [strTags] : [],
+    };
+    const doneRecipes = localStorage.getItem('doneRecipes') || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneFoods]));
     history.push('/done-recipes');
   };
 

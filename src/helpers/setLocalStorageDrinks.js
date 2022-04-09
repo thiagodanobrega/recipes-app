@@ -1,9 +1,11 @@
 const setLocalStorage = (event, id) => {
   const ingredients = event.target.parentElement.innerText;
   const getLocalStorage = localStorage.getItem('inProgressRecipes');
+
   if (getLocalStorage) {
     const objLocalStorage = JSON.parse(getLocalStorage);
     const arrayIngredients = objLocalStorage.cocktails[id] || [];
+
     if (!event.target.checked) {
       console.log('foi aqui');
       const newArray = arrayIngredients.filter((element) => element !== ingredients);
