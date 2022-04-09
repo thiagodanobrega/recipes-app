@@ -11,15 +11,16 @@ import useFetch from '../hooks/useFetch';
 const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
   const { id } = useParams();
-  const [isStartedRecipe, setIsStartedRecipe] = useState(false);
+  const [wasFinishedRecipe, setWasFinishedRecipe] = useState(false);
+  // const [wasStartedRecipe, setWasStartedRecipe] = useState(false);
 
   const verifyLocalStorage = () => {
     const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipesInLocalStorage) {
       const isInStorage = doneRecipesInLocalStorage
         .map((doneRecipe) => (doneRecipe.id === id
-          ? setIsStartedRecipe(true)
-          : setIsStartedRecipe(false)
+          ? setWasFinishedRecipe(true)
+          : setWasFinishedRecipe(false)
         ));
       return isInStorage;
     }
@@ -98,7 +99,7 @@ const DrinkRecipesDetailScreen = () => {
       </section>
 
       {
-        !isStartedRecipe
+        !wasFinishedRecipe
           ? (
             <button
               className="startRecipe"
@@ -109,7 +110,16 @@ const DrinkRecipesDetailScreen = () => {
               Start Recipe
             </button>
           )
-          : ''
+          : ''/*  (
+            <button
+              className="ContinueRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+            >
+              Continue
+            </button>
+          ) */
       }
 
     </main>
