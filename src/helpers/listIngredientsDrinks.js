@@ -1,5 +1,4 @@
 const renderIngredientsDrinks = (data) => {
-  const arrIngredientMeasure = [];
   const arrAllKeysWithValue = data.drinks
     .map((element) => Object.keys(element)
       .filter((key) => element[key] !== '' && element[key] !== null));
@@ -12,11 +11,10 @@ const renderIngredientsDrinks = (data) => {
     .map((key) => data.drinks[0][key]);
   const measureValues = measure
     .map((key) => data.drinks[0][key]);
-  ingredientsValues
-    .map((ingredientValue, index) => (arrIngredientMeasure
-      .push(`${ingredientValue} - ${measureValues[index]}`)
-    ));
-  return (arrIngredientMeasure);
+  const arrIngredientMeasure = ingredientsValues
+    .map((ingredientValue, index) => (`${ingredientValue} - ${measureValues[index]}`)
+      .trim());
+  return (arrIngredientMeasure || []);
 };
 
 export default renderIngredientsDrinks;
