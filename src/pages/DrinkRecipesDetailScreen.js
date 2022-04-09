@@ -12,18 +12,22 @@ const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
   const { id } = useParams();
   const [wasFinishedRecipe, setWasFinishedRecipe] = useState(false);
-  // const [wasStartedRecipe, setWasStartedRecipe] = useState(false);
+  const [wasStartedRecipe, setWasStartedRecipe] = useState(false);
 
   const verifyLocalStorage = () => {
     const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipesInLocalStorage) {
-      const isInStorage = doneRecipesInLocalStorage
-        .map((doneRecipe) => (doneRecipe.id === id
-          ? setWasFinishedRecipe(true)
-          : setWasFinishedRecipe(false)
-        ));
-      return isInStorage;
+    const startedInLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (startedInLocalStorage) {
+      return startedInLocalStorage.cocktails && setWasStartedRecipe(true);
     }
+
+    const isInStorage = doneRecipesInLocalStorage
+      .map((doneRecipe) => (doneRecipe.id === id
+        ? setWasFinishedRecipe(true)
+        : setWasFinishedRecipe(false)
+      ));
+    return isInStorage;
   };
 
   useEffect(() => {
@@ -99,7 +103,7 @@ const DrinkRecipesDetailScreen = () => {
       </section>
 
       {
-        !wasFinishedRecipe
+        !wasFinishedRecipe || !wasStartedRecipe
           ? (
             <button
               className="startRecipe"
@@ -110,18 +114,22 @@ const DrinkRecipesDetailScreen = () => {
               Start Recipe
             </button>
           )
-          : ''/*  (
-            <button
-              className="ContinueRecipe"
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-            >
-              Continue
-            </button>
-          ) */
-      }
+          : ''
 
+      }
+      {
+
+        wasStartedRecipe && (
+          <button
+            className="continueRecipe"
+            type="button"
+            data-testid="continue-recipe-btn"
+            onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+          >
+            Continue Recipe
+          </button>
+        )
+      }
     </main>
   );
 };
