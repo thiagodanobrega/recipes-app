@@ -12,7 +12,8 @@ const renderIngredientsFoods = (data) => {
   const measureValues = measure.map((key) => data.meals[0][key]);
 
   const arrIngredientMeasure = ingredientsValues
-    .map((ingredientValue, index) => (`${ingredientValue} - ${measureValues[index]}`));
+    .map((ingredientValue, index) => (`${ingredientValue} - ${measureValues[index]}`)
+      .trim());
   return (arrIngredientMeasure || []);
 };
 
