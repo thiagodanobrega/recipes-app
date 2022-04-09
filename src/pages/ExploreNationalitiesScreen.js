@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
@@ -16,7 +16,6 @@ function ExploreNationalitiesScreen() {
     setUserChoiceFoods,
     foods,
   } = useContext(contextFoodRecipe);
-  const history = useHistory();
 
   // estado local para o select
   const [nationalities, setNationalities] = useState([]);
@@ -28,9 +27,10 @@ function ExploreNationalitiesScreen() {
   }, [data]);
 
   // ---- Função para redirecionar para tela de detalhes
-  const redirectOnClick = ({ target }) => {
-    history.push(`/foods/${target.id}`);
-  };
+  /*  const redirectOnClick = ({ target }) => {
+    console.log(target, 'target');
+    history.push();
+  }; */
 
   const filteringByNationalities = () => {
     if (chosenNationalities === 'All') {
@@ -88,9 +88,9 @@ function ExploreNationalitiesScreen() {
         )}
       <section>
         {filteringByNationalities().slice(0, MAX_RECIPES).map((meal, index) => (
-          <div
-            type="button"
+          <Link
             key={ index }
+            to={ `/foods/${meal.idMeal}` }
           >
             <Card
               id={ meal.idMeal }
@@ -98,9 +98,10 @@ function ExploreNationalitiesScreen() {
               image={ meal.strMealThumb }
               typeCard="recipe-card"
               index={ index }
-              funcOnClick={ redirectOnClick }
+
             />
-          </div>
+          </Link>
+
         ))}
       </section>
       <BottomMenu />

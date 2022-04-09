@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Card from '../components/Card';
 import CategoriesButtons from '../components/CategoriesButtons';
@@ -46,7 +46,8 @@ function DrinksRecipeScreen() {
         : (
           <section className="RecipeHome">
             {drinksList.slice(0, MAX_RECIPES).map((drink, index) => (
-              <div
+              <Link
+                to={ `/drinks/${drink.idDrink}` }
                 className="centerRecipeNames"
                 type="button"
                 key={ index }
@@ -57,9 +58,8 @@ function DrinksRecipeScreen() {
                   image={ drink.strDrinkThumb }
                   typeCard="recipe-card"
                   index={ index }
-                  funcOnClick={ () => history.push(`/drinks/${drink.idDrink}`) }
                 />
-              </div>
+              </Link>
             ))}
           </section>
         )}

@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
@@ -12,9 +12,28 @@ import useFetch from '../hooks/useFetch';
 const FoodRecipesDetailScreen = () => {
   const history = useHistory();
   const { id } = useParams();
+  const [isStartedRecipe, setIsStartedRecipe] = useState(false);
+
+  // verifica se já foi começada a receita
+  const verifyLocalStorage = () => {
+    const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesInLocalStorage) {
+      const isInStorage = doneRecipesInLocalStorage
+        .map((doneRecipe) => (doneRecipe.id === id
+          ? setIsStartedRecipe(true)
+          : setIsStartedRecipe(false)
+        ));
+      return isInStorage;
+    }
+  };
+
+  useEffect(() => {
+    verifyLocalStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
-
   if (isLoading || !data) {
     return <Loading />;
   }
@@ -87,14 +106,20 @@ const FoodRecipesDetailScreen = () => {
         </div>
       </section>
 
-      <button
-        className="startRecipe"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      {
+        !isStartedRecipe
+          ? (
+            <button
+              className="startRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
+            >
+              Start Recipe
+            </button>
+          )
+          : ''
+      }
     </main>
   );
 };
