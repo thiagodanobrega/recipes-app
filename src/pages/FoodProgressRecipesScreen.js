@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams/* , useHistory */ } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import '../App.css';
 import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import Loading from '../components/Loading';
@@ -10,7 +10,7 @@ import useFetch from '../hooks/useFetch';
 
 function FoodProgressRecipesScreen() {
   // const [enabledButton, setEnabledButton] = useState(true);
-  // const history = useHistory();
+  const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
@@ -54,27 +54,39 @@ function FoodProgressRecipesScreen() {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
 
-    // setLocalStorage(event, id);
-    // const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
+    setLocalStorage(event, id);
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getStorage) FinishButtonFood(setEnabledButton, getStorage, id, data);
   };
 
-  // const doneRecipe = () => {
-  //   const today = new Date();
-  //   const doneFoods = [{
-  //     id,
-  //     type: 'food',
-  //     nationality: strArea,
-  //     category: strCategory,
-  //     alcoholicOrNot: '',
-  //     name: strMeal,
-  //     image: strMealThumb,
-  //     doneDate: today,
-  //     tags: strTags || '',
-  //   }];
-  //   // localStorage.setItem('doneRecipes', JSON.stringify(doneFoods));
-  //   history.push('/done-recipes');
-  // };
+  const doneRecipe = () => {
+    const today = new Date();
+    const doneFoods = {
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: today,
+      tags: strTags || [],
+    };
+    /*  const doneRecipes = [{
+      id: '52771',
+      type: 'food',
+      nationality: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '22/6/2020',
+      tags: ['Pasta', 'Curry'],
+    }]; */
+    /*  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes)); */
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneFoods]));
+    history.push('/done-recipes');
+  };
 
   return (
     <div>
@@ -129,7 +141,7 @@ function FoodProgressRecipesScreen() {
         className="startRecipe"
         type="button"
         // disabled={ enabledButton }
-        onClick={ () => handleButton() }
+        onClick={ () => doneRecipe() }
       >
         Finalizar Receita
       </button>
