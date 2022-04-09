@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
@@ -11,6 +11,25 @@ import useFetch from '../hooks/useFetch';
 const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
   const { id } = useParams();
+  const [isStartedRecipe, setIsStartedRecipe] = useState(false);
+
+  const verifyLocalStorage = () => {
+    const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesInLocalStorage) {
+      const isInStorage = doneRecipesInLocalStorage
+        .map((doneRecipe) => (doneRecipe.id === id
+          ? setIsStartedRecipe(true)
+          : setIsStartedRecipe(false)
+        ));
+      return isInStorage;
+    }
+  };
+
+  useEffect(() => {
+    verifyLocalStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const endPointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointDrink);
 
@@ -78,14 +97,21 @@ const DrinkRecipesDetailScreen = () => {
         </div>
       </section>
 
-      <button
-        className="startRecipe"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      {
+        !isStartedRecipe
+          ? (
+            <button
+              className="startRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+            >
+              Start Recipe
+            </button>
+          )
+          : ''
+      }
+
     </main>
   );
 };
