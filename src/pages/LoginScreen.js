@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MdKeyboardArrowDown } from 'react-icons/md';
+import '../styles/pages/LoginScreen.css';
+import logo from '../images/logo.png';
 
 function LoginScreen() {
   const history = useHistory();
@@ -25,28 +28,47 @@ function LoginScreen() {
   };
 
   return (
-    <div>
-      <input
-        type="email"
-        placeholder="Email"
-        data-testid="email-input"
-        onChange={ (event) => setEmail(event.target.value) }
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        data-testid="password-input"
-        onChange={ (event) => setPassword(event.target.value) }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ disabledButton() }
-        onClick={ enableButton }
-      >
-        Entar
-      </button>
-    </div>
+    <body className="container-body">
+      <header className="container-header">
+        <h1>Let is Cooking</h1>
+        <h2>Find best recipes for cooking</h2>
+        <a
+          href="#container-main"
+          // type="button"
+          className="btn-start"
+        >
+          <MdKeyboardArrowDown className="icon-bottom" />
+        </a>
+      </header>
+      <main id="container-main" className="container-main">
+        <img src={ logo } alt="logo" />
+
+        <div className="container-login">
+          <h3>Login</h3>
+          <input
+            type="email"
+            placeholder="Email"
+            data-testid="email-input"
+            onChange={ (event) => setEmail(event.target.value) }
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            data-testid="password-input"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+          <button
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ disabledButton() }
+            onClick={ enableButton }
+            className="btn-login"
+          >
+            Login
+          </button>
+        </div>
+      </main>
+    </body>
   );
 }
 
