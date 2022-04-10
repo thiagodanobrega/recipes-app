@@ -5,6 +5,7 @@ import FoodRecipeScreen from '../pages/FoodRecipeScreen';
 import renderWithRouter from '../helpers/renderWithRouter';
 import ProviderFoods from '../context/contextFoodRecipe/ProviderFoods';
 import ProviderDrinks from '../context/contextDrinks/ProviderDrinks';
+import meals from '../../cypress/mocks/meals';
 
 const { screen } = require('@testing-library/react');
 
