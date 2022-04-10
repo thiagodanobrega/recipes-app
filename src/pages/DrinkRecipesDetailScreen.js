@@ -1,19 +1,36 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 import FoodsRecommended from '../components/FoodsRecommended';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
-/* import FavoriteWhite from '../images/whiteHeartIcon.svg'; */
-// import FavoriteBlack from '../images/whiteHeartIcon.svg';
-import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
-import '../styles/pages/DrinkRecipesDetailScreen.css';
 
 const DrinkRecipesDetailScreen = () => {
   const history = useHistory();
   const { id } = useParams();
+  const [wasFinishedRecipe, setWasFinishedRecipe] = useState(false);
+  // const [wasStartedRecipe, setWasStartedRecipe] = useState(false);
+
+  const verifyLocalStorage = () => {
+    const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesInLocalStorage) {
+      const isInStorage = doneRecipesInLocalStorage
+        .map((doneRecipe) => (doneRecipe.id === id
+          ? setWasFinishedRecipe(true)
+          : setWasFinishedRecipe(false)
+        ));
+      return isInStorage;
+    }
+  };
+
+  useEffect(() => {
+    verifyLocalStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const endPointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointDrink);
 
@@ -45,16 +62,6 @@ const DrinkRecipesDetailScreen = () => {
           <h2 data-testid="recipe-title">
             {strDrink}
           </h2>
-
-          {/* <input
-            type="image"
-            data-testid="favorite-btn"
-            alt="Favorite"
-            src={ FavoriteWhite }
-            height={ 26 }
-            width={ 26 }
-            // onClick={ () => saveFavoriteRecipe() }
-          /> */}
           <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
           <ShareButton />
         </div>
@@ -91,14 +98,30 @@ const DrinkRecipesDetailScreen = () => {
         </div>
       </section>
 
-      <button
-        className="startRecipe"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      {
+        !wasFinishedRecipe
+          ? (
+            <button
+              className="startRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+            >
+              Start Recipe
+            </button>
+          )
+          : ''/*  (
+            <button
+              className="ContinueRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+            >
+              Continue
+            </button>
+          ) */
+      }
+
     </main>
   );
 };

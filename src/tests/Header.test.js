@@ -1,25 +1,25 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+
 import userEvent from '@testing-library/user-event';
 import FoodRecipeScreen from '../pages/FoodRecipeScreen';
+import renderWithRouter from '../helpers/renderWithRouter';
+import ProviderFoods from '../context/contextFoodRecipe/ProviderFoods';
+import ProviderDrinks from '../context/contextDrinks/ProviderDrinks';
 
-const { render, screen } = require('@testing-library/react');
+const { screen } = require('@testing-library/react');
 
 const searchButtonTestID = 'search-top-btn';
 const profileButtonTestID = 'profile-top-btn';
 
-const renderWithRouter = (component) => {
-  const history = createMemoryHistory();
-  return ({
-    ...render(<Router history={ history }>{component}</Router>), history,
-  });
-};
-
 describe('Monte um component Header', () => {
   test('9- Implemente os elementos do header na tela principal de receitas', () => {
-    renderWithRouter(<FoodRecipeScreen />);
-
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const profileIcon = screen.getByTestId(profileButtonTestID);
     const titlePage = screen.getByTestId('page-title');
     const searchTopButton = screen.getByTestId(searchButtonTestID);
@@ -30,21 +30,39 @@ describe('Monte um component Header', () => {
   });
 
   test('10-Implemente um ícone para a tela de perfil', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const profileIcon = screen.getByTestId(profileButtonTestID);
 
     expect(profileIcon).toBeInTheDocument();
   });
 
   test('10.2-Implemente um título', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const titleHeader = screen.getByRole('heading', { name: /foods/i });
 
     expect(titleHeader).toBeInTheDocument();
   });
 
   test('10.3-Implemente um botão de pesquisa', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const searchIcon = screen.getByTestId(searchButtonTestID);
 
     expect(searchIcon).toBeInTheDocument();
@@ -52,7 +70,13 @@ describe('Monte um component Header', () => {
 
   test(`11-Redirecione a pessoa usuária para a tela de perfil
   ao clicar no botão de perfil`, async () => {
-    const { history } = renderWithRouter(<FoodRecipeScreen />);
+    const { history } = renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const profileIcon = screen.getByTestId(profileButtonTestID);
     expect(profileIcon).toBeInTheDocument();
     // history.location.pathname
@@ -62,7 +86,13 @@ describe('Monte um component Header', () => {
 
   test(`12 - Desenvolva o botão de busca que, ao ser clicado,
   a barra de busca deve aparecer. O mesmo serve para escondê-la`, () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const searchTopButton = screen.getByTestId(searchButtonTestID);
     expect(searchTopButton).toBeInTheDocument();
 
@@ -75,15 +105,28 @@ describe('Monte um component Header', () => {
 
   test(`13 - Implemente os elementos da barra de busca respeitando
   os atributos descritos no protótipo`, () => {
-    renderWithRouter(<FoodRecipeScreen />);
-    const radioButtonIngredient = screen.getByTestId('ingredient-search-radio');
-    expect(radioButtonIngredient).toBeInTheDocument();
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
 
-    const radioButtonName = screen.getByTestId('name-search-radio');
-    expect(radioButtonName).toBeInTheDocument('first-letter-search-radio');
-
-    const searchButton = screen.getByTestId('exec-search-btn');
+    const searchButton = screen.getByTestId(searchButtonTestID);
     expect(searchButton).toBeInTheDocument();
+    userEvent.click(searchButton);
+
+    const radioButtonIngredient = screen.getByText(/ingredient/i);
+    const radioButtonName = screen.getByText(/name/i);
+    const radioButtonFirstLetter = screen.getByText(/first letter/i);
+    const execSearchButton = screen.getByTestId('exec-search-btn');
+    /* const searchButton = screen.getByTestId('exec-search-btn'); */
+
+    expect(radioButtonFirstLetter).toBeInTheDocument();
+    expect(radioButtonIngredient).toBeInTheDocument();
+    expect(radioButtonName).toBeInTheDocument();
+    expect(execSearchButton).toBeInTheDocument();
   });
 
 /*   test(`14 - Posicione a barra logo abaixo do header e

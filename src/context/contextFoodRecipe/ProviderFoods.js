@@ -34,6 +34,12 @@ function ProviderFoods({ children }) {
     setCallApi(NATIONAL_API);
     setUserChoiceFoods(USER_INITIAL_STATE);
   }
+  /*
+  if (nationality) {
+    const NATIONAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese';
+    setCallApi(NATIONAL_API);
+    setUserChoiceFoods(USER_INITIAL_STATE);
+  } */
 
   if (categoryFoods) {
     const CATEGORY_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryFoods}`;

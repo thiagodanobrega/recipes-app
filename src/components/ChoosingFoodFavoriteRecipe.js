@@ -37,15 +37,14 @@ function ChoosingFoodFavoriteRecipe(localMeal) {
   };
 
   const saveFavoriteRecipe = () => {
-    console.log('renderizei');
     const favoritesInStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     if (!favoritesInStorage && isFavourite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([initialValue]));
     }
-    if (favoritesInStorage) {
+    /* if (favoritesInStorage) {
       favoritesInStorage.filter((favorite) => favorite.id === id);
-    }
+    } */
     if (favoritesInStorage && isFavourite) {
       favoritesInStorage.filter((favorite) => favorite.id !== id);
       localStorage.setItem('favoriteRecipes', JSON

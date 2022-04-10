@@ -1,41 +1,21 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import '../App.css';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
+import getChecked from '../helpers/getCheckedDrinks';
+import FinishButtonDrink from '../helpers/FinishButtonDrink';
 import renderIngredients from '../helpers/listIngredientsDrinks';
+import setLocalStorage from '../helpers/setLocalStorageDrinks';
 import useFetch from '../hooks/useFetch';
-import FavoriteWhite from '../images/whiteHeartIcon.svg';
+import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 
-function FoodProgressRecipesScreen() {
-  // const [enabledButton, setEnabledButton] = useState(true);
-  // const history = useHistory();
+function DrinkProgressRecipesScreen() {
+  const [enabledButton, setEnabledButton] = useState(true);
+  const history = useHistory();
   const { id } = useParams();
   const endPointFood = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointFood);
-
-  const setLocalStorage = (event) => {
-    const ingredients = event.target.parentElement.innerText;
-
-    if (localStorage.getItem('inProgressRecipes')) {
-      const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')).drinks[id];
-
-      if (getStorage.some((element) => ingredients === element)) {
-        const newLocalStorage = getStorage
-          .filter((element) => element !== ingredients);
-
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ drinks: { [id]: newLocalStorage } }));
-      } else {
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({ drinks: { [id]: [...getStorage, ingredients] } }));
-      }
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(
-        { drinks: { [id]: [ingredients] } },
-      ));
-    }
-  };
 
   if (isLoading || !data) {
     return <Loading />;
@@ -43,7 +23,9 @@ function FoodProgressRecipesScreen() {
 
   const {
     strDrink,
+    strAlcoholic,
     strDrinkThumb,
+    strCategory,
   } = data.drinks[0];
 
   const changeTargetStyle = (event) => {
@@ -52,7 +34,32 @@ function FoodProgressRecipesScreen() {
     } else {
       event.target.parentElement.style = 'text-decoration-line: none';
     }
-    setLocalStorage(event);
+    setLocalStorage(event, id);
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    FinishButtonDrink(setEnabledButton, getStorage, id, data);
+  };
+
+  const doneRecipe = () => {
+    const today = new Date();
+    const doneFoods = {
+      id,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: today,
+      tags: [],
+    };
+
+    if (localStorage.getItem('doneRecipes')) {
+      const recipes = localStorage.getItem('doneRecipes');
+      localStorage.setItem('doneRecipes', JSON.stringify([...recipes, doneFoods]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([doneFoods]));
+    }
+    history.push('/done-recipes');
   };
 
   return (
@@ -65,10 +72,9 @@ function FoodProgressRecipesScreen() {
           className="col-1-img"
         />
       </figure>
-
       <div className="col-1-btn">
         <h2 data-testid="recipe-title">{data.drinks[0].strDrink}</h2>
-        <input
+        {/* <input
           type="image"
           data-testid="favorite-btn"
           alt="Favorite"
@@ -76,14 +82,12 @@ function FoodProgressRecipesScreen() {
           height={ 26 }
           width={ 26 }
           // onClick={ () => saveFavoriteRecipe() }
-        />
+        /> */}
+        <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
         <ShareButton />
       </div>
-
       <p data-testid="recipe-category">{data.drinks[0].strCategory}</p>
-
       <h3>Ingredientes:</h3>
-
       <ul>
         {
           renderIngredients(data).map((ingredientAndMeasure, index) => (
@@ -92,8 +96,12 @@ function FoodProgressRecipesScreen() {
                 data-testid={ `${index}-ingredient-step` }
                 htmlFor={ ingredientAndMeasure }
                 key={ ingredientAndMeasure }
+                style={ getChecked(ingredientAndMeasure, id)
+                  ? { textDecorationLine: 'line-through' }
+                  : { textDecorationLine: 'none' } }
               >
                 <input
+                  defaultChecked={ getChecked(ingredientAndMeasure, id) }
                   id={ ingredientAndMeasure }
                   type="checkbox"
                   onClick={ (event) => changeTargetStyle(event) }
@@ -104,18 +112,17 @@ function FoodProgressRecipesScreen() {
           ))
         }
       </ul>
-
       <h3>Instruções:</h3>
-
       <p data-testid="instructions">
         { data.drinks[0].strInstructions }
       </p>
 
       <button
+        data-testid="finish-recipe-btn"
         className="startRecipe"
         type="button"
-        // disabled={ enabledButton }
-        onClick={ () => handleButton() }
+        disabled={ enabledButton }
+        onClick={ doneRecipe }
       >
         Finalizar Receita
       </button>
@@ -123,4 +130,4 @@ function FoodProgressRecipesScreen() {
   );
 }
 
-export default FoodProgressRecipesScreen;
+export default DrinkProgressRecipesScreen;
