@@ -1,6 +1,6 @@
 import React from 'react';
-
 import userEvent from '@testing-library/user-event';
+
 import FoodRecipeScreen from '../pages/FoodRecipeScreen';
 import renderWithRouter from '../helpers/renderWithRouter';
 import ProviderFoods from '../context/contextFoodRecipe/ProviderFoods';
@@ -125,7 +125,6 @@ describe('Monte um component Header', () => {
     const radioButtonName = screen.getByText(/name/i);
     const radioButtonFirstLetter = screen.getByText(/first letter/i);
     const execSearchButton = screen.getByTestId('exec-search-btn');
-    /* const searchButton = screen.getByTestId('exec-search-btn'); */
 
     expect(radioButtonFirstLetter).toBeInTheDocument();
     expect(radioButtonIngredient).toBeInTheDocument();
@@ -135,7 +134,17 @@ describe('Monte um component Header', () => {
 
   test(`14 - Posicione a barra logo abaixo do header e
   implemente 3 radio buttons: Ingredient, Name e First letter`, () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
+    const searchButton = screen.getByTestId(searchButtonTestID);
+    expect(searchButton).toBeInTheDocument();
+    userEvent.click(searchButton);
+
     const radioButtonIngredient = screen.getByTestId('ingredient-search-radio');
     expect(radioButtonIngredient).toBeInTheDocument();
 
@@ -144,5 +153,48 @@ describe('Monte um component Header', () => {
 
     const searcButton = screen.getByTestId('exec-search-btn');
     expect(searcButton).toBeInTheDocument();
+  });
   test(`15 - Busque na API de comidas caso a pessoa
+  esteja na página de comidas `, async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(meals),
+    });
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
+    expect(fetch).toHaveBeenCalled();
+
+    const renderedMeal = await screen.findByText(/corba/i);
+    expect(renderedMeal).toBeInTheDocument();
+
+    const rederDrink = screen.queryByRole('heading', { name: /drinks/i });
+    expect(rederDrink).not.toBeInTheDocument();
+  });
+
+  test('16 - Busque na API de bebidas caso esteja na de bebidas', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinks),
+    });
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <DrinksRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
+    const foodsTitle = screen.queryByRole('heading', { name: /foods/i });
+    expect(foodsTitle).not.toBeInTheDocument();
+
+    const drinkTitle = screen.getByRole('heading', { name: /drinks/i });
+    expect(drinkTitle).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalled();
+    const renderDrinks = await screen.findByText(/gg/i);
+    expect(renderDrinks).toBeInTheDocument();
+  });
 });
