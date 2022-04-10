@@ -12,6 +12,7 @@ const { screen } = require('@testing-library/react');
 
 const searchButtonTestID = 'search-top-btn';
 const profileButtonTestID = 'profile-top-btn';
+afterEach(() => jest.clearAllMocks());
 
 describe('Monte um component Header', () => {
   test('9- Implemente os elementos do header na tela principal de receitas', () => {
