@@ -144,5 +144,5 @@ describe('Monte um component Header', () => {
 
     const searcButton = screen.getByTestId('exec-search-btn');
     expect(searcButton).toBeInTheDocument();
-  }); */
+  test(`15 - Busque na API de comidas caso a pessoa
 });
