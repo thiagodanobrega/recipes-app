@@ -133,7 +133,7 @@ describe('Monte um component Header', () => {
     expect(execSearchButton).toBeInTheDocument();
   });
 
-/*   test(`14 - Posicione a barra logo abaixo do header e
+  test(`14 - Posicione a barra logo abaixo do header e
   implemente 3 radio buttons: Ingredient, Name e First letter`, () => {
     renderWithRouter(<FoodRecipeScreen />);
     const radioButtonIngredient = screen.getByTestId('ingredient-search-radio');
