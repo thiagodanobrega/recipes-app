@@ -14,5 +14,4 @@ const { screen } = require('@testing-library/react');
 const searchButtonTestID = 'search-top-btn';
 const profileButtonTestID = 'profile-top-btn';
 afterEach(() => jest.clearAllMocks());
-
  */
