@@ -46,28 +46,30 @@ function FoodRecipeScreen() {
         nameScreen="Foods"
       />
       <CategoriesButtons />
-      { isLoading ? (<Loading />)
-        : (
-          <section className="RecipeHome">
-            {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
-              <Link
-                to={ `/foods/${meal.idMeal}` }
-                className="centerRecipeNames"
-                type="button"
-                key={ index }
-              >
-                <Card
-                  id={ meal.idMeal }
-                  name={ meal.strMeal }
-                  image={ meal.strMealThumb }
-                  typeCard="recipe-card"
-                  index={ index }
-                />
-              </Link>
-            ))}
-          </section>
+      <main className="container-main-recipes">
+        { isLoading ? (<Loading />)
+          : (
+            <section className="RecipeHome">
+              {foodsList.slice(0, MAX_RECIPES).map((meal, index) => (
+                <Link
+                  to={ `/foods/${meal.idMeal}` }
+                  className="centerRecipeNames"
+                  type="button"
+                  key={ index }
+                >
+                  <Card
+                    id={ meal.idMeal }
+                    name={ meal.strMeal }
+                    image={ meal.strMealThumb }
+                    typeCard="recipe-card"
+                    index={ index }
+                  />
+                </Link>
+              ))}
+            </section>
+          )}
 
-        )}
+      </main>
 
       <BottomMenu />
 

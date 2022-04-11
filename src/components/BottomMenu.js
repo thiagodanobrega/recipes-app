@@ -18,6 +18,7 @@ function BottomMenu() {
         data-testid="drinks-bottom-btn"
         src={ drinkIcon }
         alt="Ícone de bebida"
+        className="icon-drink"
         onClick={ () => history.push('/drinks') }
       />
       <input

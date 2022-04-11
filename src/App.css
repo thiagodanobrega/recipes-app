@@ -123,18 +123,40 @@ img, .recipe-card > input {
 }
 
 p {
-  background-color: rgb(222, 222, 222);
+  background-color: #f1f1f1;
+}
+
+.container-main-recipes {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .RecipeHome {
-  column-gap: 20px;
+  background-color: white;
   display: flex;
   flex-flow: row wrap;
   gap: 20px;
   justify-content: center;
-  margin-top: 10px;
+  margin-bottom: 5rem;
+  margin-top: 1rem;
+  width: min(800px, 90vw);
+}
+
+
+.recipe-card > input {
+  border-radius: 10px 10px 0 0;
+  box-shadow: 1px 1px 20px #b8b8b8;
 }
 
 .recipe-card > p {
-  padding-left: 30%;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 1px 1px 20px #b8b8b8;
+  color: rgba(0, 0, 0, 0.698);
+  display: flex;
+  font-weight: 900;
+  height: 3rem;
+  justify-content: center;
+  margin: auto;
 }
