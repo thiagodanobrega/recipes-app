@@ -27,21 +27,22 @@ function DoneRecipesScreen() {
 
   return (
     <>
-      <div>
-        <Header
-          renderScreen={ false }
-          nameScreen="Favorite Recipes"
+      <Header
+        renderScreen={ false }
+        nameScreen="Favorite Recipes"
+      />
+      <main className="container-main-recipes ">
+        <FilterButtonsDoneAndFavorites
+          setTypeFilter={ setTypeFilter }
         />
-      </div>
-
-      <FilterButtonsDoneAndFavorites
-        setTypeFilter={ setTypeFilter }
-      />
-      <CardDoneAndFavorites
-        filterRecipes={ filterFavoriteRecipes() }
-        disfavorRecipe={ disfavorRecipe }
-        typeScreen="favorite"
-      />
+        <section className="RecipeHome">
+          <CardDoneAndFavorites
+            filterRecipes={ filterFavoriteRecipes() }
+            disfavorRecipe={ disfavorRecipe }
+            typeScreen="favorite"
+          />
+        </section>
+      </main>
     </>
   );
 }

@@ -95,6 +95,7 @@ function ExploreNationalitiesScreen() {
             <Link
               key={ index }
               to={ `/foods/${meal.idMeal}` }
+              className="centerRecipeNames"
             >
               <Card
                 id={ meal.idMeal }

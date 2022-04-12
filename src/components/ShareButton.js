@@ -21,8 +21,6 @@ const ShareButton = () => {
         data-testid="share-btn"
         alt="Share"
         src={ Share }
-        /* height={ 26 }
-        width={ 26 } */
         onClick={ () => copyToClipboard() }
       />
       {

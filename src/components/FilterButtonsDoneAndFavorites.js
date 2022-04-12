@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/components/FilterButtonsDoneAndFavorites.css';
 
 function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
   return (
-    <section>
+    <section className="container-filters">
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        className="filters-done-favorite"
         onClick={ () => setTypeFilter('all') }
       >
         All
@@ -15,6 +17,7 @@ function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
       <button
         type="button"
         data-testid="filter-by-food-btn"
+        className="filters-done-favorite"
         onClick={ () => setTypeFilter('food') }
       >
         Food
@@ -23,6 +26,7 @@ function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        className="filters-done-favorite"
         onClick={ () => setTypeFilter('drink') }
       >
         Drinks

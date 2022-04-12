@@ -8,6 +8,7 @@ import '../styles/pages/DoneRecipesScreen.css';
 
 function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
   const MAX_LENGTH = 10;
+  const TWO_SECONDS = 2000;
   const [idCopied, setIdCopied] = useState('');
   const history = useHistory();
   const copyUrlToClipboard = (id, type) => {
@@ -18,8 +19,9 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
       : 'done-recipes', '');
     if (type === 'food') {
       // ref: https://www.npmjs.com/package/clipboard-copy
-      return copy(`${url}foods/${id}`);
+      setTimeout(() => setIdCopied(''), TWO_SECONDS);
     }
+    setTimeout(() => setIdCopied(''), TWO_SECONDS);
     return copy(`${url}drinks/${id}`);
   };
 
@@ -64,6 +66,7 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
                 {recipe.name.length > MAX_LENGTH
                   ? `${recipe.name.slice(0, MAX_LENGTH)}...`
                   : recipe.name}
+
               </p>
             </Link>
 
@@ -87,7 +90,7 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
                 {tag}
               </p>
             ))) }
-            <div className="div-icon-share">
+            <div className="div-icon">
               <input
                 type="image"
                 src={ shareIcon }
@@ -96,19 +99,19 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }
               />
-            </div>
 
-            {idCopied === recipe.id && <p>Link copied!</p>}
-
-            {typeScreen === 'favorite'
+              {typeScreen === 'favorite'
             && <input
               type="image"
               src={ blackHeartIcon }
+              className="icon-favorite"
               alt="Ícone de coração para favoritar"
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => disfavorRecipe(recipe.id) }
             />}
-
+            </div>
+            {idCopied === recipe.id
+              && <p>Link copied!</p>}
           </div>
         </div>
       ))}

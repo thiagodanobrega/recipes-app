@@ -2,6 +2,7 @@
 .wrapper-done-favorite {
   background-color: #f1f1f1;
   border-radius: 10px;
+  box-shadow: 1px 1px 2px #b8b8b8;
   display: flex;
   height: 200px;
   width: 335px;
@@ -17,15 +18,11 @@
   margin-left: 1rem;
 }
 
-.div-icon-share {
+.div-icon {
   align-items: center;
-  background-color: white;
-  border-radius: 50%;
   display: flex;
-  height: 40px;
-  justify-content: center;
+  gap: 1rem;
   margin-left: 1rem;
-  width: 40px;
 }
 
 .icon-share {
@@ -76,4 +73,9 @@
 .tags.type {
   background-color: gray;
   margin-top: -10px;
+}
+
+.icon-favorite {
+  height: 25px;
+  width: 25px;
 }
