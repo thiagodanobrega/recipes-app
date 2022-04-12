@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
+import '../styles/pages/FoodExploreScreen.css';
 
 function FoodExploreScreen() {
   const history = useHistory();
@@ -14,37 +15,42 @@ function FoodExploreScreen() {
   };
 
   return (
-    <div>
+    <body>
       <Header
         renderScreen={ false }
         nameScreen="Explore Foods"
       />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => history.push('/explore/foods/ingredients') }
-      >
-        By Ingredient
-      </button>
+      <main className="container-explore-foods">
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          className="btn-explore-ingredient"
+          onClick={ () => history.push('/explore/foods/ingredients') }
+        >
+          By Ingredient
+        </button>
 
-      <button
-        type="button"
-        data-testid="explore-by-nationality"
-        onClick={ () => history.push('/explore/foods/nationalities') }
-      >
-        By Nationality
-      </button>
+        <button
+          type="button"
+          data-testid="explore-by-nationality"
+          className="btn-explore-nationality"
+          onClick={ () => history.push('/explore/foods/nationalities') }
+        >
+          By Nationality
+        </button>
 
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ randomRecipeAPI }
-      >
-        Surprise me!
-      </button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          className="btn-explore-surprise"
+          onClick={ randomRecipeAPI }
+        >
+          Surprise me!
+        </button>
+      </main>
 
       <BottomMenu />
-    </div>
+    </body>
   );
 }
 

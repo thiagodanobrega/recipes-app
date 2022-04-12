@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const MAX_LENGTH = 10;
 function Card({ id, name, image, typeCard, index }) {
   return (
     <div
@@ -15,7 +16,7 @@ function Card({ id, name, image, typeCard, index }) {
         data-testid={ `${index}-card-img` }
       />
       <p data-testid={ `${index}-card-name` }>
-        {name}
+        {name.length > MAX_LENGTH ? `${name.slice(0, MAX_LENGTH)}...` : name}
       </p>
     </div>
   );

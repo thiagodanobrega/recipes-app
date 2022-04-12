@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import contextDrinks from '../context/contextDrinks/contextDrinks';
 import useFetch from '../hooks/useFetch';
+import '../styles/components/CategoriesButtons.css';
 
 const CATEGORIES_FOODS_ENPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const CATEGORIES_DRINKS_ENPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -64,12 +65,13 @@ function CategoriesButtons() {
   };
 
   return (
-    <section>
+    <section className="container-btn-filter">
       <button
         type="button"
         name="All"
         data-testid="All-category-filter"
         onClick={ choosenCategoryOnClick }
+        className="btn-filter-category"
       >
         All
       </button>
@@ -81,6 +83,7 @@ function CategoriesButtons() {
             data-testid={ `${categoryButton.strCategory}-category-filter` }
             onClick={ choosenCategoryOnClick }
             name={ categoryButton.strCategory }
+            className="btn-filter-category"
           >
             { categoryButton.strCategory}
           </button>

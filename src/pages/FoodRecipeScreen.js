@@ -45,8 +45,8 @@ function FoodRecipeScreen() {
         renderScreen
         nameScreen="Foods"
       />
-      <CategoriesButtons />
       <main className="container-main-recipes">
+        <CategoriesButtons />
         { isLoading ? (<Loading />)
           : (
             <section className="RecipeHome">
