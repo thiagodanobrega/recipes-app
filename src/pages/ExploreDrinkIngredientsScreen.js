@@ -5,6 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 import Card from '../components/Card';
 import contextDrinks from '../context/contextDrinks/contextDrinks';
 import useFetch from '../hooks/useFetch';
+import '../styles/pages/ExploreDrinkIngredientsScreen.css';
 
 function ExploreFoodIngredientsScreen() {
   const { setDrinks } = useContext(contextDrinks);
@@ -34,24 +35,28 @@ function ExploreFoodIngredientsScreen() {
         renderScreen={ false }
         nameScreen="Explore Ingredients"
       />
-      <section>
-        {value.slice(0, MAX_INGREDIENTS).map((obj, index) => (
-          <button
-            type="button"
-            key={ index }
-            onClick={ () => handleButton(obj.strIngredient1) }
-          >
-            <Card
-              name={ obj.strIngredient1 }
-              image={
-                `https://www.thecocktaildb.com/images/ingredients/${obj.strIngredient1}-Small.png`
-              }
-              typeCard="ingredient-card"
-              index={ index }
-            />
-          </button>
-        ))}
-      </section>
+      <main className="container-main-recipes">
+        <section className="RecipeHome">
+          {value.slice(0, MAX_INGREDIENTS).map((obj, index) => (
+            <button
+              type="button"
+              key={ index }
+              className="btn-ingredient-drinks"
+              onClick={ () => handleButton(obj.strIngredient1) }
+            >
+              <Card
+                name={ obj.strIngredient1 }
+                image={
+                  `https://www.thecocktaildb.com/images/ingredients/${obj.strIngredient1}-Small.png`
+                }
+                typeCard="ingredient-card"
+                index={ index }
+              />
+            </button>
+          ))}
+        </section>
+
+      </main>
       <BottomMenu />
     </>
   );

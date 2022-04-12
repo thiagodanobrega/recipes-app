@@ -58,7 +58,7 @@ function FoodProgressRecipesScreen() {
       doneDate: today,
       tags: strTags ? [strTags] : [],
     };
-    const doneRecipes = localStorage.getItem('doneRecipes') || [];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneFoods]));
     history.push('/done-recipes');
   };

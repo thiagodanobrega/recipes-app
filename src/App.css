@@ -136,6 +136,7 @@ img, .recipe-card > input {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 0.5rem;
 }
 
 .RecipeHome {
@@ -155,14 +156,14 @@ img, .recipe-card > input {
 
 .recipe-card > input {
   border-radius: 10px 10px 0 0;
-  box-shadow: 1px 1px 20px #b8b8b8;
+  box-shadow: 1px 1px 2px #b8b8b8;
 }
 
 .recipe-card > p {
   align-items: center;
   background-color: #f1f1f1;
   border-radius: 0 0 10px 10px;
-  box-shadow: 1px 1px 20px #b8b8b8;
+  box-shadow: 1px 1px 2px #b8b8b8;
   color: rgba(0, 0, 0, 0.698);
   display: flex;
   font-weight: 900;

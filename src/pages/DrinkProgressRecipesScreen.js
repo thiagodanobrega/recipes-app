@@ -40,7 +40,11 @@ function DrinkProgressRecipesScreen() {
   };
 
   const doneRecipe = () => {
-    const today = new Date();
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth()).padStart(2, '0');
+    const year = date.getFullYear();
+    const today = `${day}/${month}/${year}`;
     const doneFoods = {
       id,
       type: 'drink',
@@ -53,12 +57,8 @@ function DrinkProgressRecipesScreen() {
       tags: [],
     };
 
-    if (localStorage.getItem('doneRecipes')) {
-      const recipes = localStorage.getItem('doneRecipes');
-      localStorage.setItem('doneRecipes', JSON.stringify([...recipes, doneFoods]));
-    } else {
-      localStorage.setItem('doneRecipes', JSON.stringify([doneFoods]));
-    }
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneFoods]));
     history.push('/done-recipes');
   };
 

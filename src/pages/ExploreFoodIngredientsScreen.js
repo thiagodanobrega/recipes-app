@@ -5,6 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 import Card from '../components/Card';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import useFetch from '../hooks/useFetch';
+import '../styles/pages/ExploreFoodIngredientsScreen.css';
 
 function ExploreFoodIngredientsScreen() {
   const { setFoods } = useContext(contextFoodRecipe);
@@ -33,22 +34,25 @@ function ExploreFoodIngredientsScreen() {
         renderScreen={ false }
         nameScreen="Explore Ingredients"
       />
-      <section>
-        {value.slice(0, MAX_INGREDIENTS).map((obj, index) => (
-          <button
-            type="button"
-            key={ index }
-            onClick={ () => handleButton(obj.strIngredient) }
-          >
-            <Card
-              name={ obj.strIngredient }
-              image={ `https://www.themealdb.com/images/ingredients/${obj.strIngredient}-Small.png` }
-              typeCard="ingredient-card"
-              index={ index }
-            />
-          </button>
-        ))}
-      </section>
+      <main className="container-main-recipes">
+        <section className="RecipeHome">
+          {value.slice(0, MAX_INGREDIENTS).map((obj, index) => (
+            <button
+              type="button"
+              key={ index }
+              className="btn-ingredient-foods"
+              onClick={ () => handleButton(obj.strIngredient) }
+            >
+              <Card
+                name={ obj.strIngredient }
+                image={ `https://www.themealdb.com/images/ingredients/${obj.strIngredient}-Small.png` }
+                typeCard="ingredient-card"
+                index={ index }
+              />
+            </button>
+          ))}
+        </section>
+      </main>
       <BottomMenu />
     </>
   );

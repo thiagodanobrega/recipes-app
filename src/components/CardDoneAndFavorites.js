@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/pages/DoneRecipesScreen.css';
 
 function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
+  const MAX_LENGTH = 10;
   const [idCopied, setIdCopied] = useState('');
   const history = useHistory();
   const copyUrlToClipboard = (id, type) => {
@@ -22,56 +24,83 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
   };
 
   return (
-    <div>
+    <>
       {filterRecipes.map((recipe, index) => (
-        <div key={ index }>
+        <div key={ index } className="wrapper-done-favorite">
           <button
             type="button"
+            className="btn-done"
             onClick={ () => (recipe.type === 'food'
               ? history.push(`/foods/${recipe.id}`)
               : history.push(`/drinks/${recipe.id}`)) }
           >
             <img
               src={ recipe.image }
+              className="img-recipe"
               data-testid={ `${index}-horizontal-image` }
               alt="Imagem da receita pronta"
               width="100px"
             />
           </button>
-
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {recipe.type === 'food'
-              ? `${recipe.nationality} - ${recipe.category}` : `${recipe.alcoholicOrNot}`}
-          </p>
-
-          <Link
-            to={ recipe.type === 'food' ? `/foods/${recipe.id}` : `/drinks/${recipe.id}` }
-          >
-            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-          </Link>
-
-          {typeScreen === 'done'
-            && <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>}
-
-          {typeScreen === 'done' && (recipe.tags.map((tag) => (
-            <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
-              {tag}
+          <div className="wrapper-descriptions">
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+              className="tags"
+            >
+              {recipe.type === 'food'
+                ? `${recipe.nationality} - ${recipe.category}`
+                : `${recipe.alcoholicOrNot}`}
             </p>
-          ))) }
 
-          <input
-            type="image"
-            src={ shareIcon }
-            alt="Ícone de compartilhar"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }
-          />
+            <Link
+              to={ recipe.type === 'food'
+                ? `/foods/${recipe.id}`
+                : `/drinks/${recipe.id}` }
+            >
+              <p
+                data-testid={ `${index}-horizontal-name` }
+                className="text-name"
+              >
+                {recipe.name.length > MAX_LENGTH
+                  ? `${recipe.name.slice(0, MAX_LENGTH)}...`
+                  : recipe.name}
+              </p>
+            </Link>
 
-          {idCopied === recipe.id && <p>Link copied!</p>}
+            {typeScreen === 'done'
+            && (
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+                className="date"
+              >
+                {recipe.doneDate}
 
-          {typeScreen === 'favorite'
+              </p>
+            )}
+
+            {typeScreen === 'done' && (recipe.tags.map((tag) => (
+              <p
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+                key={ tag }
+                className="tags type"
+              >
+                {tag}
+              </p>
+            ))) }
+            <div className="div-icon-share">
+              <input
+                type="image"
+                src={ shareIcon }
+                alt="Ícone de compartilhar"
+                className="icon-share"
+                data-testid={ `${index}-horizontal-share-btn` }
+                onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }
+              />
+            </div>
+
+            {idCopied === recipe.id && <p>Link copied!</p>}
+
+            {typeScreen === 'favorite'
             && <input
               type="image"
               src={ blackHeartIcon }
@@ -79,9 +108,11 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => disfavorRecipe(recipe.id) }
             />}
+
+          </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

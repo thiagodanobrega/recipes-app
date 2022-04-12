@@ -19,19 +19,23 @@ function DoneRecipesScreen() {
   };
 
   return (
-    <>
+    <body>
       <Header
         renderScreen={ false }
         nameScreen="Done Recipes"
       />
-      <FilterButtonsDoneAndFavorites
-        setTypeFilter={ setTypeFilter }
-      />
-      <CardDoneAndFavorites
-        filterRecipes={ filterDoneRecipes() }
-        typeScreen="done"
-      />
-    </>
+      <main className="container-main-recipes ">
+        <FilterButtonsDoneAndFavorites
+          setTypeFilter={ setTypeFilter }
+        />
+        <section className="RecipeHome">
+          <CardDoneAndFavorites
+            filterRecipes={ filterDoneRecipes() }
+            typeScreen="done"
+          />
+        </section>
+      </main>
+    </body>
   );
 }
 

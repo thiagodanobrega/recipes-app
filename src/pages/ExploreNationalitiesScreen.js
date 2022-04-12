@@ -6,6 +6,7 @@ import useFetch from '../hooks/useFetch';
 import Loading from '../components/Loading';
 import contextFoodRecipe from '../context/contextFoodRecipe/contextFoodRecipe';
 import Card from '../components/Card';
+import '../styles/pages/ExploreNationalitiesScreen.css';
 
 const NATIONALITIES_LIST_API = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const MAX_RECIPES = 12;
@@ -50,62 +51,66 @@ function ExploreNationalitiesScreen() {
   };
 
   return (
-    <div>
+    <body>
       <Header
         renderScreen
         nameScreen="Explore Nationalities"
       />
-      { isLoading
-        ? <Loading />
-        : (
-          <form>
-            <label htmlFor="select-Nationalities">
-              <select
-                id="select-Nationalities"
-                data-testid="explore-by-nationality-dropdown"
-                onChange={ chosingNationalyOnChange }
-              >
-                <option
-                  data-testid="All-option"
+      <main className="container-main-recipes">
+
+        { isLoading
+          ? <Loading />
+          : (
+            <form>
+              <label htmlFor="select-Nationalities">
+                <select
+                  id="select-Nationalities"
+                  className="select-Nationalities"
+                  data-testid="explore-by-nationality-dropdown"
+                  onChange={ chosingNationalyOnChange }
                 >
-                  All
-                </option>
-                {
-                  nationalities.map((nationality) => (
-                    <option
-                      key={ nationality.strArea }
-                      data-testid={ `${nationality.strArea}-option` }
-                      value={ nationality.strArea }
-                    >
-                      {nationality.strArea}
-                    </option>
-                  ))
-                }
+                  <option
+                    data-testid="All-option"
+                  >
+                    All
+                  </option>
+                  {
+                    nationalities.map((nationality) => (
+                      <option
+                        key={ nationality.strArea }
+                        data-testid={ `${nationality.strArea}-option` }
+                        value={ nationality.strArea }
+                      >
+                        {nationality.strArea}
+                      </option>
+                    ))
+                  }
 
-              </select>
-            </label>
-          </form>
-        )}
-      <section>
-        {filteringByNationalities().slice(0, MAX_RECIPES).map((meal, index) => (
-          <Link
-            key={ index }
-            to={ `/foods/${meal.idMeal}` }
-          >
-            <Card
-              id={ meal.idMeal }
-              name={ meal.strMeal }
-              image={ meal.strMealThumb }
-              typeCard="recipe-card"
-              index={ index }
+                </select>
+              </label>
+            </form>
+          )}
+        <section className="RecipeHome">
+          {filteringByNationalities().slice(0, MAX_RECIPES).map((meal, index) => (
+            <Link
+              key={ index }
+              to={ `/foods/${meal.idMeal}` }
+            >
+              <Card
+                id={ meal.idMeal }
+                name={ meal.strMeal }
+                image={ meal.strMealThumb }
+                typeCard="recipe-card"
+                index={ index }
 
-            />
-          </Link>
+              />
+            </Link>
 
-        ))}
-      </section>
+          ))}
+        </section>
+      </main>
       <BottomMenu />
-    </div>
+    </body>
   );
 }
 
