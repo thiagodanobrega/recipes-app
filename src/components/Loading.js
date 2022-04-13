@@ -5,7 +5,7 @@ import '../styles/components/Loading.css';
 class Loading extends React.Component {
   render() {
     return (
-      <>
+      <div className="loading">
         <img
           src={ Load }
           alt="Carregando..."
@@ -14,7 +14,7 @@ class Loading extends React.Component {
           width={ 75 }
         />
         Carregando...
-      </>
+      </div>
     );
   }
 }

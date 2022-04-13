@@ -1,36 +1,17 @@
-import { React, useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import '../App.css';
 import { FiChevronLeft } from 'react-icons/fi';
 import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 import FoodsRecommended from '../components/FoodsRecommended';
 import Loading from '../components/Loading';
 import ShareButton from '../components/ShareButton';
+import StartAndContinueButtonDrinks from '../components/StartAndContinueButtonDrinks';
 import renderIngredientsDrinks from '../helpers/listIngredientsDrinks';
 import useFetch from '../hooks/useFetch';
 
 const DrinkRecipesDetailScreen = () => {
-  const history = useHistory();
   const { id } = useParams();
-  const [wasFinishedRecipe, setWasFinishedRecipe] = useState(false);
-  // const [wasStartedRecipe, setWasStartedRecipe] = useState(false);
-
-  const verifyLocalStorage = () => {
-    const doneRecipesInLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipesInLocalStorage) {
-      const isInStorage = doneRecipesInLocalStorage
-        .map((doneRecipe) => (doneRecipe.id === id
-          ? setWasFinishedRecipe(true)
-          : setWasFinishedRecipe(false)
-        ));
-      return isInStorage;
-    }
-  };
-
-  useEffect(() => {
-    verifyLocalStorage();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const endPointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, isLoading } = useFetch(endPointDrink);
@@ -103,32 +84,9 @@ const DrinkRecipesDetailScreen = () => {
             <FoodsRecommended />
           </div>
         </section>
-
-        {
-          !wasFinishedRecipe
-            ? (
-              <button
-                className="startRecipe"
-                type="button"
-                data-testid="start-recipe-btn"
-                onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-                title="button that starts the recipe"
-              >
-                Start Recipe
-              </button>
-            )
-            : ''/*  (
-            <button
-              className="ContinueRecipe"
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-            >
-              Continue
-            </button>
-          ) */
-        }
-
+        <Link to={ `/drinks/${idDrink}/in-progress` }>
+          <StartAndContinueButtonDrinks />
+        </Link>
       </main>
     </body>
   );

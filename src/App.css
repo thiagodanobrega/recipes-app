@@ -2,6 +2,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.loading {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -70,6 +78,7 @@ ul {
   bottom: 0;
   color: white;
   height: 50px;
+  left: 0;
   outline: none;
   position: fixed;
   width: 100%;
