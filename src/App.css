@@ -2,6 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Geral */
 .loading {
   align-items: center;
   display: flex;
@@ -65,6 +66,7 @@ html {
   }
 }
 
+/* Details Screen */
 ul {
   background-color: #f1f1f1;
   border-radius: 10px;
@@ -109,8 +111,6 @@ ul {
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 1rem;
-
-  /* scroll-snap-type: x mandatory; */
 }
 
 .gallery_scroller div {
@@ -223,6 +223,7 @@ img, .recipe-card > input {
   margin-left: 1rem;
 }
 
+/* Foods and Drinks Screen */
 .container-main-recipes {
   align-items: center;
   display: flex;
