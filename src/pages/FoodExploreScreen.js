@@ -25,6 +25,7 @@ function FoodExploreScreen() {
           type="button"
           data-testid="explore-by-ingredient"
           className="btn-explore-ingredient"
+          title="button that takes you to the explore by ingredients screen"
           onClick={ () => history.push('/explore/foods/ingredients') }
         >
           By Ingredient
@@ -34,6 +35,7 @@ function FoodExploreScreen() {
           type="button"
           data-testid="explore-by-nationality"
           className="btn-explore-nationality"
+          title="button that leads to the screen to explore by nationalities"
           onClick={ () => history.push('/explore/foods/nationalities') }
         >
           By Nationality
@@ -43,6 +45,7 @@ function FoodExploreScreen() {
           type="button"
           data-testid="explore-surprise"
           className="btn-explore-surprise"
+          title="button that leads to a random recipe"
           onClick={ randomRecipeAPI }
         >
           Surprise me!

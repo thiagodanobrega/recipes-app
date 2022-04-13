@@ -9,6 +9,7 @@ function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
         type="button"
         data-testid="filter-by-all-btn"
         className="filters-done-favorite"
+        title="button that clears filters"
         onClick={ () => setTypeFilter('all') }
       >
         All
@@ -18,6 +19,7 @@ function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
         type="button"
         data-testid="filter-by-food-btn"
         className="filters-done-favorite"
+        title="button that filters by the foods category"
         onClick={ () => setTypeFilter('food') }
       >
         Food
@@ -27,6 +29,7 @@ function FilterButtonsDoneAndFavorites({ setTypeFilter }) {
         type="button"
         data-testid="filter-by-drink-btn"
         className="filters-done-favorite"
+        title="button that filters by the drinks category"
         onClick={ () => setTypeFilter('drink') }
       >
         Drinks

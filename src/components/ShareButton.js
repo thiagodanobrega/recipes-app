@@ -25,7 +25,7 @@ const ShareButton = () => {
           <input
             type="image"
             data-testid="share-btn"
-            alt="Share"
+            alt="icon of Share"
             src={ Share }
             onClick={ () => copyToClipboard() }
           />

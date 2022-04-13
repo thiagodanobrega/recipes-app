@@ -40,6 +40,7 @@ const StartAndContinueButtonDrinks = () => {
               className="startRecipe"
               type="button"
               data-testid="start-recipe-btn"
+              title="button that starts recipe"
             >
               Start Recipe
             </button>
@@ -55,6 +56,7 @@ const StartAndContinueButtonDrinks = () => {
               className="startRecipe"
               type="button"
               data-testid="start-recipe-btn"
+              title="button that continues recipe"
             >
               Continue Recipe
             </button>

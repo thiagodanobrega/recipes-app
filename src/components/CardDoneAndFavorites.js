@@ -96,7 +96,7 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
               type="image"
               src={ blackHeartIcon }
               className="icon-favorite"
-              alt="Ícone de coração para favoritar"
+              alt="Heart icon for favorite"
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => disfavorRecipe(recipe.id) }
             />}
@@ -114,7 +114,7 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
                   <input
                     type="image"
                     src={ shareIcon }
-                    alt="Ícone de compartilhar"
+                    alt="share icon"
                     className="icon-share"
                     data-testid={ `${index}-horizontal-share-btn` }
                     onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }

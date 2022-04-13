@@ -17,6 +17,7 @@ function ExploreScreen() {
           type="button"
           data-testid="explore-foods"
           className="btn-explore-foods"
+          title="button that takes you to the food explore screen"
           onClick={ () => history.push('/explore/foods') }
         >
           Explore Foods
@@ -26,6 +27,7 @@ function ExploreScreen() {
           type="button"
           data-testid="explore-drinks"
           onClick={ () => history.push('/explore/drinks') }
+          title="button that takes you to the drink explore screen"
           className="btn-explore-drinks"
         >
           Explore Drinks

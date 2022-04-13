@@ -25,6 +25,7 @@ function DrinkExploreScreen() {
           type="button"
           data-testid="explore-by-ingredient"
           className="btn-explore-ingredient-drinks"
+          title="button that takes you to the explore by ingredients screen"
           onClick={ () => history.push('/explore/drinks/ingredients') }
         >
           By Ingredient
@@ -34,6 +35,7 @@ function DrinkExploreScreen() {
           type="button"
           data-testid="explore-surprise"
           className="btn-explore-surprise-drinks"
+          title="button that leads to a random recipe"
           onClick={ randomRecipeAPI }
         >
           Surprise me!

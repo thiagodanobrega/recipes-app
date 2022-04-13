@@ -12,7 +12,7 @@ function Card({ id, name, image, typeCard, index }) {
         id={ id }
         type="image"
         src={ image }
-        alt=""
+        alt={ name }
         data-testid={ `${index}-card-img` }
       />
       <p data-testid={ `${index}-card-name` }>

@@ -71,6 +71,7 @@ function CategoriesButtons() {
         name="All"
         data-testid="All-category-filter"
         onClick={ choosenCategoryOnClick }
+        title="button that clears filters"
         className="btn-filter-category"
       >
         All
@@ -84,6 +85,7 @@ function CategoriesButtons() {
             onClick={ choosenCategoryOnClick }
             name={ categoryButton.strCategory }
             className="btn-filter-category"
+            title={ `button that filters by the ${categoryButton.strCategory} category` }
           >
             { categoryButton.strCategory}
           </button>

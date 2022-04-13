@@ -28,6 +28,7 @@ function ProfileScreen() {
           type="button"
           data-testid="profile-done-btn"
           className="btn-profile"
+          title="button that takes you to the recipes made page"
           onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
@@ -36,6 +37,7 @@ function ProfileScreen() {
           type="button"
           data-testid="profile-favorite-btn"
           className="btn-profile"
+          title="button that takes you to the favorite recipes page"
           onClick={ () => history.push('/favorite-recipes') }
         >
           Favorite Recipes
@@ -44,6 +46,7 @@ function ProfileScreen() {
           type="button"
           className="btn-profile logout"
           data-testid="profile-logout-btn"
+          title="button that logs out of the app"
           onClick={ clearLocalStorage }
         >
           Logout
