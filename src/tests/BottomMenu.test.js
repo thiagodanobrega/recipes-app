@@ -2,12 +2,21 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FoodRecipeScreen from '../pages/FoodRecipeScreen';
+import ProviderDrinks from '../context/contextDrinks/ProviderDrinks';
+import ProviderFoods from '../context/contextFoodRecipe/ProviderFoods';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
+import DrinksRecipeScreen from '../pages/DrinkRecipeScreen';
 
 describe('19 - Implemente os elementos do Menu Inferior', () => {
   it('Testa se possui os data-testsId necessários', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const footer = screen.getByTestId('footer');
     const drinkBottom = screen.getByTestId('drinks-bottom-btn');
     const exploreBottom = screen.getByTestId('explore-bottom-btn');
@@ -21,7 +30,13 @@ describe('19 - Implemente os elementos do Menu Inferior', () => {
 
 describe('20 - Posicione o menu inferior de forma fixa e apresenta 3 ícones', () => {
   it('Testa se o menu é fixado ao final da página', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const footer = screen.getByTestId('footer');
     // console.log(footer.style);
     expect(footer).toBeDefined();
@@ -32,7 +47,13 @@ describe('20 - Posicione o menu inferior de forma fixa e apresenta 3 ícones', (
   });
 
   it('Testa se possui os ícones corretos', () => {
-    renderWithRouter(<FoodRecipeScreen />);
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const drinkBottom = screen.getByAltText('Ícone de bebida');
     expect(drinkBottom).toHaveAttribute('src', 'drinkIcon.svg');
     const exploreBottom = screen.getByAltText('Ícone de explorar');
@@ -44,14 +65,25 @@ describe('20 - Posicione o menu inferior de forma fixa e apresenta 3 ícones', (
 
 describe('21 - Exiba o menu inferior apenas nas telas indicadas', () => {
   it('Testa se tem footer na tela principal de receitas de bebidas', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/drinks');
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <DrinksRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
+
     const footer = screen.getByTestId('footer');
     expect(footer).toBeDefined();
   });
   it('Testa se tem footer na tela principal de receitas de comidas', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/foods');
+    renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const footer = screen.getByTestId('footer');
     expect(footer).toBeDefined();
   });
@@ -142,19 +174,37 @@ describe('21 - Exiba o menu inferior apenas nas telas indicadas', () => {
 
 describe('22 - Redireciona para as rotas corretas ao clicar nos ícones', () => {
   it('Testa se redireciona para tela de bebidas ao clicar no ícone de bebida', () => {
-    const { history } = renderWithRouter(<FoodRecipeScreen />);
+    const { history } = renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const drinkBottom = screen.getByTestId('drinks-bottom-btn');
     userEvent.click(drinkBottom);
     expect(history.location.pathname).toBe('/drinks');
   });
   it('Testa se redireciona para tela de comidas ao clicar no ícone de comida', () => {
-    const { history } = renderWithRouter(<FoodRecipeScreen />);
+    const { history } = renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const foodBottom = screen.getByTestId('food-bottom-btn');
     userEvent.click(foodBottom);
     expect(history.location.pathname).toBe('/foods');
   });
   it('Testa se redireciona para tela de explorar ao clicar no ícone de explorar', () => {
-    const { history } = renderWithRouter(<FoodRecipeScreen />);
+    const { history } = renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <FoodRecipeScreen />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
     const exploreBottom = screen.getByTestId('explore-bottom-btn');
     userEvent.click(exploreBottom);
     expect(history.location.pathname).toBe('/explore');

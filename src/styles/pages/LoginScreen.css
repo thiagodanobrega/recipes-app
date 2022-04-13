@@ -1,9 +1,7 @@
-/*
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;900&display=swap')
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;900&display=swap')
-
-.container-body {
-  font-family: 'Roboto' , sans-serif;
+  .container-body {
+  font-family: Roboto , sans-serif;
 }
 
 .container-header {
@@ -52,7 +50,7 @@ h2 {
 
 .container-main {
   align-items: center;
-  background-image: linear-gradient(to bottom, #000, #3a3838, #75706f, #b4aeaa, #f6f1ea);
+  background-image: linear-gradient(to bottom, black, #3a3838, #75706f, #b4aeaa, #f6f1ea);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -117,4 +115,5 @@ h3 {
 
 .btn-login:hover, .btn-start:hover {
   background-color: #941212;
-} */
+}
+ */
