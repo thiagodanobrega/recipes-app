@@ -70,8 +70,8 @@ function ChoosingDrinkFavoriteRecipe(localDrink) {
             data-testid="favorite-btn"
             alt="Favorite"
             src={ blackHeartIcon }
-            height={ 50 }
-            width={ 50 }
+            height={ 30 }
+            width={ 30 }
             onClick={ chosenFavoriteRecipe }
             name="black"
 
@@ -82,8 +82,8 @@ function ChoosingDrinkFavoriteRecipe(localDrink) {
             data-testid="favorite-btn"
             alt="Favorite"
             src={ whiteHeartIcon }
-            height={ 50 }
-            width={ 50 }
+            height={ 30 }
+            width={ 30 }
             onClick={ chosenFavoriteRecipe }
             id={ id }
             name="white"

@@ -91,15 +91,6 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
               </p>
             ))) }
             <div className="div-icon">
-              <input
-                type="image"
-                src={ shareIcon }
-                alt="Ícone de compartilhar"
-                className="icon-share"
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }
-              />
-
               {typeScreen === 'favorite'
             && <input
               type="image"
@@ -109,9 +100,27 @@ function CardDoneAndFavorites({ filterRecipes, disfavorRecipe, typeScreen }) {
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => disfavorRecipe(recipe.id) }
             />}
+              {idCopied === recipe.id
+                ? (
+                  <p
+                    className={ typeScreen === 'done'
+                      ? 'text-link-done' : 'text-link-favorite' }
+                  >
+                    Link copied!
+
+                  </p>
+                )
+                : (
+                  <input
+                    type="image"
+                    src={ shareIcon }
+                    alt="Ícone de compartilhar"
+                    className="icon-share"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    onClick={ () => copyUrlToClipboard(recipe.id, recipe.type) }
+                  />
+                )}
             </div>
-            {idCopied === recipe.id
-              && <p>Link copied!</p>}
           </div>
         </div>
       ))}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import '../App.css';
+import { FiChevronLeft } from 'react-icons/fi';
 import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import Loading from '../components/Loading';
 import getChecked from '../helpers/getCheckedFoods';
@@ -64,68 +65,90 @@ function FoodProgressRecipesScreen() {
   };
 
   return (
-    <div>
-      <figure>
-        <img
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt={ strMeal }
-          className="col-1-img"
-        />
-      </figure>
+    <body className="container-body-details">
+      <main className="container-main-details">
+        <figure>
+          <img
+            data-testid="recipe-photo"
+            src={ strMealThumb }
+            alt={ strMeal }
+            className="col-1-img"
+          />
+        </figure>
+        <Link to={ `/foods/${id}` } className="div-icon-return">
+          <FiChevronLeft className="icon-return" />
+        </Link>
 
-      <div className="col-1-btn">
-        <h2 data-testid="recipe-title">{data.meals[0].strMeal}</h2>
+        <h2
+          data-testid="recipe-title"
+          className="title-recipe"
+        >
+          {data.meals[0].strMeal}
 
-        <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
-        <ShareButton />
-      </div>
+        </h2>
+        <p
+          data-testid="recipe-category"
+          className="category-recipe"
+        >
+          {data.meals[0].strCategory}
 
-      <p data-testid="recipe-category">{data.meals[0].strCategory}</p>
+        </p>
 
-      <h3>Ingredientes:</h3>
+        <div className="col-1-btn">
+          <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
+          <ShareButton />
+        </div>
 
-      <ul>
-        {
-          renderIngredientsFoods(data).map((ingredientAndMeasure, index) => (
-            <li key={ ingredientAndMeasure }>
-              <label
-                data-testid={ `${index}-ingredient-step` }
-                htmlFor={ ingredientAndMeasure }
-                key={ ingredientAndMeasure }
-                style={ getChecked(ingredientAndMeasure, id)
-                  ? { textDecorationLine: 'line-through' }
-                  : { textDecorationLine: 'none' } }
-              >
-                <input
-                  defaultChecked={ getChecked(ingredientAndMeasure, id) }
-                  id={ ingredientAndMeasure }
-                  type="checkbox"
-                  onClick={ (event) => changeTargetStyle(event) }
-                />
-                {ingredientAndMeasure}
-              </label>
-            </li>
-          ))
-        }
-      </ul>
+        <section className="wrapper-ingredients-list">
+          <h3>Ingredientes:</h3>
+          <ul>
+            {
+              renderIngredientsFoods(data).map((ingredientAndMeasure, index) => (
+                <li key={ ingredientAndMeasure }>
+                  <label
+                    data-testid={ `${index}-ingredient-step` }
+                    htmlFor={ ingredientAndMeasure }
+                    key={ ingredientAndMeasure }
+                    style={ getChecked(ingredientAndMeasure, id)
+                      ? { textDecorationLine: 'line-through' }
+                      : { textDecorationLine: 'none' } }
+                  >
+                    <input
+                      defaultChecked={ getChecked(ingredientAndMeasure, id) }
+                      id={ ingredientAndMeasure }
+                      type="checkbox"
+                      onClick={ (event) => changeTargetStyle(event) }
+                    />
+                    {ingredientAndMeasure}
+                  </label>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-      <h3>Instruções:</h3>
+        <section className="container-Instructions-progress">
+          <h3>Instruções:</h3>
+          <div className="wrapper-Instructions">
+            <p data-testid="instructions">
+              { data.meals[0].strInstructions }
+            </p>
+          </div>
+        </section>
 
-      <p data-testid="instructions">
-        { data.meals[0].strInstructions }
-      </p>
+        <button
+          data-testid="finish-recipe-btn"
+          className="startRecipe"
+          type="button"
+          disabled={ enabledButton }
+          onClick={ doneRecipe }
+          title="button that ends the recipe and redirects to the page of recipes made"
+        >
+          Finalizar Receita
+        </button>
 
-      <button
-        data-testid="finish-recipe-btn"
-        className="startRecipe"
-        type="button"
-        disabled={ enabledButton }
-        onClick={ doneRecipe }
-      >
-        Finalizar Receita
-      </button>
-    </div>
+      </main>
+    </body>
   );
 }
 

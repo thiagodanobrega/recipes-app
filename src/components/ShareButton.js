@@ -15,22 +15,23 @@ const ShareButton = () => {
     setTimeout(() => { setCopiedLink(false); }, TWO_SECONDS);
   };
   return (
-    <>
-      <input
-        type="image"
-        data-testid="share-btn"
-        alt="Share"
-        src={ Share }
-        onClick={ () => copyToClipboard() }
-      />
+    <div>
       {
-        copiedLink && (
-          <p>
+        copiedLink ? (
+          <p className="text-link-copied">
             Link copied!
           </p>
+        ) : (
+          <input
+            type="image"
+            data-testid="share-btn"
+            alt="Share"
+            src={ Share }
+            onClick={ () => copyToClipboard() }
+          />
         )
       }
-    </>
+    </div>
   );
 };
 export default ShareButton;

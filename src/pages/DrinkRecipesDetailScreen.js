@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import { FiChevronLeft } from 'react-icons/fi';
 import ChoosingDrinkFavoriteRecipe from '../components/ChoosingDrinkFavoriteRecipe';
 import FoodsRecommended from '../components/FoodsRecommended';
 import Loading from '../components/Loading';
@@ -47,70 +48,76 @@ const DrinkRecipesDetailScreen = () => {
   } = data.drinks[0];
 
   return (
-    <main>
-      <section>
-        <figure>
-          <img
-            data-testid="recipe-photo"
-            src={ strDrinkThumb }
-            alt={ strDrink }
-            className="col-1-img"
-          />
-        </figure>
-
-        <div className="col-1-btn">
-          <h2 data-testid="recipe-title">
+    <body className="container-body-details">
+      <main className="container-main-details">
+        <section className="wrapper-header-details">
+          <figure>
+            <img
+              data-testid="recipe-photo"
+              src={ strDrinkThumb }
+              alt={ strDrink }
+              className="col-1-img"
+            />
+          </figure>
+          <Link to="/drinks" className="div-icon-return">
+            <FiChevronLeft className="icon-return" />
+          </Link>
+          <h2 data-testid="recipe-title" className="title-recipe">
             {strDrink}
           </h2>
-          <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
-          <ShareButton />
-        </div>
+          <p data-testid="recipe-category" className="category-recipe">
+            {strAlcoholic}
+          </p>
+          <div className="col-1-btn">
+            <ChoosingDrinkFavoriteRecipe localDrink={ data.drinks[0] } />
+            <ShareButton />
+          </div>
+        </section>
 
-        <p data-testid="recipe-category">
-          {strAlcoholic}
-        </p>
-      </section>
+        <section className="wrapper-ingredients-list">
+          <h2> Ingredients </h2>
 
-      <section>
-        <h2> Ingredients </h2>
+          <ul>
+            {
+              renderIngredientsDrinks(data).map((item, index) => (
+                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-        <ul>
-          {
-            renderIngredientsDrinks(data).map((item, index) => (
-              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                {item}
-              </li>
-            ))
-          }
-        </ul>
-      </section>
+        <section className="container-Instructions">
+          <h2> Instructions </h2>
+          <div className="wrapper-Instructions">
+            <p data-testid="instructions">
+              {strInstructions}
+            </p>
+          </div>
+        </section>
 
-      <section>
-        <h2> Instructions </h2>
-        <p data-testid="instructions">
-          {strInstructions}
-        </p>
-      </section>
+        <section className="gallery">
+          <h2 className="title-recommended">Recommended</h2>
+          <div className="gallery_scroller">
+            <FoodsRecommended />
+          </div>
+        </section>
 
-      <section className="gallery">
-        <div className="gallery_scroller">
-          <FoodsRecommended />
-        </div>
-      </section>
-
-      {
-        !wasFinishedRecipe
-          ? (
-            <button
-              className="startRecipe"
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
-            >
-              Start Recipe
-            </button>
-          )
-          : ''/*  (
+        {
+          !wasFinishedRecipe
+            ? (
+              <button
+                className="startRecipe"
+                type="button"
+                data-testid="start-recipe-btn"
+                onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+                title="button that starts the recipe"
+              >
+                Start Recipe
+              </button>
+            )
+            : ''/*  (
             <button
               className="ContinueRecipe"
               type="button"
@@ -120,9 +127,10 @@ const DrinkRecipesDetailScreen = () => {
               Continue
             </button>
           ) */
-      }
+        }
 
-    </main>
+      </main>
+    </body>
   );
 };
 export default DrinkRecipesDetailScreen;

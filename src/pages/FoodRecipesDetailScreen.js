@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import '../App.css';
+import { FiChevronLeft } from 'react-icons/fi';
 import ChoosingFoodFavoriteRecipe from '../components/ChoosingFoodFavoriteRecipe';
 import DrinksRecommended from '../components/DrinksRecommended';
 import EmbedVideo from '../components/EmbedVideo';
@@ -50,77 +51,83 @@ const FoodRecipesDetailScreen = () => {
   const embedId = strYoutube.substring(strYoutube.indexOf('=') + 1, strYoutube.length);
 
   return (
-    <main>
-      <section>
-        <figure>
-          <img
-            data-testid="recipe-photo"
-            src={ strMealThumb }
-            alt={ strMeal }
-            className="col-1-img"
-          />
-        </figure>
-
-        <div className="col-1-btn">
-          <h2 data-testid="recipe-title">
+    <body className="container-body-details">
+      <main className="container-main-details">
+        <section className="wrapper-header-details">
+          <figure>
+            <img
+              data-testid="recipe-photo"
+              src={ strMealThumb }
+              alt={ strMeal }
+              className="col-1-img"
+            />
+          </figure>
+          <Link to="/foods" className="div-icon-return">
+            <FiChevronLeft className="icon-return" />
+          </Link>
+          <h2 data-testid="recipe-title" className="title-recipe">
             {strMeal}
           </h2>
-          <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
-          <ShareButton />
-        </div>
+          <p data-testid="recipe-category" className="category-recipe">
+            {strCategory}
+          </p>
+          <div className="col-1-btn">
+            <ChoosingFoodFavoriteRecipe localMeal={ data.meals[0] } />
+            <ShareButton />
+          </div>
+        </section>
 
-        <p data-testid="recipe-category">
-          {strCategory}
-        </p>
-      </section>
+        <section className="wrapper-ingredients-list">
+          <h2> Ingredients </h2>
+          <ul>
+            {
+              renderIngredientsFoods(data).map((item, index) => (
+                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-      <section>
-        <h2> Ingredients </h2>
+        <section className="container-Instructions">
+          <h2> Instructions </h2>
+          <div className="wrapper-Instructions">
+            <p data-testid="instructions">
+              {strInstructions}
+            </p>
+          </div>
+        </section>
 
-        <ul>
-          {
-            renderIngredientsFoods(data).map((item, index) => (
-              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                {item}
-              </li>
-            ))
-          }
-        </ul>
-      </section>
+        <section className="EmbedVideo">
+          <h2> Video </h2>
+          <EmbedVideo embedId={ embedId } />
+        </section>
 
-      <section>
-        <h2> Instructions </h2>
-        <p data-testid="instructions">
-          {strInstructions}
-        </p>
-      </section>
+        <section className="gallery">
+          <h2 className="title-recommended">Recommended</h2>
+          <div className="gallery_scroller">
+            <DrinksRecommended />
+          </div>
+        </section>
 
-      <section className="EmbedVideo">
-        <h2> Video </h2>
-        <EmbedVideo embedId={ embedId } />
-      </section>
-
-      <section className="gallery">
-        <div className="gallery_scroller">
-          <DrinksRecommended />
-        </div>
-      </section>
-
-      {
-        !isStartedRecipe
-          ? (
-            <button
-              className="startRecipe"
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
-            >
-              Start Recipe
-            </button>
-          )
-          : ''
-      }
-    </main>
+        {
+          !isStartedRecipe
+            ? (
+              <button
+                className="startRecipe"
+                type="button"
+                data-testid="start-recipe-btn"
+                onClick={ () => history.push(`/foods/${idMeal}/in-progress`) }
+                title="button that starts the recipe"
+              >
+                Start Recipe
+              </button>
+            )
+            : ''
+        }
+      </main>
+    </body>
   );
 };
 export default FoodRecipesDetailScreen;

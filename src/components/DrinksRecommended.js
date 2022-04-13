@@ -22,6 +22,7 @@ const DrinksRecommended = () => {
           <div
             data-testid={ `${index}-recomendation-card` }
             key={ drink.strDrink }
+            className="container-recomendation"
           >
             <img
               src={ drink.strDrinkThumb }
