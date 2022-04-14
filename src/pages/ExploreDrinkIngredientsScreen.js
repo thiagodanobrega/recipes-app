@@ -16,7 +16,6 @@ function ExploreFoodIngredientsScreen() {
   useEffect(() => {
     if (data) {
       setValue(data.drinks);
-      console.log(data.drinks);
     }
   }, [data]);
 
