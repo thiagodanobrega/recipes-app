@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helpers/renderWithRouter';
 import LoginScreen from '../pages/LoginScreen';
-// import App from '../App';
+import App from '../App';
 
 const EMAIL_ID = 'email-input';
 const PASSWORD_ID = 'password-input';
@@ -14,7 +14,7 @@ const VALID_PASSWORD = '1234567';
 describe('Testando a LoginScreen', () => {
   test(`Teste se os inputs email e senha, assim como o botão,
   são renderizados na tela`, () => {
-    renderWithRouter(<LoginScreen />);
+    renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(EMAIL_ID);
     const inputPassword = screen.getByTestId(PASSWORD_ID);
@@ -53,12 +53,24 @@ describe('Testando a LoginScreen', () => {
     userEvent.type(inputPassword, VALID_PASSWORD);
     expect(inputButton).toBeEnabled();
   });
-  // test(`Teste se rota muda para a tela principal de receitas de comidas
-  //  após clicar no botão de validar email e senha`, async () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   const inputButton = screen.getByTestId(BUTTON_ID);
-  //   userEvent.click(inputButton);
-  //   console.log(inputButton);
-  //   expect(history.location.pathname).toBe('/foods');
-  // });
+  test(`Teste se rota muda para a tela principal de receitas de comidas
+   após clicar no botão de validar email e senha`, () => {
+    const { history } = renderWithRouter(<App />);
+
+    const inputButton = screen.getByTestId(BUTTON_ID);
+    const inputEmail = screen.getByTestId(EMAIL_ID);
+    const inputPassword = screen.getByTestId(PASSWORD_ID);
+
+    userEvent.type(inputEmail, VALID_EMAIL);
+    userEvent.type(inputPassword, VALID_PASSWORD);
+    userEvent.click(inputButton);
+
+    expect(history.location.pathname).toBe('/foods');
+
+    const mealsTokenLocalStorage = localStorage.getItem('mealsToken');
+    expect(mealsTokenLocalStorage).toBe('1');
+
+    const cocktailsTokenLocalStorage = localStorage.getItem('cocktailsToken');
+    expect(cocktailsTokenLocalStorage).toBe('1');
+  });
 });

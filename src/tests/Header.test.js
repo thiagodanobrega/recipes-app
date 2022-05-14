@@ -8,6 +8,9 @@ import ProviderDrinks from '../context/contextDrinks/ProviderDrinks';
 import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
 import DrinksRecipeScreen from '../pages/DrinkRecipeScreen';
+import App from '../App';
+import fetch from '../../cypress/mocks/fetch';
+import mealsByIngredient from '../../cypress/mocks/mealsByIngredient';
 
 const { screen } = require('@testing-library/react');
 
@@ -156,10 +159,7 @@ describe('Monte um component Header', () => {
   });
   test(`15 - Busque na API de comidas caso a pessoa
   esteja na página de comidas `, async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(meals),
-    });
+    fetch(meals);
     renderWithRouter(
       <ProviderFoods>
         <ProviderDrinks>
@@ -167,7 +167,6 @@ describe('Monte um component Header', () => {
         </ProviderDrinks>
       </ProviderFoods>,
     );
-    expect(fetch).toHaveBeenCalled();
 
     const renderedMeal = await screen.findByText(/corba/i);
     expect(renderedMeal).toBeInTheDocument();
@@ -193,8 +192,37 @@ describe('Monte um component Header', () => {
 
     const drinkTitle = screen.getByRole('heading', { name: /drinks/i });
     expect(drinkTitle).toBeInTheDocument();
-    expect(fetch).toHaveBeenCalled();
+
     const renderDrinks = await screen.findByText(/gg/i);
     expect(renderDrinks).toBeInTheDocument();
+  });
+
+  test('testa o radio Button ingredient', async () => {
+    fetch(mealsByIngredient);
+    const { history } = renderWithRouter(
+      <ProviderFoods>
+        <ProviderDrinks>
+          <App />
+        </ProviderDrinks>
+      </ProviderFoods>,
+    );
+
+    history.push('/foods');
+    const searchButton = screen.getByTestId(searchButtonTestID);
+    expect(searchButton).toBeInTheDocument();
+    userEvent.click(searchButton);
+
+    const radioButtonIngredient = screen.getByTestId('ingredient-search-radio');
+    expect(radioButtonIngredient).toBeInTheDocument();
+    userEvent.click(radioButtonIngredient);
+
+    const textBox = screen.getByRole('textbox');
+    userEvent.type(textBox, 'chicken');
+
+    const execSearchButton = screen.getByRole('button', { name: /search/i });
+    userEvent.click(execSearchButton);
+
+    /*  const firstChickenRecipe = await screen.findByTestId('0-recipe-card');
+    expect(firstChickenRecipe).toBeInTheDocument(); */
   });
 });
