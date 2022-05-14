@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import '../styles/pages/LoginScreen.css';
-import logo from '../images/logo3.png';
+import logo from '../images/logo.png';
 
 function LoginScreen() {
   const history = useHistory();
@@ -28,20 +28,23 @@ function LoginScreen() {
   };
 
   return (
-    <body className="container-body">
-      <header className="container-header">
+    <body className="container-body-login">
+      <header className="container-header-login">
         <h1>Let is Cooking</h1>
         <h2>Find best recipes for cooking</h2>
         <a
-          href="#container-main"
-          // type="button"
+          href="#container-main-login"
           className="btn-start"
         >
           <MdKeyboardArrowDown className="icon-bottom" />
         </a>
       </header>
-      <main id="container-main" className="container-main">
-        <img src={ logo } alt="logo" />
+      <main id="container-main-login" className="container-main-login">
+        <img
+          src={ logo }
+          alt="App logo composed by the name tastyRecipes
+          and a chef's hat icon"
+        />
 
         <div className="container-login">
           <h3>Login</h3>

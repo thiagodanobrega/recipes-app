@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header/Header';
 import useFetch from '../hooks/useFetch';
+import '../styles/pages/DrinkExploreScreen.css';
 
 function DrinkExploreScreen() {
   const history = useHistory();
@@ -14,29 +15,35 @@ function DrinkExploreScreen() {
   };
 
   return (
-    <div>
+    <body>
       <Header
         renderScreen={ false }
         nameScreen="Explore Drinks"
       />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => history.push('/explore/drinks/ingredients') }
-      >
-        By Ingredient
-      </button>
+      <main className="container-explore-drinks">
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          className="btn-explore-ingredient-drinks"
+          title="button that takes you to the explore by ingredients screen"
+          onClick={ () => history.push('/explore/drinks/ingredients') }
+        >
+          By Ingredient
+        </button>
 
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ randomRecipeAPI }
-      >
-        Surprise me!
-      </button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          className="btn-explore-surprise-drinks"
+          title="button that leads to a random recipe"
+          onClick={ randomRecipeAPI }
+        >
+          Surprise me!
+        </button>
+      </main>
 
       <BottomMenu />
-    </div>
+    </body>
   );
 }
 

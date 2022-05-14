@@ -1,10 +1,11 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;900&display=swap')
+:root {
 
-  .container-body {
-  font-family: Roboto , sans-serif;
+  --redBackground: #ad1a1a;
+
+  --redDarkBackground: #941212;
 }
 
-.container-header {
+.container-header-login {
   align-items: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.335), rgba(0, 0, 0)) , url('https://s1.1zoom.me/b4748/650/Geography_Spices_Many_542723_2560x1440.jpg');
   background-position: center;
@@ -17,14 +18,14 @@
   justify-content: end;
 }
 
-h1 {
+.container-header-login h1 {
   color: white;
   font-size: 5rem;
   font-weight: 900;
   text-align: center;
 }
 
-h2 {
+.container-header-login h2 {
   color: white;
   font-size: 1rem;
   font-weight: 100;
@@ -32,7 +33,7 @@ h2 {
 
 .btn-start {
   align-items: center;
-  background-color: #ad1a1a;
+  background-color: var(--redBackground);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -48,9 +49,9 @@ h2 {
   color: white;
 }
 
-.container-main {
+.container-main-login {
   align-items: center;
-  background-image: linear-gradient(to bottom, black, #3a3838, #75706f, #b4aeaa, #f6f1ea);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0), #3a3838, #75706f, #f9f9f9);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -64,7 +65,7 @@ h2 {
   width: 100%;
 }
 
-.container-main img {
+.container-main-login img {
   height: 300px;
   width: 300px;
 }
@@ -81,7 +82,7 @@ h2 {
   width: min(350px, 90vw);
 }
 
-input {
+.container-login input {
   border: none;
   border-bottom: 2px solid rgb(182, 182, 182);
   font-weight: 300;
@@ -90,8 +91,8 @@ input {
   width: min(300px, 80vw);
 }
 
-h3 {
-  border-bottom: 3px solid #ad1a1a;
+.container-main-login h3 {
+  border-bottom: 3px solid var(--redBackground);
   color: black;
   font-size: 2rem;
   font-weight: 500;
@@ -101,7 +102,7 @@ h3 {
 }
 
 .btn-login {
-  background-color: #ad1a1a;
+  background-color: var(--redBackground);
   border: none;
   border-radius: 10px;
   color: white;
@@ -114,6 +115,5 @@ h3 {
 }
 
 .btn-login:hover, .btn-start:hover {
-  background-color: #941212;
+  background-color: var(--redDarkBackground);
 }
- */

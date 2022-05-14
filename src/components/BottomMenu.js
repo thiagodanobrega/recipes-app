@@ -18,6 +18,7 @@ function BottomMenu() {
         data-testid="drinks-bottom-btn"
         src={ drinkIcon }
         alt="Ícone de bebida"
+        className="icon-menu"
         onClick={ () => history.push('/drinks') }
       />
       <input
@@ -25,6 +26,7 @@ function BottomMenu() {
         data-testid="explore-bottom-btn"
         src={ exploreIcon }
         alt="Ícone de explorar"
+        className="icon-menu"
         onClick={ () => history.push('/explore') }
       />
       <input
@@ -32,6 +34,7 @@ function BottomMenu() {
         data-testid="food-bottom-btn"
         src={ mealIcon }
         alt="Ícone de comida"
+        className="icon-menu"
         onClick={ () => history.push('/foods') }
       />
     </footer>
