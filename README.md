@@ -1,6 +1,6 @@
 # Recipes App
 <p align="center">
- <img height="500" src="https://github.com/thiagodanobrega/recipes-app/blob/main/recipe.gif?raw=true" alt="exemplo imagem" >
+ <img width="900" src="https://github.com/thiagodanobrega/recipes-app/blob/main/recipe.gif?raw=true" alt="exemplo imagem" >
 </p>
 
 ## 💻 Projeto
