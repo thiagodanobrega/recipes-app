@@ -30,3 +30,8 @@ cypress/videos/
 cypress/reports
 
 localStorage.js
+
+/trybe.yml
+.github
+.trybe
+cypress
