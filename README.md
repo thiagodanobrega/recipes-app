@@ -75,7 +75,7 @@ Agradeço às seguintes pessoas que contribuíram para este projeto:
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://media-exp1.licdn.com/dms/image/D4D35AQFeV7xW-Y1SaQ/profile-framedphoto-shrink_100_100/0/1650908181913?e=1653141600&v=beta&t=ki1RYJdo-Iq0tLfH21uRc6-ZnmW3NOI3ePwPL8j7Aug"  width="100px;" alt="Foto do Steve Jobs"/><br>
+        <img src="https://media-exp1.licdn.com/dms/image/D4D35AQFeV7xW-Y1SaQ/profile-framedphoto-shrink_100_100/0/1650908181913?e=1653141600&v=beta&t=ki1RYJdo-Iq0tLfH21uRc6-ZnmW3NOI3ePwPL8j7Aug"  width="100px;" alt="Foto"/><br>
          <sub>
            <a href="https://www.linkedin.com/in/ingrid-mattos/">Ingrid Mattos</a>
         </sub>
@@ -83,7 +83,7 @@ Agradeço às seguintes pessoas que contribuíram para este projeto:
     </td>
      <td align="center">
       <a href="#">
-        <img src="https://media-exp1.licdn.com/dms/image/D4D35AQH2bsUORCFwQw/profile-framedphoto-shrink_400_400/0/1651589227935?e=1653141600&v=beta&t=aRJb2KKl6IMa3ciuQrTq0cph5sCQOrnUNecPViiIrNY" width="100px;" alt="Foto do Steve Jobs"/><br>
+        <img src="https://media-exp1.licdn.com/dms/image/D4D35AQH2bsUORCFwQw/profile-framedphoto-shrink_400_400/0/1651589227935?e=1653141600&v=beta&t=aRJb2KKl6IMa3ciuQrTq0cph5sCQOrnUNecPViiIrNY" width="100px;" alt="Foto"/><br>
          <sub>
           <a href="https://www.linkedin.com/in/gabrieljuliodefaria/">Gabriel Júlio</a>
         </sub>
